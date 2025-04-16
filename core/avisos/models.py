@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 class Aviso(models.Model):
     CATEGORIAS = [
@@ -19,3 +20,9 @@ class Aviso(models.Model):
 
     def __str__(self):
         return self.titulo
+
+    def is_expired(self):
+        
+        if self.data_expiracao and self.data_expiracao < timezone.now():
+            return True
+        return False
