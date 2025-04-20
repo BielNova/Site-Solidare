@@ -1,0 +1,127 @@
+/* Cores do Guia de Marca */
+:root {
+    --primary-blue: rgb(41, 171, 226); /* CMYK: C:71%, M:13%, Y:0%, K:0% */
+    --primary-orange: rgb(255, 177, 41); /* CMYK: C:0%, M:31%, Y:84%, K:0% */
+    --neutral-white: rgb(255, 255, 255);
+    --neutral-black: rgb(0, 0, 0);
+}
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--neutral-white);
+    color: var(--neutral-black);
+}
+
+/* Cabeçalho */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: var(--primary-blue);
+    color: var(--neutral-white);
+}
+
+.logo .title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700; /* Poppins Bold */
+    font-size: 2rem;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li a {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500; /* Montserrat Medium */
+    color: var(--neutral-white);
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover {
+    color: var(--primary-orange);
+}
+
+/* Seção Hero Ascendente */
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+    background-color: var(--neutral-white);
+}
+
+.hero .subtitle {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900; /* Montserrat Black */
+    font-size: 2.5rem;
+    color: var(--primary-blue);
+    margin-bottom: 20px;
+}
+
+.hero .text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400; /* Montserrat Regular */
+    font-size: 1.2rem;
+    color: var(--neutral-black);
+    margin-bottom: 30px;
+}
+
+.cta-button {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700; /* Poppins Bold */
+    font-size: 1.1rem;
+    padding: 15px 30px;
+    background-color: var(--primary-orange);
+    color: var(--neutral-white);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+    background-color: darken(var(--primary-orange), 10%);
+}
+
+/* Rodapé */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--primary-blue);
+    color: var(--neutral-white);
+}
+
+footer .text {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400; /* Montserrat Regular */
+    font-size: 1rem;
+}
+
+footer a {
+    color: var(--primary-orange);
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Grid de Proporção (baseado em Gestalt - Unidade e Segregação) */
+main, header, footer {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
