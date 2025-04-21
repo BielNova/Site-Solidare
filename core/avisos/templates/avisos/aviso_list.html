@@ -1,20 +1,32 @@
-<!-- core/avisos/templates/avisos/aviso_list.html -->
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <title>Lista de Avisos</title>
+    <link rel="stylesheet" href="{% static 'avisos/css/style.css' %}">
 </head>
 <body>
-    <h1>Avisos</h1>
-    <ul>
-        {% for aviso in object_list %}
-            <li>
-                <a href="{% url 'avisos:aviso_detail' aviso.pk %}">{{ aviso.titulo }}</a>
-            </li>
-        {% empty %}
-            <li>Nenhum aviso cadastrado.</li>
-        {% endfor %}
-    </ul>
+    <header>
+        <h1>LISPECTOR</h1>
+    </header>
+
+    <main>
+        <h2>Avisos</h2>
+        <ul>
+            {% for aviso in object_list %}
+                <li>
+                    <a href="{% url 'avisos:aviso_detail' aviso.pk %}">{{ aviso.titulo }}</a>
+                </li>
+            {% empty %}
+                <li>Nenhum aviso cadastrado.</li>
+            {% endfor %}
+        </ul>
+    </main>
+
+    <footer>
+        Contato: <a href="mailto:alvs@cesar.school" style="color: #ffd700;">alvs@cesar.school</a> | CESAR School<br>
+        © 2025 LISPECTOR. Todos os direitos reservados.
+    </footer>
 </body>
 </html>
