@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - LISPECTOR</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Montserrat:wght@400;500;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1 class="title">LISPECTOR</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'user' %}">Login</a></li>
+                <li><a href="#about">Sobre</a></li>
+                <li><a href="#contact">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <h2 class="subtitle">Bem-vindo ao LISPECTOR</h2>
+            <p class="text">Uma plataforma inovadora criada por estudantes de Design e Ciência da Computação da CESAR School.</p>
+            <button class="cta-button">Saiba Mais</button>
+        </section>
+    </main>
+    <footer>
+        <p class="text">Contato: <a href="mailto:alvs@cesar.school">alvs@cesar.school</a> | CESAR School</p>
+        <p class="text">© 2025 LISPECTOR. Todos os direitos reservados.</p>
+    </footer>
+    <script src="{% static 'home.js' %}"></script>
+</body>
+</html>

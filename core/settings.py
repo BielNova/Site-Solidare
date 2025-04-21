@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core.avisos',
     'core.user',
+    'core.home',  # Adicione o aplicativo home aqui	
 
 
 ]
@@ -38,7 +39,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'core' / 'user' / 'templates'],
+        'DIRS': [BASE_DIR / 'core' / 'user' / 'templates' / 'home'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
