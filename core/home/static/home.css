@@ -1,127 +1,221 @@
-/* Cores do Guia de Marca */
-:root {
-    --primary-blue: rgb(41, 171, 226); /* CMYK: C:71%, M:13%, Y:0%, K:0% */
-    --primary-orange: rgb(255, 177, 41); /* CMYK: C:0%, M:31%, Y:84%, K:0% */
-    --neutral-white: rgb(255, 255, 255);
-    --neutral-black: rgb(0, 0, 0);
-}
-
-/* Reset básico */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
-    font-family: 'Montserrat', sans-serif;
-    background-color: var(--neutral-white);
-    color: var(--neutral-black);
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    color: #29abe2;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-/* Cabeçalho */
-header {
+/* Navbar */
+.navbar {
+    background-color: #ffb129;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.navbar .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 50px;
-    background-color: var(--primary-blue);
-    color: var(--neutral-white);
+    padding: 15px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.logo .title {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700; /* Poppins Bold */
-    font-size: 2rem;
+.navbar .logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
 }
 
-nav ul {
+.navbar .logo-img {
+    height: 150px;
+    width: auto;
+}
+
+.navbar .nav-links {
     list-style: none;
+    margin: 0;
+    padding: 0;
     display: flex;
     gap: 20px;
 }
 
-nav ul li a {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 500; /* Montserrat Medium */
-    color: var(--neutral-white);
+.navbar .nav-links li {
+    display: inline;
+}
+
+.navbar .nav-links a {
+    color: #fff;
     text-decoration: none;
-    font-size: 1.1rem;
+    font-size: 1em;
+    padding: 10px 15px;
     transition: color 0.3s;
 }
 
-nav ul li a:hover {
-    color: var(--primary-orange);
+.navbar .nav-links a:hover {
+    color: #29abe2;
 }
 
-/* Seção Hero Ascendente */
-.hero {
+/* Links de Autenticação */
+.navbar .auth-links {
+    display: flex;
+    gap: 15px;
+}
+
+.navbar .auth-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1em;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar .auth-links .sign-in {
+    background-color: transparent;
+}
+
+.navbar .auth-links .sign-in:hover {
+    background-color: #29abe2;
+    color: #fff;
+}
+
+.navbar .auth-links .register {
+    background-color: #29abe2;
+    color: #fff;
+}
+
+.navbar .auth-links .register:hover {
+    background-color: #29abe2;
+}
+
+/* Menu Hamburguer para telas pequenas */
+.navbar .menu-icon {
+    display: none;
+    font-size: 1.5em;
+    color: #fff;
+    cursor: pointer;
+}
+
+#menu-toggle {
+    display: none;
+}
+
+/* Header */
+header {
+    background-color: #29abe2;
+    color: #fff;
     text-align: center;
-    padding: 100px 20px;
-    background-color: var(--neutral-white);
+    padding: 80px 20px 20px;
 }
 
-.hero .subtitle {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 900; /* Montserrat Black */
-    font-size: 2.5rem;
-    color: var(--primary-blue);
+/* Welcome Section */
+.welcome-section {
+    text-align: center;
+    padding: 50px 20px;
+    background: linear-gradient(135deg, #f5faff 0%, #fff 100%);
+    flex: 1;
+}
+
+.welcome-section h2 {
+    color: #29abe2;
+    font-size: 2em;
     margin-bottom: 20px;
 }
 
-.hero .text {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400; /* Montserrat Regular */
-    font-size: 1.2rem;
-    color: var(--neutral-black);
-    margin-bottom: 30px;
+.welcome-section p {
+    max-width: 600px;
+    margin: 0 auto 30px;
+    color: #555;
+    line-height: 1.6;
 }
 
-.cta-button {
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700; /* Poppins Bold */
-    font-size: 1.1rem;
-    padding: 15px 30px;
-    background-color: var(--primary-orange);
-    color: var(--neutral-white);
+.welcome-section button {
+    background-color: #ffb129;
+    color: #fff;
     border: none;
-    border-radius: 5px;
+    padding: 12px 25px;
+    font-size: 1em;
     cursor: pointer;
+    border-radius: 5px;
     transition: background-color 0.3s;
 }
 
-.cta-button:hover {
-    background-color: darken(var(--primary-orange), 10%);
+.welcome-section button:hover {
+    background-color: #e5a025;
 }
 
-/* Rodapé */
+/* Footer */
 footer {
+    background-color: #fff;
+    color: #fff;
     text-align: center;
-    padding: 20px;
-    background-color: var(--primary-blue);
-    color: var(--neutral-white);
+    padding: 15px 0;
+    width: 100%;
 }
-
-footer .text {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 400; /* Montserrat Regular */
-    font-size: 1rem;
+footer p {
+    margin: 0;
+    color: black;
 }
-
 footer a {
-    color: var(--primary-orange);
+    color: #29abe2;
     text-decoration: none;
+    transition: color 0.3s;
 }
 
-footer a:hover {
-    text-decoration: underline;
+/* Animação de Pulsação */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
-/* Grid de Proporção (baseado em Gestalt - Unidade e Segregação) */
-main, header, footer {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
+/* Responsividade */
+@media (max-width: 768px) {
+    .navbar .nav-links, .navbar .auth-links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: #1a1a1a;
+        padding: 10px 0;
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    .navbar .nav-links li, .navbar .auth-links a {
+        display: block;
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .navbar .menu-icon {
+        display: block;
+    }
+
+    #menu-toggle:checked ~ .nav-links, #menu-toggle:checked ~ .auth-links {
+        display: flex;
+    }
+
+    header {
+        padding-top: 100px;
+    }
+
+    .navbar .logo-img {
+        height: 30px;
+    }
 }
