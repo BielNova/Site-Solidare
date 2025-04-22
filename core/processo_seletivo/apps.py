@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class InscricaoConfig(AppConfig):
+class ProcessoSeletivoConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'inscricao'
+    name = 'processo_seletivo'
