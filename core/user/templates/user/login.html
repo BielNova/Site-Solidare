@@ -1,70 +1,48 @@
 {% load static %}
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="{% static 'style-login.css' %}">
+    <title>Instituto Lispector - Home</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'logo-lispector.png' %}">
 </head>
 <body>
-    <div class="container">
-        <div class="form-box Login">
-            <form action ="">
-                <h1>Login</h1>
-                <div class="input-box">
-                    <input type="email" placeholder="Email" required>
-                    <i class='bx bxs-envelope' ></i>                </div>
-                <div class="input-box">
-                    <input type="password" placeholder="Senha" required>
-                    <i class='bx bxs-lock-alt'></i>
-                </div>
-                <div class="remember-forgot">
-                    <label><input type="checkbox"> Lembrar-me</label>
-                    <a href="#">Esqueci minha senha</a>
-                </div>
-                <button type="submit" class="btn">Entrar</button>
-                <p class="social-text">Ou entre pelas plataformas sociais</p>
-                <div class="icones-sociais">
-                    <a href="#"><i class='bx bxl-google' ></i></a>
-                    <a href="#"><i class='bx bxl-instagram-alt'></i></a>
-                    <a href="#"><i class='bx bxl-github' ></i></a>
-                </div>
-            </form>
-        </div>
-    
-        <div class="form-box Cadastro">
-            <form action ="">
-                <h1>Registra-se</h1>
-                <div class="input-box">
-                    <input type="text" placeholder="Nome Completo" required>
-                    <i class='bx bxs-user'></i>
-                </div>
-                <div class="input-box">
-                    <input type="email" placeholder="Email" required>
-                    <i class='bx bxs-envelope' ></i>                </div>
-                <div class="input-box">
-                    <input type="password" placeholder="Senha" required>
-                    <i class='bx bxs-lock-alt'></i>
-                </div>
-                <button type="submit" class="btn">Registra-se</button>
-            </form>
-        </div>
-        <div class="toggle-box">
-            <div class="toggle-panel toggle-left">
-                <h1>Olá, seja bem vindo ao Lispector</h1>
-                <p>Se você não for cadastrado clique no botão abaixo</p>
-                <button class="btn registro-btn">Registra-se</button>
-            </div>
-            <div class="toggle-panel toggle-right">
-                <h1>Bem vindo de volta!</h1>
-                <p>Se você possuir uma conta clique no botão abaixo</p>
-                <button class="btn login-btn">Login</button>
+    <nav class="navbar">
+        <div class="container">
+            <a href="{% url 'home' %}" class="logo">
+                <img src="{% static 'logo-lispector.png' %}" alt="Instituto Lispector Logo" class="logo-img">
+            </a>
+            <input type="checkbox" id="menu-toggle">
+            <label for="menu-toggle" class="menu-icon">☰</label>
+            <ul class="nav-links">
+                <li><a href="#">Sobre Nos</a></li>
+                <li><a href="#">Cursos</a></li>
+                <li><a href="#">Contatos</a></li>
+                <li><a href="#">Doe</a></li>
+
+            </ul>
+            <div class="auth-links">
+                <a href="{% url 'user' %}?form=login">Entrar</a>
+                
             </div>
         </div>
-    </div>
-    <script src="{% static 'script.js' %}"></script>
+    </nav>
+    <header>
+        <h1>Instituto Lispector</h1>
+    </header>
+    <section class="welcome-section">
+        <h2>Bem-vindo ao Instituto Lispector</h2>
+        <p>
+            Somos uma instituição dedicada à educação e à cultura, inspirados pela genialidade de Clarice Lispector. 
+            Junte-se a nós para explorar o mundo do conhecimento e da criatividade!
+        </p>
+        <button>Saiba Mais</button>
+    </section>
+    <footer>
+        <p>© 2025 Instituto Lispector. Todos os direitos reservados.</p>
+    </footer>
+    <script src="{% static 'script-home.js' %}"></script>
 </body>
 </html>
