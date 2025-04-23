@@ -34,10 +34,10 @@ jobs:
         
       - name: Cleaning testing files
         run: |
-          cd / 
-          rm db.sqlite3
-          rm .env
-          cd ..
+          cd Site-Solidare
+          rm -f db.sqlite3
+          rm -f .env
+
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
       - name: Zip artifact for deployment
