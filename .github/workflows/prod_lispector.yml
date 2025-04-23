@@ -34,7 +34,6 @@ jobs:
         
       - name: Cleaning testing files
         run: |
-          cd Site-Solidare/
           rm db.sqlite3
           rm .env
           cd ..
