@@ -34,6 +34,7 @@ jobs:
         
       - name: Cleaning testing files
         run: |
+          cd / 
           rm db.sqlite3
           rm .env
           cd ..
