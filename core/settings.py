@@ -22,7 +22,7 @@ if NOT_PROD:
     # SECURITY WARNING: keep the secret key used in production secret!
     SECRET_KEY = 'django-insecure-@ec)_2r9hm(7tk-tgwbqk29_8c5b!z%h@iy39(lxczmh4m8msr'
     # Modificado para aceitar todos os hosts em ambiente de desenvolvimento
-    ALLOWED_HOSTS = ['*']
+    ALLOWED_HOSTS = ['lispector-dyh0dfc6cegeetab.brazilsouth-01.azurewebsites.net']
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
