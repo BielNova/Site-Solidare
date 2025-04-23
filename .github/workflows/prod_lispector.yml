@@ -32,6 +32,12 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
         
+      - name: Cleaning testing files
+        run: |
+          cd Lispector/
+          rm db.sqlite3
+          rm .env
+          cd ..
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
       - name: Zip artifact for deployment
