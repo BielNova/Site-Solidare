@@ -34,7 +34,7 @@ jobs:
         
       - name: Cleaning testing files
         run: |
-          cd Lispector/
+          cd core/
           rm db.sqlite3
           rm .env
           cd ..
