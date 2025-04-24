@@ -26,6 +26,13 @@
             <form method="POST" action="{% url 'login' %}">
                 {% csrf_token %}
                 <h1>Login</h1>
+                {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                        <p class="message {% if message.tags %}{{ message.tags }}{% endif %}">{{ message }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
                 <div class="input-box">
                     <input type="email" name="email" placeholder="Email" required>
                     <i class='bx bxs-envelope'></i>
@@ -102,7 +109,7 @@
     <script src="{% static 'script.js' %}"></script>
     <script>
         // Script para fazer as mensagens de erro desaparecerem após um tempo
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function()  {
             // Seleciona todas as mensagens de erro
             const errorMessages = document.querySelectorAll('.error-message, .message.error, .message.success');
             
