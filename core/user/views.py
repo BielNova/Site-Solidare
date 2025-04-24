@@ -14,7 +14,7 @@ def login_view(request):
         if user is not None:
             login(request, user)
             # Usando reverse para garantir que a URL seja resolvida corretamente
-            return redirect(reverse('aviso_list'))
+            return redirect(reverse('aviso-list'))
         else:
             messages.error(request, 'Credenciais inválidas.')
     return render(request, 'user/login.html', {'form_type': 'login'})
