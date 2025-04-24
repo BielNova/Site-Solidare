@@ -48,16 +48,16 @@ else:
 
     from decouple import config
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DBNAME'),
-        'HOST': config('DBHOST'),
-        'USER': config('DBUSER'),
-        'PASSWORD': config('DBPASS'),
-        'OPTIONS': {'sslmode': 'require',
-    }
-}
+    # Configuração do banco de dados para produção - CORRIGIDO INDENTAÇÃO
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': config('DBNAME'),
+            'HOST': config('DBHOST'),
+            'USER': config('DBUSER'),
+            'PASSWORD': config('DBPASS'),
+            'OPTIONS': {'sslmode': 'require',}
+        }
     }
     
 # Application definition
