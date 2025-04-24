@@ -13,6 +13,5 @@ urlpatterns = [
     path('avisos/', include('core.avisos.urls')),
     path('user/', include('core.user.urls')),
 
-    path('user/', include('core.home.urls')),
     path('documentacao/', documentacao_view),  # Adiciona a rota para documentacao
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
