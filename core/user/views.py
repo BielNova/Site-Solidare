@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.urls import reverse
 
 def user(request):
     return render(request, 'user/login.html')
@@ -12,7 +13,8 @@ def login_view(request):
         user = authenticate(request, username=email, password=password)
         if user is not None:
             login(request, user)
-            return redirect('home')  # Redireciona para a página inicial
+            # Usando reverse para garantir que a URL seja resolvida corretamente
+            return redirect(reverse('aviso-list'))
         else:
             messages.error(request, 'Credenciais inválidas.')
     return render(request, 'user/login.html', {'form_type': 'login'})
