@@ -26,11 +26,16 @@ if NOT_PROD:
     # Modificado para aceitar todos os hosts em ambiente de desenvolvimento
     ALLOWED_HOSTS = ['*']
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'lispector',  # ou 'postgres', dependendo do correto
+        'HOST': 'usuarios-lispector.postgres.database.azure.com',
+        'USER': 'stackadmin',  # definido explicitamente
+        'PASSWORD': 'lispector12.',  # definido explicitamente
+        'OPTIONS': {'sslmode': 'require',}
     }
+}
+
 else:
     SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-@ec)_2r9hm(7tk-tgwbqk29_8c5b!z%h@iy39(lxczmh4m8msr')
     DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1']
