@@ -13,14 +13,16 @@ print(f"TARGET_ENV: {os.getenv('TARGET_ENV')}")
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-TARGET_ENV = os.getenv('TARGET_ENV')
+# Modifique esta linha para fornecer um valor padrão
+TARGET_ENV = os.getenv('TARGET_ENV', '')  # Valor padrão vazio se não existir
 NOT_PROD = not TARGET_ENV.lower().startswith('prod')
+
 
 if NOT_PROD:
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
     # SECURITY WARNING: keep the secret key used in production secret!
-    SECRET_KEY = 'django-insecure-@ec)_2r9hm(7tk-tgwbqk29_8c5b!z%h@iy39(lxczmh4m8msr'
+    SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-@ec)_2r9hm(7tk-tgwbqk29_8c5b!z%h@iy39(lxczmh4m8msr')
     # Modificado para aceitar todos os hosts em ambiente de desenvolvimento
     ALLOWED_HOSTS = ['*']
     DATABASES = {
