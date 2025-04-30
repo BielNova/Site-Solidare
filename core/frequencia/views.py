@@ -16,14 +16,11 @@ def is_professor(user):
     return user.is_authenticated # Simplificação temporária
 
 def is_aluno(user):
-    # Adapte esta lógica
-    # Exemplo: return user.groups.filter(name=\"Alunos\").exists()
-    try:
-        # Verifica se o usuário tem um perfil e NÃO é professor (simplificação)
-        # A lógica de is_professor precisa ser robusta
-        return hasattr(user, 'userprofile') # Assumindo que só alunos têm UserProfile por enquanto
-    except UserProfile.DoesNotExist:
-        return False
+    # ATENÇÃO: Modificação temporária para desenvolvimento/teste.
+    # Permite que qualquer usuário logado acesse as views de aluno.
+    # A lógica original (verificar UserProfile e/ou matrícula em Turma)
+    # deve ser restaurada ou aprimorada para produção.
+    return user.is_authenticated
 
 # --- Views para Professores ---
 
