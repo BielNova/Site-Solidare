@@ -34,18 +34,11 @@ if NOT_PROD:
 else:
     SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-@ec)_2r9hm(7tk-tgwbqk29_8c5b!z%h@iy39(lxczmh4m8msr')
     # Esta linha define DEBUG para produção baseado na variável de ambiente
-    DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1'] 
+    DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1']
     
     # Adicione seu domínio do Azure e o IP interno
-   ALLOWED_HOSTS = [
-    'lispector-dyh0dfc6cegeeiab.brazilsouth-01.azurewebsites.net',
-    '169.254.129.4',
-    'localhost',
-    '127.0.0.1',
-    '*',  # Use com cuidado em produção
-]
+    ALLOWED_HOSTS = ['lispector-dyh0dfc6cegeetab.brazilsouth-01.azurewebsites.net', '169.254.129.2']
     CSRF_TRUSTED_ORIGINS = ['https://lispector-dyh0dfc6cegeetab.brazilsouth-01.azurewebsites.net']
-
 
     SECURE_SSL_REDIRECT = \
         os.getenv('SECURE_SSL_REDIRECT', '0').lower() in ['true', 't', '1']
