@@ -63,4 +63,9 @@ class Nota(models.Model):
 
     def __str__(self):
         return f'Nota de {self.aluno.user.username} em {self.atividade} ({self.turma}) - {self.nota}'
+# No shell do Django (python manage.py shell)
+from django.contrib.auth.models import User
+from frequencia.models import UserProfile  # Ajuste o import conforme seu projeto
 
+for user in User.objects.all():
+    UserProfile.objects.get_or_create(user=user)
