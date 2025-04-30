@@ -74,6 +74,8 @@ INSTALLED_APPS = [
     'core.user',
     'core.home', 
     "whitenoise.runserver_nostatic",
+    "frequencia",
+    "documentacao",
  # Adicione o aplicativo home aqui	
 ]
 
