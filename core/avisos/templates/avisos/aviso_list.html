@@ -9,11 +9,14 @@
 <body>
     <header>
         <h1>LISPECTOR</h1>
-        <nav>
-            <a href="{% url 'frequencia/listar_turmas_aluno.html' %}">Frequência</a>
-            <a href="{% url 'documentacao/listar_certificados_aluno.html' %}">Documentação</a>
-            <!-- Adicione outros links de navegação aqui se necessário -->
-        </nav>
+        {# Verifica se o usuário está autenticado antes de mostrar o menu #}
+        {% if user.is_authenticated %}
+            <nav>
+                <a href="{% url 'frequencia:listar_turmas_aluno' %}">Frequência</a>
+                <a href="{% url 'documentacao:listar_certificados_aluno' %}">Documentação</a>
+                {# Adicione outros links de navegação aqui se necessário #}
+            </nav>
+        {% endif %}
     </header>
 
     <main>
