@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Minhas Turmas - Professor</title>
+    <!-- Adicionar links CSS se necessário -->
+</head>
+<body>
+    <h1>Minhas Turmas</h1>
+    {% if turmas %}
+        <ul>
+            {% for turma in turmas %}
+                <li>
+                    <a href="{% url 'frequencia:detalhes_turma_professor' turma.id %}">
+                        {{ turma.curso.nome }} - {{ turma.nome }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Você não está associado a nenhuma turma como professor.</p>
+    {% endif %}
+
+    <!-- Adicionar link para voltar ou menu principal -->
+</body>
+</html>
+

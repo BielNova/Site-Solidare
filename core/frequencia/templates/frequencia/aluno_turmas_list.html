@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Minhas Turmas - Aluno</title>
+    <!-- Adicionar links CSS se necessário -->
+</head>
+<body>
+    <h1>Minhas Turmas Matriculadas</h1>
+    {% if turmas %}
+        <ul>
+            {% for turma in turmas %}
+                <li>
+                    <strong>{{ turma.curso.nome }} - {{ turma.nome }}</strong>
+                    <ul>
+                        <li><a href="{% url 'frequencia:ver_frequencia_aluno' turma.id %}">Ver Minha Frequência</a></li>
+                        <li><a href="{% url 'frequencia:ver_notas_aluno' turma.id %}">Ver Minhas Notas</a></li>
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Você não está matriculado em nenhuma turma.</p>
+    {% endif %}
+
+    <!-- Adicionar link para voltar ou menu principal -->
+</body>
+</html>
+

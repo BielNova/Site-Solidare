@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes da Turma: {{ turma.curso.nome }} - {{ turma.nome }}</title>
+    <!-- Adicionar links CSS se necessário -->
+</head>
+<body>
+    <h1>{{ turma.curso.nome }} - {{ turma.nome }}</h1>
+    <p>Professor: {{ turma.curso.professor.get_full_name|default:turma.curso.professor.username }}</p>
+
+    <h2>Aulas</h2>
+    <a href="{% url 'frequencia:criar_aula' turma.id %}">Criar Nova Aula</a>
+    {% if aulas %}
+        <ul>
+            {% for aula in aulas %}
+                <li>
+                    {{ aula.data }} - {{ aula.topico|default:"Sem tópico" }}
+                    <a href="{% url 'frequencia:registrar_presenca' turma.id aula.id %}">(Registrar Presença)</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nenhuma aula registrada para esta turma ainda.</p>
+    {% endif %}
+
+    <h2>Alunos Matriculados</h2>
+    {% if alunos %}
+        <ul>
+            {% for aluno_profile in alunos %}
+                <li>{{ aluno_profile.user.get_full_name|default:aluno_profile.user.username }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nenhum aluno matriculado nesta turma.</p>
+    {% endif %}
+
+    <h2>Notas</h2>
+    <a href="{% url 'frequencia:registrar_notas' turma.id %}">Lançar/Ver Notas</a>
+
+    <br><br>
+    <a href="{% url 'frequencia:listar_turmas_professor' %}">Voltar para Minhas Turmas</a>
+
+</body>
+</html>
+
