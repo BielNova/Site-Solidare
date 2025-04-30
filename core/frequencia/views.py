@@ -131,14 +131,16 @@ def registrar_notas(request, turma_id):
 @login_required
 @user_passes_test(is_aluno)
 def listar_turmas_aluno(request):
-    aluno_profile = get_object_or_404(UserProfile, user=request.user)
-    turmas = aluno_profile.turmas_matriculadas.all().select_related('curso') # Corrigido
+    # MODIFICAR ESTA LINHA:
+    aluno_profile, created = UserProfile.objects.get_or_create(user=request.user)
+    turmas = aluno_profile.turmas_matriculadas.all().select_related('curso')
     return render(request, 'frequencia/aluno_turmas_list.html', {"turmas": turmas})
 
 @login_required
 @user_passes_test(is_aluno)
 def ver_frequencia_aluno(request, turma_id):
-    aluno_profile = get_object_or_404(UserProfile, user=request.user)
+    # MODIFICAR ESTA LINHA:
+    aluno_profile, created = UserProfile.objects.get_or_create(user=request.user)
     turma = get_object_or_404(Turma, pk=turma_id, alunos=aluno_profile)
     presencas = Presenca.objects.filter(aluno=aluno_profile, aula__turma=turma).select_related('aula').order_by('aula__data') # Corrigido
     total_aulas = Aula.objects.filter(turma=turma).count()
@@ -156,7 +158,7 @@ def ver_frequencia_aluno(request, turma_id):
 @login_required
 @user_passes_test(is_aluno)
 def ver_notas_aluno(request, turma_id):
-    aluno_profile = get_object_or_404(UserProfile, user=request.user)
+    aluno_profile, created = UserProfile.objects.get_or_create(user=request.user)
     turma = get_object_or_404(Turma, pk=turma_id, alunos=aluno_profile)
     notas = Nota.objects.filter(aluno=aluno_profile, turma=turma).order_by('data_lancamento') # Corrigido
     return render(request, 'frequencia/aluno_notas.html', {"turma": turma, "notas": notas})
