@@ -161,3 +161,5 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Configurações adicionais para resolver o problema de DisallowedHost no Azure
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 USE_X_FORWARDED_HOST = True
+
+LOGIN_URL = '/user/login/'
