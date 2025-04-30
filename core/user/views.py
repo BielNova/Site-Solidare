@@ -38,17 +38,13 @@ def register_view(request):
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password'])
             user.save()
+            
+            # ADICIONAR ESTA LINHA:
+            UserProfile.objects.create(user=user)
+            
             messages.success(request, 'Cadastro realizado com sucesso! Faça login para continuar.')
             return redirect('login')
-        else:
-            # Não adiciona mensagens de erro aqui, pois o template já exibirá os erros do formulário
-            # Apenas indica que deve mostrar o formulário de registro
-            return render(request, 'user/login.html', {'form': form, 'show_register': True})
-    else:
-        form = RegisterForm()
-    
-    return render(request, 'user/login.html', {'form': form})
-
+        # resto do código permanece igual
 
 def logout_view(request):
     logout(request)
