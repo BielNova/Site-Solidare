@@ -39,12 +39,18 @@ def register_view(request):
             user.set_password(form.cleaned_data['password'])
             user.save()
             
-            # ADICIONAR ESTA LINHA:
+            # ADICIONAR ESTAS LINHAS:
+            from frequencia.models import UserProfile
             UserProfile.objects.create(user=user)
             
             messages.success(request, 'Cadastro realizado com sucesso! Faça login para continuar.')
             return redirect('login')
-        # resto do código permanece igual
+        else:
+            return render(request, 'user/login.html', {'form': form, 'show_register': True})
+    else:
+        form = RegisterForm()
+    
+    return render(request, 'user/login.html', {'form': form})
 
 def logout_view(request):
     logout(request)
