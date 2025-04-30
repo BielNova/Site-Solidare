@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Meus Certificados</title>
+    <!-- Adicionar links CSS se necessário -->
+</head>
+<body>
+    <h1>Meus Certificados</h1>
+
+    {% if certificados %}
+        <ul>
+            {% for certificado in certificados %}
+                <li>
+                    <strong>Curso:</strong> {{ certificado.turma.curso.nome }} - {{ certificado.turma.nome }} <br>
+                    <strong>Data de Emissão:</strong> {{ certificado.data_emissao|date:"d/m/Y H:i" }} <br>
+                    <strong>Código:</strong> {{ certificado.codigo_validacao }} <br>
+                    <a href="{% url 'documentacao:gerar_certificado_pdf' certificado.codigo_validacao %}" target="_blank">Baixar/Ver Certificado (PDF)</a>
+                </li>
+                <br>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Você ainda não possui certificados disponíveis.</p>
+        <p>Certificados são geralmente emitidos após a conclusão bem-sucedida de uma turma.</p>
+    {% endif %}
+
+    <br>
+    <!-- Adicionar link para voltar ao painel do aluno ou menu principal -->
+    <a href="#">Voltar ao Painel</a> {# Ajustar link conforme necessário #}
+
+</body>
+</html>
+
