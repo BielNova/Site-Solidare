@@ -33,7 +33,8 @@ if NOT_PROD:
     }
 else:
     SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-@ec)_2r9hm(7tk-tgwbqk29_8c5b!z%h@iy39(lxczmh4m8msr')
-    DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1']
+    # Esta linha define DEBUG para produção baseado na variável de ambiente
+    DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1'] 
     
     # Adicione seu domínio do Azure e o IP interno
     ALLOWED_HOSTS = ['lispector-dyh0dfc6cegeetab.brazilsouth-01.azurewebsites.net', '169.254.129.2']
@@ -61,7 +62,7 @@ else:
     }
     
 # Application definition
-DEBUG = True
+# DEBUG = True # << ESTA LINHA FOI REMOVIDA/COMENTADA pois sobrescrevia a configuração de produção acima
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -163,3 +164,4 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 USE_X_FORWARDED_HOST = True
 
 LOGIN_URL = '/user/login/'
+
