@@ -9,6 +9,11 @@
 <body>
     <header>
         <h1>LISPECTOR</h1>
+        <nav>
+            <a href="{% url 'frequencia:listar_turmas_aluno' %}">Frequência</a>
+            <a href="{% url 'documentacao:listar_certificados_aluno' %}">Documentação</a>
+            <!-- Adicione outros links de navegação aqui se necessário -->
+        </nav>
     </header>
 
     <main>
@@ -16,7 +21,7 @@
         <ul>
             {% for aviso in object_list %}
                 <li>
-                    <a href="{% url 'avisos:aviso_detail' aviso.pk %}">{{ aviso.titulo }}</a>
+                    <a href="{% url 'avisos:aviso_detail' aviso.pk %}" style="color: #ffb129;">{{ aviso.titulo }}</a> {# Mantendo a cor original do link do aviso #}
                 </li>
             {% empty %}
                 <li>Nenhum aviso cadastrado.</li>
@@ -30,3 +35,4 @@
     </footer>
 </body>
 </html>
+
