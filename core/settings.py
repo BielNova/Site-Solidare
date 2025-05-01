@@ -32,6 +32,7 @@ if NOT_PROD:
         }
     }
 else:
+    # Production settings
     SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-@ec)_2r9hm(7tk-tgwbqk29_8c5b!z%h@iy39(lxczmh4m8msr')
     # Esta linha define DEBUG para produção baseado na variável de ambiente
     DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1']
@@ -40,15 +41,14 @@ else:
     ALLOWED_HOSTS = ['lispector-dyh0dfc6cegeetab.brazilsouth-01.azurewebsites.net', '169.254.129.2']
     CSRF_TRUSTED_ORIGINS = ['https://lispector-dyh0dfc6cegeetab.brazilsouth-01.azurewebsites.net']
 
-    SECURE_SSL_REDIRECT = \
-        os.getenv('SECURE_SSL_REDIRECT', '0').lower() in ['true', 't', '1']
+    SECURE_SSL_REDIRECT = os.getenv('SECURE_SSL_REDIRECT', '0').lower() in ['true', 't', '1']
 
     if SECURE_SSL_REDIRECT:
         SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
     from decouple import config
 
-    # Configuração do banco de dados para produção - CORRIGIDO INDENTAÇÃO
+    # Configuração do banco de dados para produção
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -61,7 +61,6 @@ else:
     }
     
 # Application definition
-# DEBUG = True # << ESTA LINHA FOI REMOVIDA/COMENTADA pois sobrescrevia a configuração de produção acima
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -72,11 +71,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core.avisos',
     'core.user',
-    'core.home', 
-    "whitenoise.runserver_nostatic",
-    "core.frequencia",
-    "core.documentacao",
- # Adicione o aplicativo home aqui	
+    'core.home',
+    'whitenoise.runserver_nostatic',
+    'core.frequencia',
+    'core.documentacao',
 ]
 
 MIDDLEWARE = [
@@ -141,19 +139,17 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-# STATIC_URL = "static/"
-STATIC_URL = os.environ.get('DJANGO_STATIC_URL', "/static/")
+STATIC_URL = os.environ.get('DJANGO_STATIC_URL', '/static/')
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATICFILES_STORAGE = ('whitenoise.storage.CompressedManifestStaticFilesStorage')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# STATICFILES_DIRS = [BASE_DIR / 'user/static']
-
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+# STATICFILES_DIRS = [BASE_DIR / 'user/static'] # Comentado pois STATIC_ROOT é usado
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
