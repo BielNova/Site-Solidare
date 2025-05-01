@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import User
+from core.user.models import UserProfile # <<< IMPORTAÇÃO ADICIONADA
 
 
 # Modelo para Cursos
@@ -16,6 +17,7 @@ class Curso(models.Model):
 class Turma(models.Model):
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE, related_name='turmas')
     nome = models.CharField(max_length=100) # Ex: 'Turma A - 2025.1'
+    # UserProfile agora está definido devido à importação adicionada
     alunos = models.ManyToManyField(UserProfile, related_name='turmas_matriculadas')
     data_inicio = models.DateField(null=True, blank=True)
     data_fim = models.DateField(null=True, blank=True)
@@ -44,6 +46,7 @@ class Presenca(models.Model):
         ('J', 'Falta Justificada'),
     )
     aula = models.ForeignKey(Aula, on_delete=models.CASCADE, related_name='presencas')
+    # UserProfile agora está definido devido à importação adicionada
     aluno = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='presencas')
     status = models.CharField(max_length=1, choices=STATUS_CHOICES, default='F')
 
@@ -55,6 +58,7 @@ class Presenca(models.Model):
 
 # Modelo para Notas/Desempenho
 class Nota(models.Model):
+    # UserProfile agora está definido devido à importação adicionada
     aluno = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='notas')
     turma = models.ForeignKey(Turma, on_delete=models.CASCADE, related_name='notas')
     atividade = models.CharField(max_length=200) # Ex: 'Prova 1', 'Trabalho Final'
@@ -63,9 +67,6 @@ class Nota(models.Model):
 
     def __str__(self):
         return f'Nota de {self.aluno.user.username} em {self.atividade} ({self.turma}) - {self.nota}'
-# No shell do Django (python manage.py shell)
-from django.contrib.auth.models import User
 
+# O loop 'for user...' foi removido daqui. Se necessário, mova para uma migração de dados.
 
-for user in User.objects.all():
-    UserProfile.objects.get_or_create(user=user)
