@@ -73,8 +73,8 @@ INSTALLED_APPS = [
     'core.user',
     'core.home',
     'whitenoise.runserver_nostatic',
-    'core.frequencia',
-    'core.documentacao',
+    # 'core.frequencia',
+    # 'core.documentacao',
 ]
 
 MIDDLEWARE = [
