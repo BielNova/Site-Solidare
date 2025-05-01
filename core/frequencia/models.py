@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import User
-from core.user.models import UserProfile
+
 
 # Modelo para Cursos
 class Curso(models.Model):
