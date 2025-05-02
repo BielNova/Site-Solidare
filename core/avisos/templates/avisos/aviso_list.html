@@ -12,8 +12,8 @@
         {# Verifica se o usuário está autenticado antes de mostrar o menu #}
         {% if user.is_authenticated %}
             <nav>
-                <a href="{% url 'frequencia:listar_turmas_aluno' %}">Frequência</a>
-                <a href="{% url 'documentacao:listar_certificados_aluno' %}">Documentação</a>
+<!--                 <a href="{% url 'frequencia:listar_turmas_aluno' %}">Frequência</a>
+                <a href="{% url 'documentacao:listar_certificados_aluno' %}">Documentação</a> -->
                 {# Adicione outros links de navegação aqui se necessário #}
             </nav>
         {% endif %}
