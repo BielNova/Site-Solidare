@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from .forms import RegisterForm
 from .models import UserProfile
 
-def login_page(request):
+def user(request):
     return render(request, 'user/login.html')
 
 def login_view(request):
