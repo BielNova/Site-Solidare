@@ -4,8 +4,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.http import HttpResponse  # Import necessário para criar uma resposta simples
 
-def documentacao_view(request):
-    return HttpResponse("<h1>Bem-vindo à página de Documentação</h1>")
+# def documentacao_view(request):
+#     return HttpResponse("<h1>Bem-vindo à página de Documentação</h1>")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
