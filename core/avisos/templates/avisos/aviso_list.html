@@ -17,9 +17,7 @@
         <h2>Avisos</h2>
         <ul>
             {% for aviso in object_list %}
-                <li>
-                    <a href="{% url 'avisos:aviso_detail' aviso.pk %}" style="color: #ffb129;">{{ aviso.titulo }}</a> {# Mantendo a cor original do link do aviso #}
-                </li>
+                
             {% empty %}
                 <li>Nenhum aviso cadastrado.</li>
             {% endfor %}
