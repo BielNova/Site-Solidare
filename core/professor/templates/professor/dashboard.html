@@ -1,4 +1,3 @@
-{% extends "base.html" %} {# Supondo que você tenha um base.html no projeto #}
 
 {% block title %}{{ page_title }} - Espaço do Professor{% endblock %}
 
@@ -50,7 +49,7 @@
     </div>
 
     <p class="mt-4">
-        <a href="{% url 'user:logout' %}" class="btn btn-danger">Sair</a> {# Supondo que a URL de logout seja 'user:logout' #}
+        <a href="{% url 'user:logout' %}" class="btn btn-danger">Sair</a> 
     </p>
 
 </div>
