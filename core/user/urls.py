@@ -8,6 +8,5 @@ urlpatterns = [
     path('', views.user, name='user'), 
     path('login/', views.login_view, name='login'),
     path('register/', views.register_view, name='register'),
-    
-    # Adicione outras URLs do app user aqui, se necessário
+    path('logout/', views.logout_view, name='logout'),    # Adicione outras URLs do app user aqui, se necessário
 ]
