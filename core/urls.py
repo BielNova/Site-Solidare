@@ -11,9 +11,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.home.urls')),  # Inclui URLs do app home na raiz
     path('avisos/', include('core.avisos.urls')),
-    path('user/', include('core.user.urls')),
+    path('user/', include(('core.user.urls', 'user'), namespace='user')),
     # path('frequencia/', include('core.frequencia.urls', namespace='frequencia')),
     # path('documentacao/', include('core.documentacao.urls', namespace='documentacao')),
-    path("professor/", include("core.professor.urls")), # Adiciona URLs do app professor
+    path('professor/', include('core.professor.urls', namespace='professor')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
