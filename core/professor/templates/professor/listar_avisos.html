@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page_title }} - Espaço do Professor{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>{{ page_title }}</h1>
+    <hr>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="mb-3">
+        <a href="{% url 'professor:adicionar_aviso' %}" class="btn btn-primary">Adicionar Novo Aviso</a>
+    </div>
+
+    {% if avisos %}
+        <div class="list-group">
+            {% for aviso in avisos %}
+                <div class="list-group-item list-group-item-action flex-column align-items-start mb-2">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{ aviso.titulo }}</h5>
+                        <small>{{ aviso.data_publicacao|date:"d/m/Y H:i" }}</small>
+                    </div>
+                    <p class="mb-1">{{ aviso.conteudo|truncatewords:30|linebreaksbr }}</p>
+                    <small>Categoria: {{ aviso.get_categoria_display }}</small>
+                    {% if aviso.data_expiracao %}
+                        <small class="d-block">Expira em: {{ aviso.data_expiracao|date:"d/m/Y H:i" }} {% if aviso.is_expired %}(Expirado){% endif %}</small>
+                    {% endif %}
+                    {% if aviso.anexo %}
+                        <small class="d-block"><a href="{{ aviso.anexo.url }}" target="_blank">Ver Anexo</a></small>
+                    {% endif %}
+                    <div class="mt-2">
+                        {# <a href="#" class="btn btn-sm btn-info">Ver Detalhes</a> #} {# Implementar view de detalhes do aviso #}
+                        {# <a href="#" class="btn btn-sm btn-warning">Editar</a> #} {# Implementar view de edição do aviso #}
+                        {# <a href="#" class="btn btn-sm btn-danger">Remover</a> #} {# Implementar view de remoção do aviso #}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Nenhum aviso cadastrado por você ainda.</p>
+    {% endif %}
+
+    <p class="mt-4">
+        <a href="{% url 'professor:dashboard_professor' %}" class="btn btn-secondary">Voltar ao Painel</a>
+    </p>
+
+</div>
+{% endblock %}
+

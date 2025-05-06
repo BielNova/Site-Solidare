@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page_title }} - Espaço do Professor{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>{{ page_title }}</h1>
+    <hr>
+    <p>Você tem certeza que deseja remover o aviso "<strong>{{ aviso.titulo }}</strong>"?</p>
+    <p>Esta ação não poderá ser desfeita.</p>
+
+    <form method="post" action="{% url 'professor:remover_aviso' aviso.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Sim, remover aviso</button>
+        <a href="{% url 'professor:listar_avisos_professor' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+
+</div>
+{% endblock %}
+
