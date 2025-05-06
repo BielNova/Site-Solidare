@@ -15,9 +15,6 @@ def professor_required(view_func):
     def _wrapped_view(request, *args, **kwargs):
         is_professor_profile_linked = False
         try:
-            # Verifica se o usuário tem um perfil de Professor vinculado e ativo.
-            # Acessar request.user.professor tentará buscar o objeto Professor relacionado.
-            # Se não houver, Professor.DoesNotExist (que é uma ObjectDoesNotExist) será levantada.
             if request.user.professor and isinstance(request.user.professor, Professor):
                 is_professor_profile_linked = True
         except ObjectDoesNotExist:
