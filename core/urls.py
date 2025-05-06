@@ -14,4 +14,6 @@ urlpatterns = [
     path('user/', include('core.user.urls')),
     # path('frequencia/', include('core.frequencia.urls', namespace='frequencia')),
     # path('documentacao/', include('core.documentacao.urls', namespace='documentacao')),
+    path("professor/", include("core.professor.urls")), # Adiciona URLs do app professor
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
