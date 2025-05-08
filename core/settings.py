@@ -73,7 +73,8 @@ INSTALLED_APPS = [
     'core.user',
     'core.home',
     'whitenoise.runserver_nostatic',
-    'core.professor'
+    'core.professor',
+    'widget_tweaks',
     # 'core.frequencia',
     # 'core.documentacao',
 ]
