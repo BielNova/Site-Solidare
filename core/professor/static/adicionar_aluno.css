@@ -10,7 +10,7 @@ body {
     align-items: center;
     min-height: 100vh;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(120deg, #ffb129, #29abe2);
+    background: linear-gradient(60deg, #ffb129, #29abe2);
 }
 
 .container {

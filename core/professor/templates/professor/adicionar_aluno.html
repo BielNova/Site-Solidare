@@ -1,30 +1,39 @@
 {% load widget_tweaks %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{{ page_title }} - Espaço do Professor{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'adicionar_aluno.css' %}">
+</head>
+<body>
+    {% block content %}
+    <div class="container mt-4">
+        
+        <h1>{{ page_title }}</h1>
+        
 
-{% block title %}{{ page_title }} - Espaço do Professor{% endblock %}
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group mb-3">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field|add_class:"form-control" }}
+                    {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text }}</small>
+                    {% endif %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger mt-1">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            
+            <button type="submit" class="btn btn-success">Salvar Aluno</button>
+            <a href="{% url 'professor:dashboard_professor' %}" class="btn btn-secondary">Cancelar</a>
+        </form>
 
-{% block content %}
-<div class="container mt-4">
-    <h1>{{ page_title }}</h1>
-    <hr>
-
-    <form method="post">
-        {% csrf_token %}
-        {% for field in form %}
-            <div class="form-group mb-3">
-                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                {{ field|add_class:"form-control" }}
-                {% if field.help_text %}
-                    <small class="form-text text-muted">{{ field.help_text }}</small>
-                {% endif %}
-                {% for error in field.errors %}
-                    <div class="alert alert-danger mt-1">{{ error }}</div>
-                {% endfor %}
-            </div>
-        {% endfor %}
-        <button type="submit" class="btn btn-success">Salvar Aluno</button>
-        <a href="{% url 'professor:listar_alunos' %}" class="btn btn-secondary">Cancelar</a>
-    </form>
-
-</div>
-{% endblock %}
-
+    </div>
+    {% endblock %}
+</body>
+</html>
