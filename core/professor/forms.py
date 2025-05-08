@@ -5,10 +5,12 @@ from core.avisos.models import Aviso # Importando o modelo Aviso do app core.avi
 class AlunoForm(forms.ModelForm):
     class Meta:
         model = Aluno
-        fields = ["nome_completo", "matricula"]
+        fields = ["nome_completo", "matricula", "curso"]
         widgets = {
             "nome_completo": forms.TextInput(attrs={"class": "form-control", "placeholder": "Nome completo do aluno"}),
             "matricula": forms.TextInput(attrs={"class": "form-control", "placeholder": "Matrícula do aluno"}),
+            "curso": forms.TextInput(attrs={"class": "form-control", "placeholder": "Curso"}),
+
         }
 
 class AvisoForm(forms.ModelForm):
