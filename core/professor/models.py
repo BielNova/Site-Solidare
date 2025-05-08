@@ -13,9 +13,10 @@ class Aluno(models.Model):
     matricula = models.CharField(max_length=50, unique=True)
     cadastrado_por = models.ForeignKey(Professor, on_delete=models.SET_NULL, null=True, blank=True, related_name='alunos_cadastrados')
     data_cadastro = models.DateTimeField(auto_now_add=True)
+    curso = models.CharField(max_length=100)
 
     def __str__(self):
-        return f"{self.nome_completo} ({self.matricula})"
+        return f"{self.nome_completo} ({self.matricula}) ({self.curso})"
 
 class Frequencia(models.Model):
     aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE, related_name='frequencias')
