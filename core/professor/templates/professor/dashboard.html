@@ -1,57 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{{ page_title }} - Espaço do Professor{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'home.css' %}">
+</head>
+<body>
+    {% block content %}
+    <div class="container mt-4">
+        <h1>{{ page_title }}</h1>
+        <hr>
 
-{% block title %}{{ page_title }} - Espaço do Professor{% endblock %}
-
-{% block content %}
-<div class="container mt-4">
-    <h1>{{ page_title }}</h1>
-    <hr>
-
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Alunos Cadastrados</h5>
-                    <p class="card-text">Você tem {{ alunos_count }} aluno(s) cadastrado(s).</p>
-                    {# <a href="#" class="btn btn-primary">Ver Alunos</a> #} {# Link a ser implementado #}
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Alunos Cadastrados</h5>
+                        <p class="card-text">Você tem {{ alunos_count }} aluno(s) cadastrado(s).</p>
+                        {# <a href="#" class="btn btn-primary">Ver Alunos</a> #}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Adicionar Novo Aluno</h5>
+                        <p class="card-text">Cadastre um novo aluno no sistema.</p>
+                        {# <a href="#" class="btn btn-success">Adicionar Aluno</a> #}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Gerenciar Avisos</h5>
+                        <p class="card-text">Crie e gerencie avisos para os alunos.</p>
+                        {# <a href="#" class="btn btn-info">Ver Avisos</a> #}
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Adicionar Novo Aluno</h5>
-                    <p class="card-text">Cadastre um novo aluno no sistema.</p>
-                    {# <a href="#" class="btn btn-success">Adicionar Aluno</a> #} {# Link a ser implementado #}
+
+        <div class="row mt-3">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Registrar Frequência</h5>
+                        <p class="card-text">Registre a frequência dos seus alunos.</p>
+                        {# <a href="#" class="btn btn-warning">Registrar Frequência</a> #}
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Gerenciar Avisos</h5>
-                    <p class="card-text">Crie e gerencie avisos para os alunos.</p>
-                    {# <a href="#" class="btn btn-info">Ver Avisos</a> #} {# Link a ser implementado #}
-                </div>
-            </div>
-        </div>
+
+        <p class="mt-4">
+            <a href="{% url 'user:logout' %}" class="btn btn-danger">Sair</a>
+        </p>
     </div>
-    <div class="row mt-3">
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Registrar Frequência</h5>
-                    <p class="card-text">Registre a frequência dos seus alunos.</p>
-                    {# <a href="#" class="btn btn-warning">Registrar Frequência</a> #} {# Link a ser implementado #}
-                </div>
-            </div>
-        </div>
-        {# Adicionar mais cards para outras funcionalidades conforme necessário #}
-    </div>
-
-    <p class="mt-4">
-        <a href="{% url 'user:logout' %}" class="btn btn-danger">Sair</a> 
-    </p>
-
-</div>
-{% endblock %}
-
+    {% endblock %}
+</body>
+</html>
