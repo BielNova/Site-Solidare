@@ -1,5 +1,12 @@
-
-{% block title %}{{ page_title }} - Espaço do Professor{% endblock %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{{ page_title }} - Espaço do Professor{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'professor.css' %}">
+</head>
+<body>
 
 {% block content %}
 <div class="container mt-4">
