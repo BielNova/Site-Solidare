@@ -27,7 +27,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Adicionar Novo Aluno</h5>
                         <p class="card-text">Cadastre um novo aluno no sistema.</p>
-                        <a href="{% url 'professor:adicionar_aluno' %}" class="btn btn-danger">Adicionar aluno</a>
+                        <a href="{% url 'professor:adicionar_aluno' %}" class="btn btn-primary">Adicionar aluno</a>
                     </div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Gerenciar Avisos</h5>
                         <p class="card-text">Crie e gerencie avisos para os alunos.</p>
-                        <a href="{% url 'professor:listar_avisos_professor' %}" class="btn btn-info">Ver Avisos</a> 
+                        <a href="{% url 'professor:listar_avisos_professor' %}" class="btn btn-primary">Ver Avisos</a> 
                     </div>
                 </div>
             </div>
@@ -48,14 +48,14 @@
                     <div class="card-body">
                         <h5 class="card-title">Registrar Frequência</h5>
                         <p class="card-text">Registre a frequência dos seus alunos.</p>
-                        {# <a href="#" class="btn btn-warning">Registrar Frequência</a> #}
+                        {# <a href="#" class="btn btn-primary">Registrar Frequência</a> #}
                     </div>
                 </div>
             </div>
         </div>
 
         <p class="mt-4">
-            <a href="{% url 'user:logout' %}" class="btn btn-danger">Sair</a>
+            <a href="{% url 'user:logout' %}" class="btn btn-primary">Sair</a>
         </p>
     </div>
     {% endblock %}

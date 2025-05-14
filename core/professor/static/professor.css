@@ -94,31 +94,7 @@ hr {
     background-color: #218838;
 }
 
-.btn-info {
-    background-color: #17a2b8;
-    color: #fff;
-}
 
-.btn-info:hover {
-    background-color: #138496;
-}
-
-.btn-warning {
-    background-color: #ffc107;
-    color: #fff;
-}
-
-.btn-warning:hover {
-    background-color: #e0a800;
-}
-
-.mt-3 {
-    margin-top: 1rem;
-}
-
-.mt-4 {
-    margin-top: 1.5rem;
-}
 
 /* Responsividade */
 @media (max-width: 768px) {
