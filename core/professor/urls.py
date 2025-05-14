@@ -16,7 +16,7 @@ urlpatterns = [
     path("avisos/editar/<int:aviso_id>/", views.editar_aviso, name="editar_aviso"),
     path("avisos/remover/<int:aviso_id>/", views.remover_aviso, name="remover_aviso"),
     # Frequência
-    path("frequencia/registrar/", views.registrar_frequencia_lote, name="registrar_frequencia_lote"),
+    path("frequencia/registrar/", views.registrar_frequencia_lote, name="registrar_frequencia"),
     path("frequencia/listar/", views.listar_frequencias, name="listar_frequencias"),
 ]
 

@@ -9,7 +9,7 @@
 <body>
     {% block content %}
     <div class="container mt-4">
-        <h1>{{ page_title }}</h1>
+        <h1 style="color: #fff;">{{ page_title }}</h1>
         <hr>
 
         <div class="row">
@@ -48,7 +48,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Registrar Frequência</h5>
                         <p class="card-text">Registre a frequência dos seus alunos.</p>
-                        {# <a href="#" class="btn btn-primary">Registrar Frequência</a> #}
+                        <a href="{% url 'professor:registrar_frequencia' %}" class="btn btn-primary">Registrar Frequência</a>
                     </div>
                 </div>
             </div>
