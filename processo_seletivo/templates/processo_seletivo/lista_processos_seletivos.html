@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ titulo_pagina }} - Instituto Lispector</title>
+    <style>
+        /* Estilos básicos para facilitar a visualização */
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
+        .container { max-width: 800px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { color: #0056b3; text-align: center; margin-bottom: 30px; }
+        .processo-card { border: 1px solid #ddd; border-radius: 5px; padding: 15px; margin-bottom: 20px; background-color: #e9f7ff; }
+        .processo-card h2 { color: #007bff; margin-top: 0; }
+        .processo-card p { margin-bottom: 5px; }
+        .processo-card .data { font-size: 0.9em; color: #666; }
+        .no-processos { text-align: center; color: #888; }
+        .btn { display: inline-block; padding: 8px 15px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px; }
+        .btn:hover { background-color: #218838; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ titulo_pagina }}</h1>
+
+        {% if processos_abertos %}
+            {% for processo in processos_abertos %}
+                <div class="processo-card">
+                    <h2>{{ processo.nome }}</h2>
+                    <p>{{ processo.descricao }}</p>
+                    <p class="data">Período de Inscrições: {{ processo.data_inicio_inscricoes|date:"d/m/Y" }} a {{ processo.data_fim_inscricoes|date:"d/m/Y" }}</p>
+                    {% if processo.data_resultado %}
+                        <p class="data">Data do Resultado: {{ processo.data_resultado|date:"d/m/Y" }}</p>
+                    {% endif %}
+                    <a href="#" class="btn">Ver Detalhes e Inscrever-se</a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-processos">Nenhum processo seletivo ativo no momento.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
