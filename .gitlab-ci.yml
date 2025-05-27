@@ -1,0 +1,15 @@
+stages:
+  - build
+  - test
+
+build_job:
+  stage: build
+  script:
+    - echo "Executando build inicial..."
+    - npm install
+
+test_job:
+  stage: test
+  script:
+    - echo "Executando testes..."
+    - npm test
