@@ -81,6 +81,6 @@ jobs:
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
-          app-name: 'Lispector'
+          app-name: 'Lispector1'
           slot-name: 'Production'
           
