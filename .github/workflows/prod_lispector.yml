@@ -70,11 +70,12 @@ jobs:
         run: unzip release.zip
 
       
-      - name: Deploy no Azure WebApp
-        uses: azure/webapps-deploy@v2
+      - name: Login to AzureAdd commentMore actions
+        uses: azure/login@v2
         with:
-          app-name: 'Lispector1' 
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_D0B8CDC80D5440CDA44D2661092C60A2 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_D29575A19C6A46FB9F412F242BD68EDF }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_789DF1555AF44DC9AAC33B89E3023F12 }}
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
