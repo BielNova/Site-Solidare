@@ -70,8 +70,8 @@ jobs:
         run: unzip release.zip
 
       
-      - name: Login to Azure
-        uses: azure/login@v2
+      - name: Deploy no Azure WebApp
+        uses: azure/webapps-deploy@v2
         with:
           app-name: 'Lispector1' 
           cpublish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
