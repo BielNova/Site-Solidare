@@ -1,0 +1,78 @@
+{% extends 'aluno/navbar.html' %}
+{% load static %}
+
+{% block title %}Avisos{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="h4">Avisos</h2>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Filtros -->
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <input type="text" class="form-control form-control-sm" placeholder="Pesquisar">
+        </div>
+        <div class="col-md-4">
+            <select class="form-select form-select-sm">
+                <option selected>Tipo de aviso</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+             <select class="form-select form-select-sm">
+                <option selected>Filtrar</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="alert alert-info d-inline-block mb-3" role="alert">
+        Você tem um aviso não lido!
+    </div>
+
+    {% if avisos %}
+        <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start p-3 mb-3 rounded shadow-sm aviso-destaque">
+                <h4 class="mb-1">Reunião às 14:00 horas!</h4>
+            </a>
+            
+            {% for aviso in avisos %}
+                {% if not forloop.first %}
+                <div class="list-group-item list-group-item-action flex-column align-items-start mb-2 border-0 shadow-sm">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-1">{{ aviso.titulo }}</h6>
+                        <small class="text-muted">{{ aviso.data_publicacao|date:"d/m/Y H:i" }}</small>
+                    </div>
+                    <p class="mb-1 text-muted">{{ aviso.conteudo|truncatewords:30|linebreaksbr }}</p>
+                    <small class="text-muted">Categoria: {{ aviso.get_categoria_display }}</small>
+                    {% if aviso.data_expiracao %}
+                        <small class="d-block text-muted">Expira em: {{ aviso.data_expiracao|date:"d/m/Y H:i" }} {% if aviso.is_expired %}(Expirado){% endif %}</small>
+                    {% endif %}
+                    {% if aviso.anexo %}
+                        <small class="d-block"><a href="{{ aviso.anexo.url }}" target="_blank">Ver Anexo</a></small>
+                    {% endif %}
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-light text-center" role="alert">
+            Nenhum aviso disponível no momento.
+        </div>
+        
+        <!-- Exemplo de aviso quando não há avisos reais -->
+        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start p-3 mb-3 rounded shadow-sm aviso-destaque">
+            <h4 class="mb-1">Reunião às 14:00 horas!</h4>
+        </a>
+    {% endif %}
+</div>
+{% endblock %}

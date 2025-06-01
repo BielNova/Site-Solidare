@@ -1,0 +1,157 @@
+/* Estilos base para o portal do aluno */
+body {
+    margin: 0;
+    font-family: sans-serif; /* Escolher uma fonte adequada */
+    background-color: #f8f9fa; /* Cor de fundo principal mais suave */
+    padding-top: 70px; /* Altura da navbar */
+}
+
+.aluno-portal {
+    display: flex;
+    min-height: calc(100vh - 70px); /* Altura total menos a navbar */
+}
+
+/* Navbar */
+.navbar {
+    background-color: #F7941D; /* Cor da navbar laranja/amarela */
+    height: 70px; /* Altura fixa para a navbar */
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+    z-index: 1030; /* Garante que a navbar fique sobre outros elementos */
+    padding: 0 1rem; /* Adiciona padding horizontal */
+}
+
+
+
+.navbar .aluno-status,
+.navbar .user-info {
+    font-size: 0.85rem; /* Tamanho de fonte ligeiramente menor */
+    color: white;
+}
+
+.navbar .user-info .user-icon-wrapper {
+    background-color: #00658F; /* Fundo azul para o ícone */
+    border-radius: 50%;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+}
+
+.navbar .user-info .user-icon-wrapper i {
+    color: white;
+    font-size: 1.5rem;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 80px; /* Largura reduzida da sidebar para ícones */
+    background-color: #00658F; /* Cor da sidebar azul */
+    color: white;
+    padding-top: 20px;
+    position: fixed; /* Fixa a sidebar */
+    top: 70px; /* Abaixo da navbar */
+    bottom: 0;
+    left: 0;
+    overflow-y: auto; /* Permite rolagem se o conteúdo for grande */
+    z-index: 1020;
+    transition: width 0.3s ease; /* Transição suave para possível expansão */
+}
+
+.sidebar .nav-link {
+    color: rgba(255, 255, 255, 0.8);
+    padding: 15px 10px; /* Ajusta padding */
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centraliza o ícone */
+    text-align: center;
+    height: 60px; /* Altura fixa para cada item */
+}
+
+.sidebar .nav-link .link-text {
+    display: none; /* Oculta o texto por padrão */
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Ícones na sidebar */
+.sidebar .nav-link i {
+    margin-right: 0; /* Remove margem direita */
+    font-size: 1.5rem; /* Tamanho maior para ícones */
+}
+
+/* Área de Conteúdo */
+.main-container {
+    display: flex;
+    width: 100%;
+}
+
+.content-area {
+    flex-grow: 1;
+    padding: 30px;
+    margin-left: 80px; /* Espaço para a sidebar fixa */
+    background-color: #FFFFFF; /* Fundo branco para conteúdo */
+    transition: margin-left 0.3s ease;
+}
+
+/* Estilos específicos do Dashboard (baseado na imagem desejada) */
+.dashboard-welcome h2 {
+    font-size: 1.5rem;
+    font-weight: normal;
+    margin-bottom: 0.5rem;
+}
+
+.dashboard-welcome p {
+    color: #6c757d; /* Cinza */
+    margin-bottom: 1.5rem;
+}
+
+.dashboard-notification {
+    background-color: #e2f3ff; /* Azul claro */
+    border-left: 5px solid #007bff; /* Borda azul */
+    padding: 10px 15px;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+}
+
+.dashboard-placeholder {
+    background-color: #e9ecef; /* Cinza claro */
+    min-height: 300px; /* Altura mínima */
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+}
+
+
+/* Ajustes para responsividade */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        top: 0;
+        display: flex; /* Ícones lado a lado */
+        justify-content: space-around;
+        padding-top: 0;
+    }
+    .sidebar .nav-link {
+        height: auto;
+        padding: 10px 5px;
+    }
+    .content-area {
+        margin-left: 0;
+    }
+    .navbar .aluno-status,
+    .navbar .user-info .text-end {
+        display: none; /* Ocultar alguns detalhes na navbar em telas pequenas */
+    }
+}
+

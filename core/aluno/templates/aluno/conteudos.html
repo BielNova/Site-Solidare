@@ -1,0 +1,185 @@
+{% extends 'aluno/navbar.html' %}
+{% load static %}
+
+{% block title %}Conteúdos{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="h4">Conteúdos</h2>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Filtros -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <select class="form-select">
+                <option selected>Todas as disciplinas</option>
+                <option>Matemática</option>
+                <option>Português</option>
+                <option>História</option>
+                <option>Geografia</option>
+            </select>
+        </div>
+        <div class="col-md-6">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Pesquisar conteúdo...">
+                <button class="btn btn-primary" type="button">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lista de Conteúdos -->
+    <div class="row">
+        <!-- Matemática -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">Matemática</h5>
+                    <span class="badge bg-primary">4 itens</span>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-0">Apostila de Álgebra</h6>
+                                <small class="text-muted">PDF - 2.5MB</small>
+                            </div>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Baixar</a>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-0">Lista de Exercícios - Geometria</h6>
+                                <small class="text-muted">PDF - 1.2MB</small>
+                            </div>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Baixar</a>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-0">Vídeo-aula: Funções</h6>
+                                <small class="text-muted">MP4 - 45min</small>
+                            </div>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Assistir</a>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-0">Slides da Aula - Trigonometria</h6>
+                                <small class="text-muted">PDF - 3.0MB</small>
+                            </div>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Baixar</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Português -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">Português</h5>
+                    <span class="badge bg-primary">3 itens</span>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-0">Apostila de Gramática</h6>
+                                <small class="text-muted">PDF - 1.8MB</small>
+                            </div>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Baixar</a>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-0">Lista de Leituras Obrigatórias</h6>
+                                <small class="text-muted">PDF - 0.5MB</small>
+                            </div>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Baixar</a>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-0">Modelo de Redação</h6>
+                                <small class="text-muted">DOCX - 0.3MB</small>
+                            </div>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Baixar</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- História -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">História</h5>
+                    <span class="badge bg-primary">2 itens</span>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-0">Apostila de História do Brasil</h6>
+                                <small class="text-muted">PDF - 4.2MB</small>
+                            </div>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Baixar</a>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-0">Linha do Tempo - Idade Média</h6>
+                                <small class="text-muted">PDF - 1.5MB</small>
+                            </div>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Baixar</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Geografia -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">Geografia</h5>
+                    <span class="badge bg-primary">3 itens</span>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-0">Apostila de Cartografia</h6>
+                                <small class="text-muted">PDF - 3.0MB</small>
+                            </div>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Baixar</a>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-0">Atlas Digital</h6>
+                                <small class="text-muted">ZIP - 15MB</small>
+                            </div>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Baixar</a>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-0">Slides - Geopolítica</h6>
+                                <small class="text-muted">PDF - 2.8MB</small>
+                            </div>
+                            <a href="#" class="btn btn-sm btn-outline-primary">Baixar</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

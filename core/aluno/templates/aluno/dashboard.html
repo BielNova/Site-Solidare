@@ -1,0 +1,46 @@
+{% extends 'aluno/navbar.html' %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="container-fluid dashboard-welcome">
+    <div class="row mb-2">
+        <div class="col-12">
+            {# Usando variáveis dinâmicas para o nome do aluno #}
+            <h2>Olá, {{ request.aluno.nome_completo|default:request.user.get_full_name|default:request.user.username|default:"Aluno" }}, seja bem vindo (a) ao Portal do Aluno</h2>
+            <p>Acompanhe seu rendimento, disciplinas, frequência e mais.</p>
+        </div>
+    </div>
+
+    {# Notificação - Usando texto genérico ou pode ser adaptado para dados dinâmicos #}
+    <div class="row mb-4">
+        <div class="col-12">
+            {# Exemplo de texto genérico. Se houver uma variável de notificação, use-a aqui. #}
+            {# Ex: {% if numero_notificacoes > 0 %} ... {% endif %} #}
+            <div class="dashboard-notification" role="alert">
+                {% if numero_notificacoes == 1 %}
+                    Você possui {{ numero_notificacoes }} notificação não lida! Visualize na barra lateral esquerda.
+                {% elif numero_notificacoes > 1 %}
+                    Você possui {{ numero_notificacoes }} notificações não lidas! Visualize na barra lateral esquerda.
+                {% else %}
+                    Não há novas notificações.
+                {% endif %}
+                {# Texto genérico se não houver lógica de notificação ainda: #}
+                {# Você possui notificações! Visualize na barra lateral esquerda. #}
+            </div>
+        </div>
+    </div>
+
+    {# Área de Placeholder #}
+    <div class="row">
+        <div class="col-12">
+            <div class="dashboard-placeholder">
+                {# Conteúdo futuro pode ser adicionado aqui #}
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+

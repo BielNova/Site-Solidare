@@ -1,0 +1,110 @@
+{% extends 'aluno/navbar.html' %}
+{% load static %}
+
+{% block title %}Documentação{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="h4">Documentação</h2>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Filtros -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <select class="form-select">
+                <option selected>Todos os documentos</option>
+                <option>Declarações</option>
+                <option>Históricos</option>
+                <option>Certificados</option>
+            </select>
+        </div>
+        <div class="col-md-6 text-end">
+            <button class="btn btn-primary">Solicitar novo documento</button>
+        </div>
+    </div>
+
+    <!-- Lista de Documentos -->
+    <div class="card mb-4">
+        <div class="card-header bg-white">
+            <h5 class="card-title mb-0">Documentos Disponíveis</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Documento</th>
+                            <th>Data</th>
+                            <th>Tamanho</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Histórico Escolar</td>
+                            <td>10/05/2025</td>
+                            <td>1.2 MB</td>
+                            <td><span class="badge bg-success">Disponível</span></td>
+                            <td>
+                                <a href="#" class="btn btn-sm btn-outline-primary">Baixar</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Declaração de Matrícula</td>
+                            <td>05/05/2025</td>
+                            <td>0.5 MB</td>
+                            <td><span class="badge bg-success">Disponível</span></td>
+                            <td>
+                                <a href="#" class="btn btn-sm btn-outline-primary">Baixar</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Certificado de Conclusão</td>
+                            <td>--/--/----</td>
+                            <td>--</td>
+                            <td><span class="badge bg-warning">Pendente</span></td>
+                            <td>
+                                <button disabled class="btn btn-sm btn-outline-secondary">Indisponível</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Boletim Semestral</td>
+                            <td>01/05/2025</td>
+                            <td>0.8 MB</td>
+                            <td><span class="badge bg-success">Disponível</span></td>
+                            <td>
+                                <a href="#" class="btn btn-sm btn-outline-primary">Baixar</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Solicitações em Andamento -->
+    <div class="card">
+        <div class="card-header bg-white">
+            <h5 class="card-title mb-0">Solicitações em Andamento</h5>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle"></i> Você não possui solicitações em andamento no momento.
+            </div>
+            
+            <p class="text-muted">Para solicitar um novo documento, clique no botão "Solicitar novo documento" acima.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

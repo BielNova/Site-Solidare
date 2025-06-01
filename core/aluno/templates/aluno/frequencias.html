@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{{ page_title }} - Espaço do Aluno{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'professor.css' %}">
+    <style>
+        .aluno-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+        .aluno-header {
+            color: #0d6efd;
+            margin-bottom: 20px;
+        }
+        .presente {
+            color: green;
+            font-weight: bold;
+        }
+        .ausente {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    {% block content %}
+    <div class="container mt-4">
+        <h1 style="color: #fff;">{{ page_title }}</h1>
+        <hr>
+
+        <div class="aluno-card">
+            <h2 class="aluno-header">Histórico de Frequências - {{ aluno.nome_completo }}</h2>
+            
+            {% if frequencias %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Status</th>
+                        <th>Observação</th>
+                        <th>Registrado por</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for freq in frequencias %}
+                    <tr>
+                        <td>{{ freq.data|date:"d/m/Y" }}</td>
+                        <td class="{% if freq.presente %}presente{% else %}ausente{% endif %}">
+                            {% if freq.presente %}Presente{% else %}Ausente{% endif %}
+                        </td>
+                        <td>{{ freq.observacao|default:"-" }}</td>
+                        <td>{{ freq.registrado_por.user.get_full_name|default:freq.registrado_por.user.username }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>Nenhum registro de frequência encontrado.</p>
+            {% endif %}
+        </div>
+
+        <p class="mt-4">
+            <a href="{% url 'aluno:dashboard_aluno' %}" class="btn btn-secondary">Voltar ao Dashboard</a>
+            <a href="{% url 'user:logout' %}" class="btn btn-primary">Sair</a>
+        </p>
+    </div>
+    {% endblock %}
+</body>
+</html>
