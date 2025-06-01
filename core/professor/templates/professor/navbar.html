@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Portal do Professor{% endblock %} - Lispector</title>
+    <!-- Adicionar links para CSS base como Bootstrap, se necessário -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'professor/base_professor.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="professor-portal">
+        <nav class="navbar fixed-top">
+            <div class="container-fluid">
+                <a href="{% url 'professor:dashboard_professor' %}" class="navbar-brand d-flex align-items-center text-decoration-none">
+                    <!-- Substituir pelo caminho correto do logo -->
+                    <img src="{% static 'img/lispector-logo.svg' %}" alt="Lispector Logo" height="40" class="me-2">
+                </a>
+                <div class="d-flex align-items-center ms-auto">
+                    <div class="professor-status me-4 text-white text-end">
+                        <div class="fw-bold">Docente</div>
+                        <!-- Status pode precisar ser dinâmico -->
+                        <div>Status: Ativo 05/2021</div>
+                    </div>
+                    <div class="user-info d-flex align-items-center text-white">
+                        <div class="text-end me-2">
+                            <!-- Nome do professor logado -->
+                            <div class="fw-bold">Nome: {{ request.user.get_full_name|default:'Nome Professor' }}</div>
+                            <!-- RA pode precisar ser dinâmico -->
+                            <div>RA: </div>
+                        </div>
+                        <!-- Substituir pelo caminho correto do ícone do usuário -->
+                        <img src="{% static 'img/user-icon.svg' %}" alt="User Icon" height="40" class="rounded-circle">
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="main-container">
+            <aside class="sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <!-- Adicionar ícones e lógica de submenus -->
+                            <a class="nav-link" href="#"> <!-- Link para Cadastrar/Alterar -->
+                                Cadastrar/alterar alunos
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'professor:listar_avisos_professor' %}">
+                                Aviso
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"> <!-- Link para Turmas -->
+                                Turmas matriculadas
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"> <!-- Link para Calendário -->
+                                Calendário
+                            </a>
+                        </li>
+                        <li class="nav-item mt-auto">
+                            <a class="nav-link" href="{% url 'user:logout' %}">
+                                Sair
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+
+            <main class="content-area">
+                {% block content %}
+                <!-- Conteúdo específico da página -->
+                {% endblock %}
+            </main>
+        </div>
+    </div>
+
+    <!-- Adicionar links para JS base como Bootstrap, se necessário -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

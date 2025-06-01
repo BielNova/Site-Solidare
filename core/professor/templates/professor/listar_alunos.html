@@ -1,10 +1,32 @@
+{% extends 'professor/navbar.html' %}
+{% load static %}
 
-{% block title %}{{ page_title }} - Espaço do Professor{% endblock %}
+{% block title %}Listar Alunos{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'professor/ver_alunos.css' %}">
+{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <h1>{{ page_title }}</h1>
-    <hr>
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="h4">Alunos cadastrados</h2>
+        <div>
+            <!-- Filtro (conforme imagem Captura de tela 2025-05-27 181010.png) -->
+            <div class="dropdown d-inline-block me-2">
+                <button class="btn btn-outline-secondary dropdown-toggle btn-sm" type="button" id="filterDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    Filtrar
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="filterDropdown">
+                    <li><a class="dropdown-item" href="#">Por curso</a></li>
+                    <li><a class="dropdown-item" href="#">Ordem alfabética</a></li>
+                    <li><a class="dropdown-item" href="#">Mais recentes</a></li>
+                    <li><a class="dropdown-item" href="#">Mais antigos</a></li>
+                </ul>
+            </div>
+            <a href="{% url 'professor:adicionar_aluno' %}" class="btn btn-primary btn-sm">Ver todos</a> <!-- Botão 'Ver todos' parece estar presente na imagem -->
+        </div>
+    </div>
 
     {% if messages %}
         {% for message in messages %}
@@ -15,41 +37,76 @@
         {% endfor %}
     {% endif %}
 
-    <div class="mb-3">
-        <a href="{% url 'professor:adicionar_aluno' %}" class="btn btn-primary">Adicionar Novo Aluno</a>
-    </div>
-
     {% if alunos %}
-        <table class="table table-striped table-hover">
-            <thead>
-                <tr>
-                    <th>Nome Completo</th>
-                    <th>Matrícula</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for aluno in alunos %}
-                    <tr>
-                        <td>{{ aluno.nome_completo }}</td>
-                        <td>{{ aluno.matricula }}</td>
-                        <td>
-                            {# <a href="#" class="btn btn-sm btn-info">Ver Detalhes</a> #} {# Implementar view de detalhes #}
-                            {# <a href="#" class="btn btn-sm btn-warning">Editar</a> #} {# Implementar view de edição #}
-                            {# <a href="#" class="btn btn-sm btn-danger">Remover</a> #} {# Implementar view de remoção #}
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <ul class="list-group list-group-flush">
+            {% for aluno in alunos %}
+                <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                    <div>
+                        <h6 class="mb-1">{{ aluno.nome_completo }}</h6>
+                        <small class="text-muted">MATRÍCULA: {{ aluno.matricula }} | STATUS: {{ aluno.get_status_display|default:'Ativo 02/2025' }} | CURSO: {{ aluno.curso.nome|default:'Análise e Desenvolvimento de Sistemas' }}</small>
+                    </div>
+                    <div>
+                        <a href="{% url 'professor:editar_aluno' aluno.pk %}" class="btn btn-primary btn-sm">Alterar dados</a>
+                        <!-- Adicionar botão de remover com confirmação modal se necessário -->
+                        {# <a href="{% url 'professor:remover_aluno' aluno.pk %}" class="btn btn-danger btn-sm">Remover</a> #}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
     {% else %}
-        <p>Nenhum aluno cadastrado por você ainda.</p>
+        <div class="alert alert-light" role="alert">
+            Nenhum aluno cadastrado por você ainda.
+        </div>
     {% endif %}
 
+    {# A navegação de volta ao painel pode ser feita pela sidebar #}
     <p class="mt-4">
         <a href="{% url 'professor:dashboard_professor' %}" class="btn btn-secondary">Voltar ao Painel</a>
-    </p>
+    </p> 
 
 </div>
+
+
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <p>Certeza que deseja alterar dados de <strong id="alunoNameToConfirm">[Nome Aluno]</strong>?</p>
+      </div>
+      <div class="modal-footer border-0 justify-content-center">
+        <button type="button" class="btn btn-success" id="confirmYesButton">Sim, alterar</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Não, cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Script para atualizar o nome no modal de confirmação (exemplo)
+document.addEventListener('DOMContentLoaded', function () {
+    var confirmModal = document.getElementById('confirmModal');
+    if (confirmModal) {
+        confirmModal.addEventListener('show.bs.modal', function (event) {
+            // Botão que acionou o modal
+            var button = event.relatedTarget;
+            // Extrair info dos atributos data-* (ex: data-aluno-nome)
+            var alunoNome = button.getAttribute('data-aluno-nome') || '[Nome Aluno]'; 
+            // Atualizar conteúdo do modal
+            var modalBodyName = confirmModal.querySelector('#alunoNameToConfirm');
+            modalBodyName.textContent = alunoNome;
+
+            // Adicionar lógica para o botão 'Sim, alterar' se necessário
+            var confirmButton = confirmModal.querySelector('#confirmYesButton');
+            // Ex: confirmButton.onclick = function() { window.location.href = button.href; };
+        });
+    }
+});
+</script>
 {% endblock %}
 

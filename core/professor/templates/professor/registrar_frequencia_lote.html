@@ -1,4 +1,6 @@
+{% extends 'professor/navbar.html' %} 
 {% load widget_tweaks %}
+{% load professor_tags %}
 
 {% block title %}{{ page_title }} - Espaço do Professor{% endblock %}
 
@@ -21,48 +23,16 @@
         
         <div class="mb-3">
             <label for="{{ form.data.id_for_label }}" class="form-label">{{ form.data.label }}</label>
-            {{ form.data|add_class:"form-control" }}
+            {% render_field form.data class+="form-control" %}
             {% for error in form.data.errors %}
                 <div class="alert alert-danger mt-1">{{ error }}</div>
             {% endfor %}
         </div>
         
         <hr>
-        <h5>Alunos:</h5>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Aluno</th>
-                    <th class="text-center">Presente</th>
-                    <th>Observação</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for aluno_id, aluno_nome in form.fields.aluno_1_presente.choices|default_if_none:form.alunos_do_professor_choices %}
-                    {# This part needs adjustment based on how FrequenciaLoteForm is structured to pass student info for iteration #}
-                    {# Assuming form has an attribute alunos_do_professor or similar that was used to create fields #}
-                    {% with presente_field=form|default_if_none:form.fields|get_item:"aluno_"|add:aluno_id|add:"_presente" observacao_field=form|default_if_none:form.fields|get_item:"aluno_"|add:aluno_id|add:"_observacao" %}
-                    {% if presente_field %} {# Check if the field exists in the form #}
-                    <tr>
-                        <td><label for="{{ presente_field.id_for_label }}">{{ presente_field.label }}</label></td>
-                        <td class="text-center">{{ presente_field }}</td>
-                        <td>
-                            {{ observacao_field|add_class:"form-control form-control-sm"|attr:"rows:1" }}
-                            {% for error in observacao_field.errors %}
-                                <div class="alert alert-danger mt-1">{{ error }}</div>
-                            {% endfor %}
-                        </td>
-                    </tr>
-                    {% endif %}
-                    {% endwith %}
-                {% empty %}
-                 {# This loop structure is problematic. The form fields are already created. Iterate through them based on student list passed to template or by parsing field names if necessary. #}
-                 {# A better way in the view: pass `alunos_do_professor` to context #}
-                 {# In the template, iterate `alunos_do_professor` and access form fields by name #}
-            </tbody>
-        </table>
         
-        {# Simplified iteration if alunos_do_professor is passed in context #}
+        {# Tabela Simplificada e Corrigida #}
+        <h5>Alunos:</h5>
         <table class="table table-striped">
              <thead>
                 <tr>
@@ -84,22 +54,18 @@
             </tbody>
         </table>
 
-        <button type="submit" class="btn btn-success">Salvar Frequência</button>
+        <button type="submit" class="btn btn-success" style="background-color: #29ABE2;">Salvar Frequência</button>
         <a href="{% url 'professor:dashboard_professor' %}" class="btn btn-secondary">Cancelar</a>
     </form>
 
 </div>
 
 <script>
-// Pequeno ajuste para garantir que os labels das observações não sejam exibidos se forem gerados pelo Django
-// Idealmente, o form não geraria labels para campos de observação se não forem desejados.
 document.addEventListener("DOMContentLoaded", function() {
     document.querySelectorAll('label[for*="_observacao"]').forEach(function(label) {
-        // Você pode optar por esconder ou remover, dependendo da necessidade.
-        // label.style.display = 'none'; 
+         
     });
 });
 </script>
 
 {% endblock %}
-

@@ -1,17 +1,40 @@
+# Full forms.py content
 from django import forms
-from .models import Aluno, Frequencia # Adicionando Frequencia
+from .models import Aluno, Frequencia, Professor # Added Professor
 from core.avisos.models import Aviso # Importando o modelo Aviso do app core.avisos
+from django.contrib.auth.models import User # Added User
 
 class AlunoForm(forms.ModelForm):
+    # Add a field to select an existing user
+    usuario_existente = forms.ModelChoiceField(
+        queryset=User.objects.none(), # Queryset will be set in the view
+        required=False,
+        label="Selecionar Usuário Existente (Opcional)",
+        widget=forms.Select(attrs={'class': 'form-select mb-3'}),
+        help_text="Selecione um usuário já cadastrado para preencher o nome. Matrícula e curso ainda precisam ser informados."
+    )
+
     class Meta:
         model = Aluno
-        fields = ["nome_completo", "matricula", "curso"]
+        # Keep existing fields, user selection is separate for now
+        fields = ["usuario_existente", "nome_completo", "matricula", "curso"]
         widgets = {
             "nome_completo": forms.TextInput(attrs={"class": "form-control", "placeholder": "Nome completo do aluno"}),
             "matricula": forms.TextInput(attrs={"class": "form-control", "placeholder": "Matrícula do aluno"}),
             "curso": forms.TextInput(attrs={"class": "form-control", "placeholder": "Curso"}),
-
         }
+
+    def __init__(self, *args, **kwargs):
+        # Pop the eligible_users queryset passed from the view
+        eligible_users_qs = kwargs.pop('eligible_users', None)
+        super().__init__(*args, **kwargs)
+        # Set the queryset for the usuario_existente field if provided
+        if eligible_users_qs is not None:
+            self.fields['usuario_existente'].queryset = eligible_users_qs
+        # Optional: Adjust 'nome_completo' requirement based on 'usuario_existente' selection
+        # if self.initial.get('usuario_existente') or (self.data and self.data.get('usuario_existente')):
+        #     self.fields['nome_completo'].required = False
+
 
 class AvisoForm(forms.ModelForm):
     class Meta:
@@ -56,8 +79,6 @@ class FrequenciaLoteForm(forms.Form):
         label="Data da Frequência"
     )
     # Este formulário será populado dinamicamente na view com os alunos do professor
-    # Exemplo: aluno_1_presente = forms.BooleanField(required=False, label="Aluno 1")
-    #          aluno_1_observacao = forms.CharField(widget=forms.Textarea, required=False)
 
     def __init__(self, *args, **kwargs):
         professor = kwargs.pop("professor", None)

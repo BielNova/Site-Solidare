@@ -1,63 +1,72 @@
+{% extends 'professor/navbar.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}{{ page_title }} - Espaço do Professor{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'professor.css' %}">
-</head>
-<body>
-    {% block content %}
-    <div class="container mt-4">
-        <h1 style="color: #fff;">{{ page_title }}</h1>
-        <hr>
 
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Alunos Cadastrados</h5>
-                        <p class="card-text">Você tem {{ alunos_count }} aluno(s) cadastrado(s).</p>
-                        <a href="{% url 'professor:listar_alunos' %}" class="btn btn-primary">Ver Alunos</a>
-                    </div>
-                </div>
+{% block title %}Dashboard{% endblock %}
+
+{% block extra_css %}
+    <!-- Adicionar CSS específico para o dashboard, se necessário -->
+    <link rel="stylesheet" href="{% static 'professor/professor.css' %}"> 
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <h2 class="mb-3">Olá, {{ request.user.first_name|default:'Professor' }}, seja bem vindo (a) ao Portal do Professor</h2>
+    <p class="lead mb-4">Acompanhe suas turmas, disciplinas, frequência e mais.</p>
+
+    <!-- Exemplo de notificação - a lógica real viria da view -->
+    {% with notification_count=1 %}
+        {% if notification_count > 0 %}
+            <div class="alert alert-info" role="alert">
+                Você possui {{ notification_count }} notificação{% if notification_count > 1 %}ões{% endif %} - visualize na barra lateral esquerda
             </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Adicionar Novo Aluno</h5>
-                        <p class="card-text">Cadastre um novo aluno no sistema.</p>
-                        <a href="{% url 'professor:adicionar_aluno' %}" class="btn btn-primary">Adicionar aluno</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Gerenciar Avisos</h5>
-                        <p class="card-text">Crie e gerencie avisos para os alunos.</p>
-                        <a href="{% url 'professor:listar_avisos_professor' %}" class="btn btn-primary">Ver Avisos</a> 
-                    </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Área de conteúdo principal do dashboard -->
+    <!-- <div class="dashboard-main-content bg-light p-4 rounded" style="min-height: 300px;"> -->
+        <!-- Conteúdo dinâmico ou widgets podem ser adicionados aqui -->
+        <!-- <p>Conteúdo principal do dashboard...</p> -->
+    <!-- </div> -->
+     
+    <div class="row mt-4">
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Alunos Cadastrados</h5>
+                    <p class="card-text">Você tem {{ alunos_count|default:0 }} aluno(s) cadastrado(s).</p>
+                    <a href="{% url 'professor:listar_alunos' %}" class="btn btn-primary">Ver Alunos</a>
                 </div>
             </div>
         </div>
-
-        <div class="row mt-3">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Registrar Frequência</h5>
-                        <p class="card-text">Registre a frequência dos seus alunos.</p>
-                        <a href="{% url 'professor:registrar_frequencia' %}" class="btn btn-primary">Registrar Frequência</a>
-                    </div>
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Adicionar Novo Aluno</h5>
+                    <p class="card-text">Cadastre um novo aluno no sistema.</p>
+                    <a href="{% url 'professor:adicionar_aluno' %}" class="btn btn-primary">Adicionar aluno</a>
                 </div>
             </div>
         </div>
-
-        <p class="mt-4">
-            <a href="{% url 'user:logout' %}" class="btn btn-primary">Sair</a>
-        </p>
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Gerenciar Avisos</h5>
+                    <p class="card-text">Crie e gerencie avisos para os alunos.</p>
+                    <a href="{% url 'professor:listar_avisos_professor' %}" class="btn btn-primary">Ver Avisos</a> 
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Registrar Frequência</h5>
+                    <p class="card-text">Registre a frequência dos seus alunos.</p>
+                    <a href="{% url 'professor:registrar_frequencia' %}" class="btn btn-primary">Registrar Frequência</a>
+                </div>
+            </div>
+        </div>
     </div>
-    {% endblock %}
-</body>
-</html>
+
+</div>
+{% endblock %}
+

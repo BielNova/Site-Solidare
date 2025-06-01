@@ -1,0 +1,115 @@
+/* Estilos base para o portal do professor */
+body {
+    margin: 0;
+    font-family: sans-serif; /* Escolher uma fonte adequada */
+    background-color: #FFFFFF; /* Cor de fundo principal */
+    padding-top: 70px; /* Ajustar conforme a altura da navbar */
+}
+
+.professor-portal {
+    display: flex;
+    min-height: calc(100vh - 70px); /* Altura total menos a navbar */
+}
+
+/* Navbar */
+.navbar {
+    background-color: #29ABE2; /* Cor da navbar */
+    height: 70px; /* Altura fixa para a navbar */
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+    z-index: 1030; /* Garante que a navbar fique sobre outros elementos */
+}
+
+
+
+.navbar .professor-status,
+.navbar .user-info {
+    font-size: 0.9rem;
+}
+
+.navbar .user-info img {
+    border: 2px solid white;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px; /* Largura da sidebar */
+    background-color: #00658F; /* Cor da sidebar */
+    color: white;
+    padding-top: 20px;
+    position: fixed; /* Fixa a sidebar */
+    top: 70px; /* Abaixo da navbar */
+    bottom: 0;
+    left: 0;
+    overflow-y: auto; /* Permite rolagem se o conteúdo for grande */
+    z-index: 1020;
+}
+
+.sidebar .nav-link {
+    color: rgba(255, 255, 255, 0.8);
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Ícones na sidebar (exemplo, ajustar conforme biblioteca de ícones usada) */
+.sidebar .nav-link::before {
+    /* content: url('path/to/icon.svg'); */
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+
+/* Área de Conteúdo */
+.main-container {
+    display: flex;
+    width: 100%;
+}
+
+.content-area {
+    flex-grow: 1;
+    padding: 30px;
+    margin-left: 250px; /* Espaço para a sidebar fixa */
+    background-color: #FFFFFF;
+}
+
+/* Estilos adicionais baseados nas imagens */
+.card {
+    border: none;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.btn-primary {
+    background-color: #29ABE2;
+    border-color: #29ABE2;
+}
+
+.btn-primary:hover {
+    background-color: #1f98cf;
+    border-color: #1f98cf;
+}
+
+/* Ajustes para responsividade, se necessário */
+@media (max-width: 768px) {
+    .sidebar {
+        /* Comportamento da sidebar em telas menores, ex: ocultar */
+        width: 100%;
+        height: auto;
+        position: relative;
+        top: 0;
+    }
+    .content-area {
+        margin-left: 0;
+    }
+    .navbar .professor-status,
+    .navbar .user-info .text-end {
+        display: none; /* Ocultar alguns detalhes na navbar em telas pequenas */
+    }
+}
+

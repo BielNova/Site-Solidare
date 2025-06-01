@@ -1,8 +1,13 @@
 {% load widget_tweaks %}
 
-{% block title %}{{ page_title }} - Espaço do Professor{% endblock %}
-
-{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{{ page_title }} - Espaço do Professor{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'professor/registrar_avisos.css' %}">
+</head>
 <div class="container mt-4">
     <h1>{{ page_title }}</h1>
     <hr>
@@ -32,5 +37,4 @@
     </form>
 
 </div>
-{% endblock %}
 

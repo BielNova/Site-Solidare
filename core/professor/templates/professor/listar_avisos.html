@@ -1,17 +1,22 @@
+{% extends 'professor/navbar.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}{{ page_title }} - Espaço do Professor{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'professor.css' %}">
-</head>
-<body>
+{% load widget_tweaks %}
+
+{% block title %}Listar Avisos{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'professor/listar_aviso.css' %}">
+{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <h1>{{ page_title }}</h1>
-    <hr>
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="h4">Avisos</h2>
+        <!-- Botão para acionar o modal -->
+        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addAvisoModal">
+            Adicionar Novo Aviso
+        </button>
+    </div>
 
     {% if messages %}
         {% for message in messages %}
@@ -22,42 +27,110 @@
         {% endfor %}
     {% endif %}
 
-    <div class="mb-3">
-        <a href="{% url 'professor:adicionar_aviso' %}" class="btn btn-primary">Adicionar Novo Aviso</a>
+    <!-- Filtros -->
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <input type="text" class="form-control form-control-sm" placeholder="Pesquisar">
+        </div>
+        <div class="col-md-4">
+            <select class="form-select form-select-sm">
+                <option selected>Tipo de aviso</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+             <select class="form-select form-select-sm">
+                <option selected>Filtrar</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="alert alert-info d-inline-block mb-3" role="alert">
+        Você tem um aviso não lido!
     </div>
 
     {% if avisos %}
         <div class="list-group">
             {% for aviso in avisos %}
-                <div class="list-group-item list-group-item-action flex-column align-items-start mb-2">
+                {% if forloop.first %}
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start p-3 mb-3 rounded shadow-sm" style="background-color: #00658F; color: white;">
+                    <h4 class="mb-1">{{ aviso.titulo|default:'Reunião às 14:00 horas!' }}</h4>
+                </a>
+                {% else %}
+                <div class="list-group-item list-group-item-action flex-column align-items-start mb-2 border-0 shadow-sm">
                     <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">{{ aviso.titulo }}</h5>
-                        <small>{{ aviso.data_publicacao|date:"d/m/Y H:i" }}</small>
+                        <h6 class="mb-1">{{ aviso.titulo }}</h6>
+                        <small class="text-muted">{{ aviso.data_publicacao|date:"d/m/Y H:i" }}</small>
                     </div>
-                    <p class="mb-1">{{ aviso.conteudo|truncatewords:30|linebreaksbr }}</p>
-                    <small>Categoria: {{ aviso.get_categoria_display }}</small>
+                    <p class="mb-1 text-muted">{{ aviso.conteudo|truncatewords:30|linebreaksbr }}</p>
+                    <small class="text-muted">Categoria: {{ aviso.get_categoria_display }}</small>
                     {% if aviso.data_expiracao %}
-                        <small class="d-block">Expira em: {{ aviso.data_expiracao|date:"d/m/Y H:i" }} {% if aviso.is_expired %}(Expirado){% endif %}</small>
+                        <small class="d-block text-muted">Expira em: {{ aviso.data_expiracao|date:"d/m/Y H:i" }} {% if aviso.is_expired %}(Expirado){% endif %}</small>
                     {% endif %}
                     {% if aviso.anexo %}
                         <small class="d-block"><a href="{{ aviso.anexo.url }}" target="_blank">Ver Anexo</a></small>
                     {% endif %}
                     <div class="mt-2">
-                        {# <a href="#" class="btn btn-sm btn-info">Ver Detalhes</a> #} {# Implementar view de detalhes do aviso #}
-                        {# <a href="#" class="btn btn-sm btn-warning">Editar</a> #} {# Implementar view de edição do aviso #}
-                        {# <a href="#" class="btn btn-sm btn-danger">Remover</a> #} {# Implementar view de remoção do aviso #}
+                        {# Links de ação #}
                     </div>
                 </div>
+                {% endif %}
             {% endfor %}
         </div>
     {% else %}
-        <p>Nenhum aviso cadastrado por você ainda.</p>
+        <div class="alert alert-light text-center" role="alert">
+            Nenhum aviso cadastrado por você ainda.
+        </div>
     {% endif %}
 
-    <p class="mt-4">
-        <a href="{% url 'professor:dashboard_professor' %}" class="btn btn-secondary">Voltar ao Painel</a>
-    </p>
-
 </div>
+
+<!-- Modal Adicionar Aviso -->
+<div class="modal fade" id="addAvisoModal" tabindex="-1" aria-labelledby="addAvisoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <form method="post" action="{% url 'professor:listar_avisos_professor' %}" enctype="multipart/form-data"> {# Ação aponta para a própria view de listagem #}
+        {% csrf_token %}
+        <div class="modal-header">
+          <h5 class="modal-title" id="addAvisoModalLabel">Adicionar Novo Aviso</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          {# Incluir o formulário aqui. Precisa ser passado pela view #}
+          {% if form_aviso %}
+              {% for field in form_aviso %}
+                  <div class="form-group mb-3">
+                      <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                      {% render_field field class+="form-control" %}
+                      {% if field.help_text %}
+                          <small class="form-text text-muted">{{ field.help_text }}</small>
+                      {% endif %}
+                      {% for error in field.errors %}
+                          <div class="invalid-feedback d-block">{{ error }}</div>
+                      {% endfor %}
+                  </div>
+              {% endfor %}
+          {% else %}
+              <p>Erro ao carregar o formulário.</p> 
+          {% endif %}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar Aviso</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 {% endblock %}
 
+{% block extra_js %}
+{% if form_aviso.errors %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var addAvisoModal = new bootstrap.Modal(document.getElementById('addAvisoModal'));
+        addAvisoModal.show();
+    });
+</script>
+{% endif %}
+{% endblock %}

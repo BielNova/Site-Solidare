@@ -1,3 +1,4 @@
+{% load professor_tags %}
 
 {% block title %}{{ page_title }} - Espaço do Professor{% endblock %}
 
@@ -16,7 +17,7 @@
     {% endif %}
 
     <div class="mb-3">
-        <a href="{% url 'professor:registrar_frequencia' %}" class="btn btn-primary">Registrar Nova Frequência (Lote)</a>
+        <a href="{% url 'professor:registrar_frequencia' %}" class="btn btn-primary">Registrar Nova Frequência </a>
     </div>
 
     {% if frequencias %}
