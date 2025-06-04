@@ -77,7 +77,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     # 'core.frequencia',
     # 'core.documentacao',
-    'processo_seletivo'
+    'processo_seletivo',
     'core.aluno',
 ]
 

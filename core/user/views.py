@@ -3,18 +3,12 @@ from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib import messages
 from django.urls import reverse
 from django.core.exceptions import ObjectDoesNotExist
-from core.professor.models import Professor
+from core.professor.models import Professor, Aluno
 from .forms import RegisterForm
 
 UserModel = get_user_model()
 
-# É uma boa prática definir o app_name no seu arquivo core/user/urls.py
-# Exemplo: app_name = 'user'
-# Isso garante que os namespaces funcionem como esperado.
-
 def user(request):
-    # Esta view parece ser a que renderiza a página de login/registro inicialmente.
-    # O nome da URL para ela é 'user' no seu urls.py.
     return render(request, 'user/login.html')
 
 def login_view(request):
@@ -34,18 +28,28 @@ def login_view(request):
 
         if user_to_auth is not None:
             login(request, user_to_auth)
+            
             is_professor = False
             try:
                 if hasattr(request.user, "professor") and isinstance(request.user.professor, Professor):
                     is_professor = True
-            except ObjectDoesNotExist:
+            except (ObjectDoesNotExist, AttributeError):
                 pass
-            except AttributeError:
+
+            is_aluno = False
+            try:
+                aluno = Aluno.objects.filter(user=request.user).first()
+                if aluno:
+                    is_aluno = True
+            except (ObjectDoesNotExist, AttributeError):
                 pass
 
             if is_professor:
                 messages.success(request, f"Bem-vindo(a) de volta, Professor(a) {user_to_auth.username}!")
                 return redirect(reverse("professor:dashboard_professor"))
+            elif is_aluno:
+                messages.success(request, f"Bem-vindo(a) de volta, Aluno(a) {user_to_auth.username}!")
+                return redirect(reverse("aluno:dashboard_aluno"))
             else:
                 messages.success(request, f"Login bem-sucedido, {user_to_auth.username}!")
                 return redirect(reverse("avisos:aviso_list"))
@@ -63,9 +67,6 @@ def register_view(request):
             user_obj.set_password(form.cleaned_data['password'])
             user_obj.save()
             messages.success(request, 'Cadastro realizado com sucesso! Faça login para continuar.')
-            # Corrigido para usar o nome da URL 'login' dentro do namespace 'user'
-            # Certifique-se que seu core/user/urls.py tem app_name = 'user'
-            # ou que foi incluído com namespace 'user' no urls.py principal.
             return redirect(reverse('user:login'))
         else:
             return render(request, 'user/login.html', {'form': form, 'show_register': True, 'form_type': 'register'})
@@ -76,13 +77,8 @@ def register_view(request):
 def logout_view(request):
     logout(request)
     messages.success(request, 'Você saiu da sua conta.')
-    # Certifique-se que 'home:home' é o nome correto da sua URL da página inicial.
-    # Isso requer que a app 'home' tenha um urls.py com app_name = 'home'
-    # e uma URL nomeada 'home', ou que seja incluída com namespace 'home'.
-    # Se sua home for uma URL global sem namespace, seria apenas reverse('home').
     try:
         return redirect(reverse('home:home'))
     except Exception:
-        # Fallback para uma URL raiz ou outra página segura se 'home:home' falhar
         return redirect('/')
 

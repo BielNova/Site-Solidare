@@ -4,8 +4,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.http import HttpResponse  # Import necessário para criar uma resposta simples
 
-# def documentacao_view(request):
-#     return HttpResponse("<h1>Bem-vindo à página de Documentação</h1>")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -16,5 +14,6 @@ urlpatterns = [
     # path('documentacao/', include('core.documentacao.urls', namespace='documentacao')),
     path('professor/', include('core.professor.urls', namespace='professor')),
     path('processo_seletivo/', include('processo_seletivo.urls')),
+    path('aluno/', include('core.aluno.urls', namespace='aluno')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
