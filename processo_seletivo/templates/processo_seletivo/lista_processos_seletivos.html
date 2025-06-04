@@ -3,40 +3,446 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ titulo_pagina }} - Instituto Lispector</title>
-    <style>
-        /* Estilos básicos para facilitar a visualização */
-        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; color: #333; }
-        .container { max-width: 800px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        h1 { color: #0056b3; text-align: center; margin-bottom: 30px; }
-        .processo-card { border: 1px solid #ddd; border-radius: 5px; padding: 15px; margin-bottom: 20px; background-color: #e9f7ff; }
-        .processo-card h2 { color: #007bff; margin-top: 0; }
-        .processo-card p { margin-bottom: 5px; }
-        .processo-card .data { font-size: 0.9em; color: #666; }
-        .no-processos { text-align: center; color: #888; }
-        .btn { display: inline-block; padding: 8px 15px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px; }
-        .btn:hover { background-color: #218838; }
-    </style>
+    <title>Inscrição - Processo Seletivo</title>
+    {# Carregar arquivos estáticos do Django (CSS, JS, Imagens) #}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/inscricao.css' %}">
 </head>
 <body>
-    <div class="container">
-        <h1>{{ titulo_pagina }}</h1>
 
-        {% if processos_abertos %}
-            {% for processo in processos_abertos %}
-                <div class="processo-card">
-                    <h2>{{ processo.nome }}</h2>
-                    <p>{{ processo.descricao }}</p>
-                    <p class="data">Período de Inscrições: {{ processo.data_inicio_inscricoes|date:"d/m/Y" }} a {{ processo.data_fim_inscricoes|date:"d/m/Y" }}</p>
-                    {% if processo.data_resultado %}
-                        <p class="data">Data do Resultado: {{ processo.data_resultado|date:"d/m/Y" }}</p>
-                    {% endif %}
-                    <a href="#" class="btn">Ver Detalhes e Inscrever-se</a>
+    <div class="signup-page-wrapper">
+        <div class="header-section">
+            {# CAMINHO DAS IMAGENS CORRIGIDO PARA A SUA ESTRUTURA static/logo-nome.png #}
+            <img src="{% static 'logo-lispector.png' %}" alt="Lispector Logo" class="logo">
+            <img src="{% static 'instituto_solidare_logo.png' %}" alt="Instituto Solidare Logo" class="logo">
+            <h1>Inscrição - Processo seletivo</h1>
+        </div>
+
+        <div class="progress-bar-container">
+            <div class="progress-steps">
+                <span class="step active" data-step="1"></span>
+                <span class="connector"></span>
+                <span class="step" data-step="2"></span>
+                <span class="connector"></span>
+                <span class="step" data-step="3"></span>
+                <span class="connector"></span>
+                <span class="step" data-step="4"></span>
+                <span class="connector"></span>
+                <span class="step" data-step="5"></span>
+                <span class="connector"></span>
+                <span class="step" data-step="6"></span>
+                <span class="connector"></span>
+                <span class="step" data-step="7"></span>
+                <span class="connector"></span>
+                <span class="step" data-step="8"></span>
+                <span class="connector"></span>
+                <span class="step" data-step="9"></span>
+                <span class="connector"></span>
+                <span class="step" data-step="10"></span>
+                {# Adicione mais steps se tiver 11 ou 12 ao receber as últimas páginas #}
+            </div>
+        </div>
+
+        <form id="multi-step-form"> {# Remover method="post" e {% csrf_token %} por enquanto #}
+
+            <div class="form-step active" id="step-1">
+                <h2>1. Dados pessoais</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nome_completo">Nome Completo</label>
+                        <input type="text" id="nome_completo" placeholder="Digite aqui...">
+                    </div>
+                    <div class="form-group">
+                        <label for="data_nascimento">Data de Nascimento</label>
+                        <input type="date" id="data_nascimento" value="2025-06-04">
+                    </div>
+                    <div class="form-group">
+                        <label for="sexo">Sexo</label>
+                        <select id="sexo">
+                            <option value="">Feminino</option>
+                            <option value="masculino">Masculino</option>
+                            <option value="nao_informado">Não Informar</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="cor">Cor</label>
+                        <select id="cor">
+                            <option value="">Pardo</option>
+                            <option value="branco">Branco</option>
+                            <option value="preto">Preto</option>
+                            <option value="amarelo">Amarelo</option>
+                            <option value="indigena">Indígena</option>
+                        </select>
+                    </div>
                 </div>
-            {% endfor %}
-        {% else %}
-            <p class="no-processos">Nenhum processo seletivo ativo no momento.</p>
-        {% endif %}
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cpf">CPF</label>
+                        <input type="text" id="cpf" placeholder="Sem pontos ou traços">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="">
+                    </div>
+                    <div class="form-group">
+                        <label for="telefone">Telefone</label>
+                        <input type="tel" id="telefone" placeholder="Esse número também é Whatsapp :)">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group checkbox-group">
+                        <label>Apadrinhado?</label>
+                        <input type="radio" id="apadrinhado_sim" name="apadrinhado" value="sim"> <label for="apadrinhado_sim">Sim</label>
+                        <input type="radio" id="apadrinhado_nao" name="apadrinhado" value="nao" checked> <label for="apadrinhado_nao">Não</label>
+                    </div>
+                </div>
+                <button type="button" class="btn-next">Próximo</button>
+            </div>
+
+            <div class="form-step" id="step-2" style="display: none;">
+                <h2>2. Escolaridade</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nivel_escolaridade">Nível de escolaridade atual</label>
+                        <select id="nivel_escolaridade">
+                            <option value="">Ensino médio - Não finalizado</option>
+                            <option value="fundamental_completo">Fundamental Completo</option>
+                            <option value="fundamental_incompleto">Fundamental Incompleto</option>
+                            <option value="medio_completo">Médio Completo</option>
+                            <option value="superior_completo">Superior Completo</option>
+                            <option value="superior_incompleto">Superior Incompleto</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Qual rede você está/formou?</label>
+                        <input type="radio" id="rede_publica" name="rede_ensino" value="publica"> <label for="rede_publica">Rede pública (municipais/estadual/federal)</label><br>
+                        <input type="radio" id="rede_privada" name="rede_ensino" value="privada"> <label for="rede_privada">Rede privada</label>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ano_periodo">Ano/Período</label>
+                        <input type="text" id="ano_periodo" placeholder="Abandonado">
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label>Bolsista?</label>
+                        <input type="radio" id="bolsista_sim" name="bolsista" value="sim"> <label for="bolsista_sim">Sim</label>
+                        <input type="radio" id="bolsista_nao" name="bolsista" value="nao" checked> <label for="bolsista_nao">Não</label>
+                    </div>
+                </div>
+                <button type="button" class="btn-prev">Anterior</button>
+                <button type="button" class="btn-next">Próximo</button>
+            </div>
+
+            <div class="form-step" id="step-3" style="display: none;">
+                <h2>3. Profissão</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="trabalha">Você trabalha?</label>
+                        <select id="trabalha">
+                            <option value="">Sim</option>
+                            <option value="nao">Não</option>
+                            <option value="autonomo">Autônomo</option>
+                            <option value="estagiario">Estagiário</option>
+                            <option value="desempregado">Desempregado</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="bairro_residencia">Bairro de residência?</label>
+                        <input type="text" id="bairro_residencia" placeholder="Imbiribeira">
+                    </div>
+                    <div class="form-group">
+                        <label for="familia_participa">Alguém da família participa do projeto?</label>
+                        <select id="familia_participa">
+                            <option value="">Não</option>
+                            <option value="sim">Sim</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="media_salarial">Média salarial:</label>
+                        <input type="text" id="media_salarial" placeholder="1.500">
+                    </div>
+                </div>
+                <button type="button" class="btn-prev">Anterior</button>
+                <button type="button" class="btn-next">Próximo</button>
+            </div>
+
+            <div class="form-step" id="step-4" style="display: none;">
+                <h2>4. Noções Complementares</h2>
+                <div class="form-row">
+                    <div class="form-group checkbox-group">
+                        <label>Conhece o ECA?</label>
+                        <input type="radio" id="eca_sim" name="conhece_eca" value="sim"> <label for="eca_sim">Sim</label><br>
+                        <input type="radio" id="eca_ja_ouvi" name="conhece_eca" value="ja_ouvi"> <label for="eca_ja_ouvi">Já ouvi falar</label><br>
+                        <input type="radio" id="eca_nao" name="conhece_eca" value="nao"> <label for="eca_nao">Não conheço</label>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label>Conhece algum conselho de direito?</label>
+                        <input type="radio" id="conselho_sim" name="conselho_direito" value="sim"> <label for="conselho_sim">Sim</label><br>
+                        <input type="radio" id="conselho_ja_ouvi" name="conselho_direito" value="ja_ouvi"> <label for="conselho_ja_ouvi">Já ouvi falar</label><br>
+                        <input type="radio" id="conselho_nao" name="conselho_direito" value="nao"> <label for="conselho_nao">Não conheço</label>
+                        <input type="text" id="conselho_qual" placeholder="Se sim, qual">
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label>Conhece o Fórum social da criança e do adolescente?</label>
+                        <input type="radio" id="forum_sim" name="forum_social" value="sim"> <label for="forum_sim">Sim</label><br>
+                        <input type="radio" id="forum_ja_ouvi" name="forum_social" value="ja_ouvi"> <label for="forum_ja_ouvi">Já ouvi falar</label><br>
+                        <input type="radio" id="forum_nao" name="forum_social" value="nao"> <label for="forum_nao">Não conheço</label>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group checkbox-group">
+                        <label>Possui alguma noção básica de direitos e deveres?</label>
+                        <input type="radio" id="direitos_sim" name="nocao_direitos" value="sim_possuo"> <label for="direitos_sim">Sim, possuo.</label><br>
+                        <input type="radio" id="direitos_nao_sei" name="nocao_direitos" value="nao_sei"> <label for="direitos_nao_sei">Não, não sei o que são.</label>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label>Como considera sua referência familiar?</label>
+                        <input type="radio" id="ref_familiar_positiva" name="referencia_familiar" value="positiva"> <label for="ref_familiar_positiva">Positiva.</label><br>
+                        <input type="radio" id="ref_familiar_negativa" name="referencia_familiar" value="negativa"> <label for="ref_familiar_negativa">Negativa.</label>
+                    </div>
+                </div>
+                <button type="button" class="btn-prev">Anterior</button>
+                <button type="button" class="btn-next">Próximo</button>
+            </div>
+
+            <div class="form-step" id="step-5" style="display: none;">
+                <h2>5. Saúde</h2>
+                <div class="form-row">
+                    <div class="form-group checkbox-group">
+                        <label>Possui plano de saúde?</label>
+                        <input type="radio" id="plano_sim" name="plano_saude" value="sim"> <label for="plano_sim">Sim</label><br>
+                        <input type="radio" id="plano_nao" name="plano_saude" value="nao" checked> <label for="plano_nao">Não</label>
+                        <input type="text" id="qual_plano_saude" placeholder="Se sim, qual" style="display:none;">
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label>Foi acompanhado(a) por um(a) médico(a)?</label>
+                        <input type="radio" id="medico_sim" name="acompanhamento_medico" value="sim"> <label for="medico_sim">Sim</label><br>
+                        <input type="radio" id="medico_nao" name="acompanhamento_medico" value="nao" checked> <label for="medico_nao">Não</label>
+                        <input type="text" id="qual_problema_saude" placeholder="Atualmente apresenta algum problema de saúde?" style="display:none;">
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label>Já passou alguma cirurgia?</label>
+                        <input type="radio" id="cirurgia_sim" name="cirurgia" value="sim"> <label for="cirurgia_sim">Sim</label><br>
+                        <input type="radio" id="cirurgia_nao" name="cirurgia" value="nao" checked> <label for="cirurgia_nao">Não</label>
+                        <input type="text" id="qual_cirurgia" placeholder="Se sim, qual" style="display:none;">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group checkbox-group">
+                        <label>Porta alguma deficiência física?</label>
+                        <input type="radio" id="def_fisica_sim" name="deficiencia_fisica" value="sim"> <label for="def_fisica_sim">Sim</label><br>
+                        <input type="radio" id="def_fisica_nao" name="deficiencia_fisica" value="nao" checked> <label for="def_fisica_nao">Não</label>
+                        <input type="text" id="qual_deficiencia_fisica" placeholder="Se sim, qual" style="display:none;">
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label>Porta alguma condição de desenvolvimento mental?</label>
+                        <input type="radio" id="def_mental_sim" name="deficiencia_mental" value="sim"> <label for="def_mental_sim">Sim</label><br>
+                        <input type="radio" id="def_mental_nao" name="deficiencia_mental" value="nao" checked> <label for="def_mental_nao">Não</label>
+                        <select id="doenca_transtorno">
+                            <option value="">Sim</option>
+                            <option value="autismo">Autismo</option>
+                            <option value="tdah">TDAH</option>
+                            <option value="depressao">Depressão</option>
+                            <option value="transtorno_bipolar">Transtorno Bipolar</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="button" class="btn-prev">Anterior</button>
+                <button type="button" class="btn-next">Próximo</button>
+            </div>
+
+            <div class="form-step" id="step-6" style="display: none;">
+                <h2>6. Hábitos Alimentares</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="refeicoes_dia">Faz quantas refeições por dia?</label>
+                        <select id="refeicoes_dia">
+                            <option value="">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5_mais">5 ou mais</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group checkbox-group">
+                        <label>O que costuma comer?</label><br>
+                        <input type="checkbox" id="comer_carne" name="costuma_comer" value="carne"> <label for="comer_carne">Carne</label><br>
+                        <input type="checkbox" id="comer_verdura" name="costuma_comer" value="verdura"> <label for="comer_verdura">Verdura</label><br>
+                        <input type="checkbox" id="comer_leite" name="costuma_comer" value="leite"> <label for="comer_leite">Leite</label><br>
+                        <input type="checkbox" id="comer_frango" name="costuma_comer" value="frango"> <label for="comer_frango">Frango</label><br>
+                        <input type="checkbox" id="comer_peixe" name="costuma_comer" value="peixe"> <label for="comer_peixe">Peixe</label><br>
+                        <input type="checkbox" id="comer_feijao" name="costuma_comer" value="feijao"> <label for="comer_feijao">Feijão</label>
+                    </div>
+                </div>
+                <button type="button" class="btn-prev">Anterior</button>
+                <button type="button" class="btn-next">Próximo</button>
+            </div>
+
+            <div class="form-step" id="step-7" style="display: none;">
+                <h2>7. Grupos Comunitários</h2>
+                <div class="form-row">
+                    <div class="form-group checkbox-group">
+                        <label>Participa de grupos comunitários?</label><br>
+                        <input type="radio" id="grupos_sim" name="participa_grupos" value="sim"> <label for="grupos_sim">Sim</label><br>
+                        <input type="radio" id="grupos_nao" name="participa_grupos" value="nao" checked> <label for="grupos_nao">Não</label>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <input type="text" id="qual_grupo_comunitario" placeholder="" style="width: 100%; display:none;">
+                    </div>
+                </div>
+                <button type="button" class="btn-prev">Anterior</button>
+                <button type="button" class="btn-next">Próximo</button>
+            </div>
+
+            <div class="form-step" id="step-8" style="display: none;">
+                <h2>8. Moradia e Saneamento</h2>
+                <div class="form-row">
+                    <div class="form-group checkbox-group">
+                        <label>CASA:</label><br>
+                        <input type="radio" id="casa_propria" name="tipo_casa" value="propria"> <label for="casa_propria">Própria</label><br>
+                        <input type="radio" id="casa_alugada" name="tipo_casa" value="alugada"> <label for="casa_alugada">Alugada</label><br>
+                        <input type="radio" id="casa_cedida" name="tipo_casa" value="cedida"> <label for="casa_cedida">Cedida</label><br>
+                        <input type="radio" id="casa_outro" name="tipo_casa" value="outro"> <label for="casa_outro">Outro</label><br>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label>TIPO DE CASA:</label><br>
+                        <input type="radio" id="alvenaria" name="tipo_alvenaria" value="alvenaria"> <label for="alvenaria">Alvenaria - Tijolos</label><br>
+                        <input type="radio" id="madeira" name="tipo_alvenaria" value="madeira"> <label for="madeira">Madeira</label><br>
+                        <input type="radio" id="taipa" name="tipo_alvenaria" value="taipa"> <label for="taipa">Taipa</label><br>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label>VULNERABILIDADE TERRITORIAL:</label><br>
+                        <input type="checkbox" id="risco_alagamento" name="vulnerabilidade" value="alagamento"> <label for="risco_alagamento">Casa com risco de alagamento</label><br>
+                        <input type="checkbox" id="risco_deslizamento" name="vulnerabilidade" value="deslizamento"> <label for="risco_deslizamento">Casa com risco de deslizamento</label><br>
+                        <input type="checkbox" id="nao_conheco_vulnerabilidade" name="vulnerabilidade" value="nao_conheco"> <label for="nao_conheco_vulnerabilidade">Não conheço</label>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group checkbox-group">
+                        <label>Possui alguma noção básica de direitos e deveres?</label>
+                        <input type="radio" id="direitos_sim_2" name="nocao_direitos_2" value="sim_possuo"> <label for="direitos_sim_2">Sim, possuo.</label><br>
+                        <input type="radio" id="direitos_nao_sei_2" name="nocao_direitos_2" value="nao_sei"> <label for="direitos_nao_sei_2">Não, não sei o que são.</label>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label>Como considera sua referência familiar?</label>
+                        <input type="radio" id="ref_familiar_positiva_2" name="referencia_familiar_2" value="positiva"> <label for="ref_familiar_positiva_2">Positiva.</label><br>
+                        <input type="radio" id="ref_familiar_negativa_2" name="referencia_familiar_2" value="negativa"> <label for="ref_familiar_negativa_2">Negativa.</label>
+                    </div>
+                </div>
+                <button type="button" class="btn-prev">Anterior</button>
+                <button type="button" class="btn-next">Próximo</button>
+            </div>
+
+            <div class="form-step" id="step-9" style="display: none;">
+                <h2>9. Bens</h2>
+                <div class="form-row">
+                    <div class="form-group checkbox-group">
+                        <label>wwwwwwwwwww</label><br>
+                        <input type="checkbox" id="item1" name="bens" value="item1"> <label for="item1">wwwwwwwwwww</label><br>
+                        <input type="checkbox" id="item2" name="bens" value="item2"> <label for="item2">wwwwwwwwwww</label><br>
+                        <input type="checkbox" id="item3" name="bens" value="item3"> <label for="item3">wwwwwwwwwww</label><br>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label>wwwwwwwwwww</label><br>
+                        <input type="checkbox" id="item4" name="bens" value="item4"> <label for="item4">wwwwwwwwwww</label><br>
+                        <input type="checkbox" id="item5" name="bens" value="item5"> <label for="item5">wwwwwwwwwww</label><br>
+                        <input type="checkbox" id="item6" name="bens" value="item6"> <label for="item6">wwwwwwwwwww</label><br>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label>wwwwwwwwwww</label><br>
+                        <input type="checkbox" id="item7" name="bens" value="item7"> <label for="item7">wwwwwwwwwww</label><br>
+                        <input type="checkbox" id="item8" name="bens" value="item8"> <label for="item8">wwwwwwwwwww</label><br>
+                        <input type="checkbox" id="item9" name="bens" value="item9"> <label for="item9">wwwwwwwwwww</label><br>
+                    </div>
+                </div>
+                <button type="button" class="btn-prev">Anterior</button>
+                <button type="button" class="btn-next">Próximo</button>
+            </div>
+
+            <div class="form-step" id="step-10" style="display: none;">
+                <h2>10. Assistência</h2>
+                <div class="form-row">
+                    <div class="form-group checkbox-group">
+                        <label>wwwwwwwwwww</label><br>
+                        <input type="checkbox" id="assist1" name="assistencia" value="assist1"> <label for="assist1">wwwwwwwwwww</label><br>
+                        <input type="checkbox" id="assist2" name="assistencia" value="assist2"> <label for="assist2">wwwwwwwwwww</label><br>
+                        <input type="checkbox" id="assist3" name="assistencia" value="assist3"> <label for="assist3">wwwwwwwwwww</label><br>
+                        <input type="checkbox" id="assist4" name="assistencia" value="assist4"> <label for="assist4">wwwwwwwwwww</label><br>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label>wwwwwwwwwww</label><br>
+                        <input type="checkbox" id="assist5" name="assistencia" value="assist5"> <label for="assist5">wwwwwwwwwww</label><br>
+                        <input type="checkbox" id="assist6" name="assistencia" value="assist6"> <label for="assist6">wwwwwwwwwww</label><br>
+                        <input type="checkbox" id="assist7" name="assistencia" value="assist7"> <label for="assist7">wwwwwwwwwww</label><br>
+                    </div>
+                </div>
+                <button type="button" class="btn-prev">Anterior</button>
+                <button type="submit" class="btn-submit">Finalizar Inscrição</button>
+            </div>
+
+            {# Aqui você adicionará as 2 últimas etapas quando as tiver #}
+
+        </form>
     </div>
+
+    <script src="{% static 'js/inscricao_form.js' %}"></script>
+    <script>
+        // JS para mostrar/esconder campos adicionais em Saúde e Grupos Comunitários
+        document.addEventListener('DOMContentLoaded', function() {
+            // Saúde: Plano de Saúde
+            const planoSim = document.getElementById('plano_sim');
+            const planoNao = document.getElementById('plano_nao');
+            const qualPlanoSaude = document.getElementById('qual_plano_saude');
+            planoSim.addEventListener('change', () => qualPlanoSaude.style.display = planoSim.checked ? 'block' : 'none');
+            planoNao.addEventListener('change', () => qualPlanoSaude.style.display = planoSim.checked ? 'block' : 'none');
+            // Inicializar estado
+            qualPlanoSaude.style.display = planoSim.checked ? 'block' : 'none';
+
+
+            // Saúde: Acompanhamento Médico
+            const medicoSim = document.getElementById('medico_sim');
+            const medicoNao = document.getElementById('medico_nao');
+            const qualProblemaSaude = document.getElementById('qual_problema_saude');
+            medicoSim.addEventListener('change', () => qualProblemaSaude.style.display = medicoSim.checked ? 'block' : 'none');
+            medicoNao.addEventListener('change', () => qualProblemaSaude.style.display = medicoSim.checked ? 'block' : 'none');
+            // Inicializar estado
+            qualProblemaSaude.style.display = medicoSim.checked ? 'block' : 'none';
+
+            // Saúde: Cirurgia
+            const cirurgiaSim = document.getElementById('cirurgia_sim');
+            const cirurgiaNao = document.getElementById('cirurgia_nao');
+            const qualCirurgia = document.getElementById('qual_cirurgia');
+            cirurgiaSim.addEventListener('change', () => qualCirurgia.style.display = cirurgiaSim.checked ? 'block' : 'none');
+            cirurgiaNao.addEventListener('change', () => qualCirurgia.style.display = cirurgiaSim.checked ? 'block' : 'none');
+            // Inicializar estado
+            qualCirurgia.style.display = cirurgiaSim.checked ? 'block' : 'none';
+
+            // Saúde: Deficiência Física
+            const defFisicaSim = document.getElementById('def_fisica_sim');
+            const defFisicaNao = document.getElementById('def_fisica_nao');
+            const qualDeficienciaFisica = document.getElementById('qual_deficiencia_fisica');
+            defFisicaSim.addEventListener('change', () => qualDeficienciaFisica.style.display = defFisicaSim.checked ? 'block' : 'none');
+            defFisicaNao.addEventListener('change', () => qualDeficienciaFisica.style.display = defFisicaSim.checked ? 'block' : 'none');
+            // Inicializar estado
+            qualDeficienciaFisica.style.display = defFisicaSim.checked ? 'block' : 'none';
+
+            // Grupos Comunitários: Campo "Qual"
+            const gruposSim = document.getElementById('grupos_sim');
+            const gruposNao = document.getElementById('grupos_nao');
+            const qualGrupoComunitario = document.getElementById('qual_grupo_comunitario');
+            gruposSim.addEventListener('change', () => qualGrupoComunitario.style.display = gruposSim.checked ? 'block' : 'none');
+            gruposNao.addEventListener('change', () => qualGrupoComunitario.style.display = gruposSim.checked ? 'block' : 'none');
+            // Inicializar estado
+            qualGrupoComunitario.style.display = gruposSim.checked ? 'block' : 'none';
+        });
+    </script>
 </body>
 </html>

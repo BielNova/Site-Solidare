@@ -14,7 +14,7 @@ class Aluno(models.Model):
     cadastrado_por = models.ForeignKey(Professor, on_delete=models.SET_NULL, null=True, blank=True, related_name='alunos_cadastrados')
     data_cadastro = models.DateTimeField(auto_now_add=True)
     curso = models.CharField(max_length=100)
-    # Adicionando o campo de ligação com o User
+    # Este é o campo que você adicionou e que precisa de migração
     user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='aluno_profile')
 
     def __str__(self):

@@ -31,6 +31,12 @@ if NOT_PROD:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+    # === MODIFICAÇÃO: Ajustar STATICFILES_STORAGE para desenvolvimento ===
+    # Em desenvolvimento, não queremos que o Whitenoise armazene arquivos staticos
+    # para que as mudanças no CSS/JS sejam refletidas imediatamente.
+    # O Django serve arquivos estáticos de STATICFILES_DIRS por padrão em DEBUG=True.
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+
 else:
     # Production settings
     SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-@ec)_2r9hm(7tk-tgwbqk29_8c5b!z%h@iy39(lxczmh4m8msr')
@@ -59,6 +65,8 @@ else:
             'OPTIONS': {'sslmode': 'require',}
         }
     }
+    # === CONFIGURAÇÃO DE PRODUÇÃO: Whitenoise ===
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
     
 # Application definition
 
@@ -72,12 +80,14 @@ INSTALLED_APPS = [
     'core.avisos',
     'core.user',
     'core.home',
-    'whitenoise.runserver_nostatic',
+    # Removendo 'whitenoise.runserver_nostatic' daqui
+    # pois ele é mais adequado para o MIDDLEWARE e vamos gerenciar
+    # o STATICFILES_STORAGE condicionalmente.
     'core.professor',
     'widget_tweaks',
     # 'core.frequencia',
     # 'core.documentacao',
-    'processo_seletivo',
+    'processo_seletivo', # Seu app, essencial para templates e models
     'core.aluno',
 ]
 
@@ -89,7 +99,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', # Mantenha o Whitenoise para produção
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -97,8 +107,13 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'core' / 'user' / 'templates' / 'home'],
-        'APP_DIRS': True,
+        # Adicione BASE_DIR / 'templates' para templates globais se tiver
+        'DIRS': [
+            BASE_DIR / 'core' / 'user' / 'templates' / 'home',
+            # Adicione aqui para que o Django procure na raiz dos templates
+            BASE_DIR / 'templates',
+        ],
+        'APP_DIRS': True, # Isso já faz o Django procurar em 'app_name/templates/'
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
@@ -144,16 +159,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = os.environ.get('DJANGO_STATIC_URL', '/static/')
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# === MODIFICAÇÃO: Definir STATICFILES_DIRS para o seu static global ===
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+# STATIC_ROOT é o diretório onde `collectstatic` coleta todos os arquivos estáticos.
+# Ele é usado principalmente para produção.
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_collected') # Sugestão de nome para clareza
+
+# STATICFILES_STORAGE está agora condicionalmente definido acima (dentro do IF/ELSE)
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# STATICFILES_DIRS = [BASE_DIR / 'user/static'] # Comentado pois STATIC_ROOT é usado
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -163,4 +184,3 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 USE_X_FORWARDED_HOST = True
 
 LOGIN_URL = '/user/login/'
-
