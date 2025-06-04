@@ -2,59 +2,39 @@ from pathlib import Path
 import os
 from dotenv import load_dotenv
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# Base
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 load_dotenv(BASE_DIR / '.env')
 
-# Adicione esta linha para debug
-print(f"TARGET_ENV: {os.getenv('TARGET_ENV')}")
+# ENV
+TARGET_ENV = os.getenv('TARGET_ENV', '').lower()
+NOT_PROD = not TARGET_ENV.startswith('prod')
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
+# Debug e chaves
+DEBUG = NOT_PROD
+SECRET_KEY = os.getenv('SECRET_KEY', 'chave-insegura-padrao')
+ALLOWED_HOSTS = ['*'] if NOT_PROD else [
+    'lispector1-hjc6cvdjgedcakeb.brazilsouth-01.azurewebsites.net',
+    '169.254.129.2',
+    '169.254.130.4',
+]
 
-# Modifique esta linha para fornecer um valor padrão
-TARGET_ENV = os.getenv('TARGET_ENV', '')  # Valor padrão vazio se não existir
-NOT_PROD = not TARGET_ENV.lower().startswith('prod')
+# CSRF
+if not NOT_PROD:
+    CSRF_TRUSTED_ORIGINS = [
+        'https://lispector1-hjc6cvdjgedcakeb.brazilsouth-01.azurewebsites.net',
+    ]
 
-
+# Banco de dados
 if NOT_PROD:
-    # SECURITY WARNING: don't run with debug turned on in production!
-    DEBUG = True
-    # SECURITY WARNING: keep the secret key used in production secret!
-    SECRET_KEY = os.getenv('SECRET_KEY', '&5a!rl#@#mkn+2%1s#01^3^f8n(i59^-@r#c(v=8e-j@g%2e_s')
-    # Modificado para aceitar todos os hosts em ambiente de desenvolvimento
-    ALLOWED_HOSTS = ['*']
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
-    # === MODIFICAÇÃO: Ajustar STATICFILES_STORAGE para desenvolvimento ===
-    # Em desenvolvimento, não queremos que o Whitenoise armazene arquivos staticos
-    # para que as mudanças no CSS/JS sejam refletidas imediatamente.
-    # O Django serve arquivos estáticos de STATICFILES_DIRS por padrão em DEBUG=True.
-    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
-
 else:
-    # Production settings
-    SECRET_KEY = os.getenv('SECRET_KEY', '&5a!rl#@#mkn+2%1s#01^3^f8n(i59^-@r#c(v=8e-j@g%2e_s')
-    # Esta linha define DEBUG para produção baseado na variável de ambiente
-    DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1']
-    
-    # Adicione seu domínio do Azure e o IP interno
-    ALLOWED_HOSTS = ['lispector1-hjc6cvdjgedcakeb.brazilsouth-01.azurewebsites.net', '169.254.129.2', '169.254.130.4']
-    CSRF_TRUSTED_ORIGINS = ['lispector1-hjc6cvdjgedcakeb.brazilsouth-01.azurewebsites.net']
-
-    SECURE_SSL_REDIRECT = os.getenv('SECURE_SSL_REDIRECT', '0').lower() in ['true', 't', '1']
-
-    if SECURE_SSL_REDIRECT:
-        SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
     from decouple import config
-
-    # Configuração do banco de dados para produção
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -62,14 +42,34 @@ else:
             'HOST': config('DBHOST'),
             'USER': config('DBUSER'),
             'PASSWORD': config('DBPASS'),
-            'OPTIONS': {'sslmode': 'require',}
+            'OPTIONS': {'sslmode': 'require'},
         }
     }
-    # === CONFIGURAÇÃO DE PRODUÇÃO: Whitenoise ===
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-    
-# Application definition
 
+# Static
+STATIC_URL = os.environ.get('DJANGO_STATIC_URL', '/static/')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_collected')
+
+# Armazenamento estático
+STATICFILES_STORAGE = (
+    'django.contrib.staticfiles.storage.StaticFilesStorage'
+    if NOT_PROD
+    else 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+)
+
+# Media
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# Segurança
+SECURE_SSL_REDIRECT = os.getenv('SECURE_SSL_REDIRECT', '0').lower() in ['true', 't', '1']
+if SECURE_SSL_REDIRECT:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+USE_X_FORWARDED_HOST = True
+
+# Apps
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -80,40 +80,34 @@ INSTALLED_APPS = [
     'core.avisos',
     'core.user',
     'core.home',
-    'whitenoise.runserver_nostatic'
-    # pois ele é mais adequado para o MIDDLEWARE e vamos gerenciar
-    # o STATICFILES_STORAGE condicionalmente.
     'core.professor',
-    'widget_tweaks',
-    # 'core.frequencia',
-    # 'core.documentacao',
-    'processo_seletivo', # Seu app, essencial para templates e models
     'core.aluno',
+    'processo_seletivo',
+    'widget_tweaks',
+    'whitenoise.runserver_nostatic',  # Corrigido: mover para o final
 ]
 
+# Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Corrigido: whitenoise deve vir logo após security
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', # Mantenha o Whitenoise para produção
 ]
 
-ROOT_URLCONF = 'core.urls'
-
+# Templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # Adicione BASE_DIR / 'templates' para templates globais se tiver
         'DIRS': [
-            BASE_DIR / 'core' / 'user' / 'templates' / 'home',
-            # Adicione aqui para que o Django procure na raiz dos templates
             BASE_DIR / 'templates',
+            BASE_DIR / 'core' / 'user' / 'templates' / 'home',
         ],
-        'APP_DIRS': True, # Isso já faz o Django procurar em 'app_name/templates/'
+        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
@@ -124,63 +118,26 @@ TEMPLATES = [
     },
 ]
 
+# URLs / WSGI
+ROOT_URLCONF = 'core.urls'
 WSGI_APPLICATION = 'core.wsgi.application'
 
-# Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
-
+# Senhas
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
-
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
+# Idioma / Fuso
+LANGUAGE_CODE = 'pt-br'
+TIME_ZONE = 'America/Sao_Paulo'
 USE_I18N = True
-
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
-
-STATIC_URL = os.environ.get('DJANGO_STATIC_URL', '/static/')
-
-# === MODIFICAÇÃO: Definir STATICFILES_DIRS para o seu static global ===
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
-
-# STATIC_ROOT é o diretório onde `collectstatic` coleta todos os arquivos estáticos.
-# Ele é usado principalmente para produção.
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_collected') # Sugestão de nome para clareza
-
-# STATICFILES_STORAGE está agora condicionalmente definido acima (dentro do IF/ELSE)
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-
-# Configurações adicionais para resolver o problema de DisallowedHost no Azure
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-USE_X_FORWARDED_HOST = True
-
+# Login
 LOGIN_URL = '/user/login/'
+
+# Default PK
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
