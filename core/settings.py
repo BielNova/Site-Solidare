@@ -22,7 +22,7 @@ if NOT_PROD:
     # SECURITY WARNING: don't run with debug turned on in production!
     DEBUG = True
     # SECURITY WARNING: keep the secret key used in production secret!
-    SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-@ec)_2r9hm(7tk-tgwbqk29_8c5b!z%h@iy39(lxczmh4m8msr')
+    SECRET_KEY = os.getenv('SECRET_KEY', '&5a!rl#@#mkn+2%1s#01^3^f8n(i59^-@r#c(v=8e-j@g%2e_s')
     # Modificado para aceitar todos os hosts em ambiente de desenvolvimento
     ALLOWED_HOSTS = ['*']
     DATABASES = {
@@ -39,13 +39,13 @@ if NOT_PROD:
 
 else:
     # Production settings
-    SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-@ec)_2r9hm(7tk-tgwbqk29_8c5b!z%h@iy39(lxczmh4m8msr')
+    SECRET_KEY = os.getenv('SECRET_KEY', '&5a!rl#@#mkn+2%1s#01^3^f8n(i59^-@r#c(v=8e-j@g%2e_s')
     # Esta linha define DEBUG para produção baseado na variável de ambiente
     DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1']
     
     # Adicione seu domínio do Azure e o IP interno
-    ALLOWED_HOSTS = ['lispector-dyh0dfc6cegeetab.brazilsouth-01.azurewebsites.net', '169.254.129.2', '169.254.130.4']
-    CSRF_TRUSTED_ORIGINS = ['https://lispector-dyh0dfc6cegeetab.brazilsouth-01.azurewebsites.net']
+    ALLOWED_HOSTS = ['lispector1-hjc6cvdjgedcakeb.brazilsouth-01.azurewebsites.net', '169.254.129.2', '169.254.130.4']
+    CSRF_TRUSTED_ORIGINS = ['lispector1-hjc6cvdjgedcakeb.brazilsouth-01.azurewebsites.net']
 
     SECURE_SSL_REDIRECT = os.getenv('SECURE_SSL_REDIRECT', '0').lower() in ['true', 't', '1']
 
