@@ -78,6 +78,7 @@ INSTALLED_APPS = [
     # 'core.frequencia',
     # 'core.documentacao',
     'processo_seletivo'
+    'core.aluno',
 ]
 
 MIDDLEWARE = [
