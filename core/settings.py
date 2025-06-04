@@ -80,7 +80,7 @@ INSTALLED_APPS = [
     'core.avisos',
     'core.user',
     'core.home',
-    # Removendo 'whitenoise.runserver_nostatic' daqui
+    'whitenoise.runserver_nostatic'
     # pois ele é mais adequado para o MIDDLEWARE e vamos gerenciar
     # o STATICFILES_STORAGE condicionalmente.
     'core.professor',
