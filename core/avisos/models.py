@@ -6,10 +6,6 @@ class Cliente(models.Model):
     nome = models.CharField(max_length=100)
     # outros campos...
 
-class Transacao(models.Model):
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    valor = models.DecimalField(max_digits=10, decimal_places=2)
-
 class Aviso(models.Model):
     CATEGORIAS = [
         ('geral', 'Geral'),
