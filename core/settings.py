@@ -23,12 +23,12 @@ if NOT_PROD:
     ALLOWED_HOSTS = ['*']
 else:
     ALLOWED_HOSTS = [
-        'lispector-dyh0dfc6cegeetab.brazilsouth-01.azurewebsites.net',
+        'lispector-dae9a7fqaxghgrfj.brazilsouth-01.azurewebsites.net',
         '169.254.129.2',
         '169.254.130.4'
     ]
     CSRF_TRUSTED_ORIGINS = [
-        'https://lispector-dyh0dfc6cegeetab.brazilsouth-01.azurewebsites.net'
+        'https://lispector-dae9a7fqaxghgrfj.brazilsouth-01.azurewebsites.net'
     ]
 
 # Redirecionamento HTTPS
