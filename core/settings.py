@@ -21,18 +21,15 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-@ec)_2r9hm(7tk-tgwbqk29_8c
 # Hosts permitidos
 if NOT_PROD:
     ALLOWED_HOSTS = ['*']
+    CSRF_TRUSTED_ORIGINS = []
 else:
     ALLOWED_HOSTS = [
-    'lispector-dae9a7fqaxghgrfj.brazilsouth-01.azurewebsites.net', '169.254.129.2', '169.254.130.4',
-]
-
-CSRF_TRUSTED_ORIGINS = [
-    'https://lispector-dae9a7fqaxghgrfj.brazilsouth-01.azurewebsites.net',
-]
-
+        'lispector-dae9a7fqaxghgrfj.brazilsouth-01.azurewebsites.net',
+        '169.254.129.2',
+        '169.254.130.4',
     ]
     CSRF_TRUSTED_ORIGINS = [
-        'https://lispector-dae9a7fqaxghgrfj.brazilsouth-01.azurewebsites.net'
+        'https://lispector-dae9a7fqaxghgrfj.brazilsouth-01.azurewebsites.net',
     ]
 
 # Redirecionamento HTTPS
