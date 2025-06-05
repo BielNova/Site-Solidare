@@ -38,7 +38,7 @@ else:
     DEBUG = os.getenv('DEBUG', '0').lower() in ['true', 't', '1']
     
     # Adicione seu domínio do Azure e o IP interno
-    ALLOWED_HOSTS = ['lispector-dyh0dfc6cegeetab.brazilsouth-01.azurewebsites.net', '169.254.129.2', '169.254.130.4']
+    ALLOWED_HOSTS = ['lispector-dae9a7fqaxghgrfj.brazilsouth-01.azurewebsites.net', '169.254.129.2', '169.254.130.4']
     CSRF_TRUSTED_ORIGINS = ['https://lispector-dyh0dfc6cegeetab.brazilsouth-01.azurewebsites.net']
 
     SECURE_SSL_REDIRECT = os.getenv('SECURE_SSL_REDIRECT', '0').lower() in ['true', 't', '1']
