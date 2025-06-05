@@ -24,7 +24,7 @@ if NOT_PROD:
     CSRF_TRUSTED_ORIGINS = []
 else:
     ALLOWED_HOSTS = [
-        'lispector-dae9a7fqaxghgrfj.brazilsouth-01.azurewebsites.net','169.254.129.2','169.254.130.4',
+        'lispector-dae9a7fqaxghgrfj.brazilsouth-01.azurewebsites.net','127.0.0.1:8000',
     ]
     CSRF_TRUSTED_ORIGINS = [
         'https://lispector-dae9a7fqaxghgrfj.brazilsouth-01.azurewebsites.net',
