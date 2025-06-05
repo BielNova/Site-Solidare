@@ -2,9 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 
-class Cliente(models.Model):
-    nome = models.CharField(max_length=100)
-    # outros campos...
+
 
 class Aviso(models.Model):
     CATEGORIAS = [
