@@ -43,6 +43,7 @@ else:
 
     if SECURE_SSL_REDIRECT:
         SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+        USE_X_FORWARDED_HOST = True
 
     from decouple import config
 
@@ -57,7 +58,6 @@ else:
         }
     }
 
-    
 # Application definition
 
 INSTALLED_APPS = [
@@ -155,9 +155,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
-
-# Configurações adicionais para resolver o problema de DisallowedHost no Azure
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-USE_X_FORWARDED_HOST = True
 
 LOGIN_URL = '/user/login/'
