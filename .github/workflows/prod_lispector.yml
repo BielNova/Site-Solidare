@@ -32,7 +32,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
         
-      # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
+      # Optional: Add step to run tests here (PyTest, Django test suites, etc. )
 
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
@@ -78,4 +78,4 @@ jobs:
         with:
           app-name: 'Lispector'
           slot-name: 'Production'
-          
+          startup-command: 'python manage.py collectstatic --noinput && gunicorn --workers 1 --timeout 120 --max-requests 1000 --bind 0.0.0.0:8000 core.wsgi:application'
