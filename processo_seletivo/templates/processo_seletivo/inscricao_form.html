@@ -13,7 +13,7 @@
     <div class="signup-page-wrapper">
         <div class="header-section">
             {# CAMINHO DAS IMAGENS CORRIGIDO PARA A SUA ESTRUTURA static/logo-nome.png #}
-            <img src="{% static 'logo-lispector.png' %}" alt="Lispector Logo" class="logo">
+            <img src="{% static 'logo_lispector.png' %}" alt="Lispector Logo" class="logo">
             <img src="{% static 'instituto_solidare_logo.png' %}" alt="Instituto Solidare Logo" class="logo">
             <h1>Inscrição - Processo seletivo</h1>
         </div>
@@ -40,28 +40,45 @@
                 <span class="connector"></span>
                 <span class="step" data-step="10"></span>
                 <span class="connector"></span>
-                <span class="step" data-step="11"></span>
-                <span class="connector"></span>
-                <span class="step" data-step="12"></span> {# Placeholder para possível 12ª etapa #}
+                <span class="step" data-step="11"></span> {# Agora a etapa 11 é a última no indicador #}
+                {# A etapa 12 foi removida daqui #}
             </div>
         </div>
 
-        <form id="multi-step-form"> {# Remover method="post" e {% csrf_token %} por enquanto #}
+        <form id="multi-step-form" method="post">
+            {% csrf_token %}
+
+            {# Adicionar a div para exibir erros gerais do formulário #}
+            {% if form.errors %}
+                <div style="color: red; border: 1px solid red; padding: 10px; margin-bottom: 20px;">
+                    <p>Por favor, corrija os seguintes erros:</p>
+                    <ul>
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
 
             <div class="form-step active" id="step-1">
                 <h2>1. Dados pessoais</h2>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="nome_completo">Nome Completo</label>
-                        <input type="text" id="nome_completo" placeholder="Digite aqui...">
+                        <input type="text" id="nome_completo" name="nome_completo" placeholder="Digite aqui...">
                     </div>
                     <div class="form-group">
                         <label for="data_nascimento">Data de Nascimento</label>
-                        <input type="date" id="data_nascimento" value="2025-06-04">
+                        <input type="date" id="data_nascimento" name="data_nascimento" value="2025-06-04">
                     </div>
                     <div class="form-group">
                         <label for="sexo">Sexo</label>
-                        <select id="sexo">
+                        <select id="sexo" name="sexo">
                             <option value="">Selecione</option>
                             <option value="feminino">Feminino</option>
                             <option value="masculino">Masculino</option>
@@ -70,7 +87,7 @@
                     </div>
                     <div class="form-group">
                         <label for="cor">Cor</label>
-                        <select id="cor">
+                        <select id="cor" name="cor">
                             <option value="">Selecione</option>
                             <option value="pardo">Pardo</option>
                             <option value="branco">Branco</option>
@@ -83,22 +100,22 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="cpf">CPF</label>
-                        <input type="text" id="cpf" placeholder="Sem pontos ou traços">
+                        <input type="text" id="cpf" name="cpf" placeholder="Sem pontos ou traços">
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="">
+                        <input type="email" id="email" name="email" placeholder="">
                     </div>
                     <div class="form-group">
                         <label for="telefone">Telefone</label>
-                        <input type="tel" id="telefone" placeholder="Esse número também é Whatsapp :)">
+                        <input type="tel" id="telefone" name="telefone" placeholder="Esse número também é Whatsapp :)">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group checkbox-group">
                         <label>Apadrinhado?</label>
-                        <input type="radio" id="apadrinhado_sim" name="apadrinhado" value="sim"> <label for="apadrinhado_sim">Sim</label>
-                        <input type="radio" id="apadrinhado_nao" name="apadrinhado" value="nao" checked> <label for="apadrinhado_nao">Não</label>
+                        <input type="radio" id="apadrinhado_sim" name="apadrinhado" value="True"> <label for="apadrinhado_sim">Sim</label>
+                        <input type="radio" id="apadrinhado_nao" name="apadrinhado" value="False" checked> <label for="apadrinhado_nao">Não</label>
                     </div>
                 </div>
                 <button type="button" class="btn-next">Próximo</button>
@@ -109,7 +126,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="nivel_escolaridade">Nível de escolaridade atual</label>
-                        <select id="nivel_escolaridade">
+                        <select id="nivel_escolaridade" name="nivel_escolaridade">
                             <option value="">Selecione</option>
                             <option value="fundamental_completo">Fundamental Completo</option>
                             <option value="fundamental_incompleto">Fundamental Incompleto</option>
@@ -128,12 +145,12 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="ano_periodo">Ano/Período</label>
-                        <input type="text" id="ano_periodo" placeholder="Ex: 3º Ano Ensino Médio">
+                        <input type="text" id="ano_periodo" name="ano_periodo" placeholder="Ex: 3º Ano Ensino Médio">
                     </div>
                     <div class="form-group checkbox-group">
                         <label>Bolsista?</label>
-                        <input type="radio" id="bolsista_sim" name="bolsista" value="sim"> <label for="bolsista_sim">Sim</label>
-                        <input type="radio" id="bolsista_nao" name="bolsista" value="nao" checked> <label for="bolsista_nao">Não</label>
+                        <input type="radio" id="bolsista_sim" name="bolsista" value="True"> <label for="bolsista_sim">Sim</label><br>
+                        <input type="radio" id="bolsista_nao" name="bolsista" value="False" checked> <label for="bolsista_nao">Não</label>
                     </div>
                 </div>
                 <button type="button" class="btn-prev">Anterior</button>
@@ -145,7 +162,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="trabalha">Você trabalha?</label>
-                        <select id="trabalha">
+                        <select id="trabalha" name="trabalha">
                             <option value="">Selecione</option>
                             <option value="sim">Sim</option>
                             <option value="nao">Não</option>
@@ -156,11 +173,11 @@
                     </div>
                     <div class="form-group">
                         <label for="bairro_residencia">Bairro de residência?</label>
-                        <input type="text" id="bairro_residencia" placeholder="Imbiribeira">
+                        <input type="text" id="bairro_residencia" name="bairro_residencia" placeholder="Imbiribeira">
                     </div>
                     <div class="form-group">
                         <label for="familia_participa">Alguém da família participa do projeto?</label>
-                        <select id="familia_participa">
+                        <select id="familia_participa" name="familia_participa">
                             <option value="">Selecione</option>
                             <option value="sim">Sim</option>
                             <option value="nao">Não</option>
@@ -170,7 +187,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="media_salarial">Média salarial:</label>
-                        <input type="text" id="media_salarial" placeholder="Ex: 1.500,00">
+                        <input type="text" id="media_salarial" name="media_salarial" placeholder="Ex: 1.500,00">
                     </div>
                 </div>
                 <button type="button" class="btn-prev">Anterior</button>
@@ -191,7 +208,7 @@
                         <input type="radio" id="conselho_sim" name="conselho_direito" value="sim"> <label for="conselho_sim">Sim</label><br>
                         <input type="radio" id="conselho_ja_ouvi" name="conselho_direito" value="ja_ouvi"> <label for="conselho_ja_ouvi">Já ouvi falar</label><br>
                         <input type="radio" id="conselho_nao" name="conselho_direito" value="nao"> <label for="conselho_nao">Não conheço</label>
-                        <input type="text" id="conselho_qual" placeholder="Se sim, qual" style="display:none;">
+                        <input type="text" id="conselho_qual" name="conselho_qual" placeholder="Se sim, qual" style="display:none;">
                     </div>
                     <div class="form-group checkbox-group">
                         <label>Conhece o Fórum social da criança e do adolescente?</label>
@@ -221,35 +238,35 @@
                 <div class="form-row">
                     <div class="form-group checkbox-group">
                         <label>Possui plano de saúde?</label>
-                        <input type="radio" id="plano_sim" name="plano_saude" value="sim"> <label for="plano_sim">Sim</label><br>
-                        <input type="radio" id="plano_nao" name="plano_saude" value="nao" checked> <label for="plano_nao">Não</label>
-                        <input type="text" id="qual_plano_saude" placeholder="Se sim, qual" style="display:none;">
+                        <input type="radio" id="plano_sim" name="plano_saude" value="True"> <label for="plano_sim">Sim</label><br>
+                        <input type="radio" id="plano_nao" name="plano_saude" value="False" checked> <label for="plano_nao">Não</label>
+                        <input type="text" id="qual_plano_saude" name="qual_plano_saude" placeholder="Se sim, qual" style="display:none;">
                     </div>
                     <div class="form-group checkbox-group">
                         <label>Foi acompanhado(a) por um(a) médico(a)?</label>
-                        <input type="radio" id="medico_sim" name="acompanhamento_medico" value="sim"> <label for="medico_sim">Sim</label><br>
-                        <input type="radio" id="medico_nao" name="acompanhamento_medico" value="nao" checked> <label for="medico_nao">Não</label>
-                        <input type="text" id="qual_problema_saude" placeholder="Atualmente apresenta algum problema de saúde?" style="display:none;">
+                        <input type="radio" id="medico_sim" name="acompanhamento_medico" value="True"> <label for="medico_sim">Sim</label><br>
+                        <input type="radio" id="medico_nao" name="acompanhamento_medico" value="False" checked> <label for="medico_nao">Não</label>
+                        <input type="text" id="qual_problema_saude" name="qual_problema_saude" placeholder="Atualmente apresenta algum problema de saúde?" style="display:none;">
                     </div>
                     <div class="form-group checkbox-group">
                         <label>Já passou alguma cirurgia?</label>
-                        <input type="radio" id="cirurgia_sim" name="cirurgia" value="sim"> <label for="cirurgia_sim">Sim</label><br>
-                        <input type="radio" id="cirurgia_nao" name="cirurgia" value="nao" checked> <label for="cirurgia_nao">Não</label>
-                        <input type="text" id="qual_cirurgia" placeholder="Se sim, qual" style="display:none;">
+                        <input type="radio" id="cirurgia_sim" name="cirurgia" value="True"> <label for="cirurgia_sim">Sim</label><br>
+                        <input type="radio" id="cirurgia_nao" name="cirurgia" value="False" checked> <label for="cirurgia_nao">Não</label>
+                        <input type="text" id="qual_cirurgia" name="qual_cirurgia" placeholder="Se sim, qual" style="display:none;">
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group checkbox-group">
                         <label>Porta alguma deficiência física?</label>
-                        <input type="radio" id="def_fisica_sim" name="deficiencia_fisica" value="sim"> <label for="def_fisica_sim">Sim</label><br>
-                        <input type="radio" id="def_fisica_nao" name="deficiencia_fisica" value="nao" checked> <label for="def_fisica_nao">Não</label>
-                        <input type="text" id="qual_deficiencia_fisica" placeholder="Se sim, qual" style="display:none;">
+                        <input type="radio" id="def_fisica_sim" name="deficiencia_fisica" value="True"> <label for="def_fisica_sim">Sim</label><br>
+                        <input type="radio" id="def_fisica_nao" name="deficiencia_fisica" value="False" checked> <label for="def_fisica_nao">Não</label>
+                        <input type="text" id="qual_deficiencia_fisica" name="qual_deficiencia_fisica" placeholder="Se sim, qual" style="display:none;">
                     </div>
                     <div class="form-group checkbox-group">
                         <label>Porta alguma condição de desenvolvimento mental?</label>
-                        <input type="radio" id="def_mental_sim" name="deficiencia_mental" value="sim"> <label for="def_mental_sim">Sim</label><br>
-                        <input type="radio" id="def_mental_nao" name="deficiencia_mental" value="nao" checked> <label for="def_mental_nao">Não</label>
-                        <select id="doenca_transtorno" style="display:none;">
+                        <input type="radio" id="def_mental_sim" name="deficiencia_mental" value="True"> <label for="def_mental_sim">Sim</label><br>
+                        <input type="radio" id="def_mental_nao" name="deficiencia_mental" value="False" checked> <label for="def_mental_nao">Não</label>
+                        <select id="doenca_transtorno" name="doenca_transtorno" style="display:none;">
                             <option value="">Se sim, qual?</option>
                             <option value="autismo">Autismo</option>
                             <option value="tdah">TDAH</option>
@@ -268,7 +285,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="refeicoes_dia">Faz quantas refeições por dia?</label>
-                        <select id="refeicoes_dia">
+                        <select id="refeicoes_dia" name="refeicoes_dia">
                             <option value="">Selecione</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -281,6 +298,9 @@
                 <div class="form-row">
                     <div class="form-group checkbox-group">
                         <label>O que costuma comer?</label><br>
+                        {# Campos de checkbox com múltiplos valores exigem name='campo' e MultiplceChoiceField no form #}
+                        {# Para que o Django processe isso como uma lista, o 'name' DEVE terminar com '[]' se você estiver usando um ManyToManyField no modelo ou um forms.MultipleChoiceField #}
+                        {# Se for um CharField que armazena uma string com valores separados, o JS precisa concatenar #}
                         <input type="checkbox" id="comer_carne" name="costuma_comer" value="carne"> <label for="comer_carne">Carne</label><br>
                         <input type="checkbox" id="comer_verdura" name="costuma_comer" value="verdura"> <label for="comer_verdura">Verdura</label><br>
                         <input type="checkbox" id="comer_leite" name="costuma_comer" value="leite"> <label for="comer_leite">Leite</label><br>
@@ -298,13 +318,13 @@
                 <div class="form-row">
                     <div class="form-group checkbox-group">
                         <label>Participa de grupos comunitários?</label><br>
-                        <input type="radio" id="grupos_sim" name="participa_grupos" value="sim"> <label for="grupos_sim">Sim</label><br>
-                        <input type="radio" id="grupos_nao" name="participa_grupos" value="nao" checked> <label for="grupos_nao">Não</label>
+                        <input type="radio" id="grupos_sim" name="participa_grupos" value="True"> <label for="grupos_sim">Sim</label><br>
+                        <input type="radio" id="grupos_nao" name="participa_grupos" value="False" checked> <label for="grupos_nao">Não</label>
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group" style="width: 100%;"> {# Ajuste de estilo inline para largura #}
-                        <input type="text" id="qual_grupo_comunitario" placeholder="Se sim, qual?" style="display:none;">
+                    <div class="form-group" style="width: 100%;">
+                        <input type="text" id="qual_grupo_comunitario" name="qual_grupo_comunitario" placeholder="Se sim, qual?" style="display:none;">
                     </div>
                 </div>
                 <button type="button" class="btn-prev">Anterior</button>
@@ -330,6 +350,9 @@
                     </div>
                     <div class="form-group checkbox-group">
                         <label>VULNERABILIDADE TERRITORIAL:</label><br>
+                        {# Verifique no models.py como 'vulnerabilidade_territorial' está definido #}
+                        {# Se for um ManyToManyField, o name DEVE ser 'vulnerabilidade_territorial' e os values os ids ou pk dos itens #}
+                        {# Se for um CharField ou TextField, o JS precisará juntar os valores em uma string #}
                         <input type="checkbox" id="risco_alagamento_8" name="vulnerabilidade_territorial" value="alagamento"> <label for="risco_alagamento_8">Casa com risco de alagamento</label><br>
                         <input type="checkbox" id="risco_deslizamento_8" name="vulnerabilidade_territorial" value="deslizamento"> <label for="risco_deslizamento_8">Casa com risco de deslizamento</label><br>
                         <input type="checkbox" id="nao_conheco_vulnerabilidade_8" name="vulnerabilidade_territorial" value="nao_conheco"> <label for="nao_conheco_vulnerabilidade_8">Não conheço</label>
@@ -348,8 +371,8 @@
                     </div>
                     <div class="form-group checkbox-group">
                         <label>Tem banheiro?</label><br>
-                        <input type="radio" id="tem_banheiro_sim_8" name="tem_banheiro" value="sim"> <label for="tem_banheiro_sim_8">Sim</label><br>
-                        <input type="radio" id="tem_banheiro_nao_8" name="tem_banheiro" value="nao" checked> <label for="tem_banheiro_nao_8">Não</label>
+                        <input type="radio" id="tem_banheiro_sim_8" name="tem_banheiro" value="True"> <label for="tem_banheiro_sim_8">Sim</label><br>
+                        <input type="radio" id="tem_banheiro_nao_8" name="tem_banheiro" value="False" checked> <label for="tem_banheiro_nao_8">Não</label>
                         <select id="banheiro_dentro_casa" name="banheiro_dentro_casa" style="display: none;">
                             <option value="">Se sim, dentro da casa?</option>
                             <option value="sim">Sim</option>
@@ -358,8 +381,8 @@
                     </div>
                     <div class="form-group checkbox-group">
                         <label>Energia Elétrica: Rede Pública</label><br>
-                        <input type="radio" id="energia_sim_8" name="energia_eletrica" value="sim"> <label for="energia_sim_8">Sim</label><br>
-                        <input type="radio" id="energia_nao_8" name="energia_eletrica" value="nao" checked> <label for="energia_nao_8">Não</label>
+                        <input type="radio" id="energia_sim_8" name="energia_eletrica" value="True"> <label for="energia_sim_8">Sim</label><br>
+                        <input type="radio" id="energia_nao_8" name="energia_eletrica" value="False" checked> <label for="energia_nao_8">Não</label>
                     </div>
                 </div>
                 <button type="button" class="btn-prev">Anterior</button>
@@ -371,6 +394,9 @@
                 <div class="form-row">
                     <div class="form-group checkbox-group">
                         <label>Quais desses bens você tem na sua casa:</label><br>
+                        {# Verifique no models.py como 'bens_possuidos' está definido #}
+                        {# Se for um ManyToManyField, o name DEVE ser 'bens_possuidos' e os values os ids ou pk dos itens #}
+                        {# Se for um CharField ou TextField, o JS precisará juntar os valores em uma string #}
                         <input type="checkbox" id="radio_som_9" name="bens_possuidos" value="radio_som"> <label for="radio_som_9">Rádio/Aparelho de som</label><br>
                         <input type="checkbox" id="bicicleta_9" name="bens_possuidos" value="bicicleta"> <label for="bicicleta_9">Bicicleta</label><br>
                         <input type="checkbox" id="microondas_9" name="bens_possuidos" value="microondas"> <label for="microondas_9">Microondas</label><br>
@@ -384,6 +410,9 @@
                 <div class="form-row">
                     <div class="form-group checkbox-group">
                         <label>A maioria dos equipamentos foram adquiridos por:</label><br>
+                        {# Verifique no models.py como 'aquisicao_bens' e 'condicao_bens' estão definidos #}
+                        {# Se for ManyToManyField, o name DEVE ser 'campo' e os values os ids ou pk dos itens #}
+                        {# Se for CharField ou TextField, o JS precisará juntar os valores em uma string #}
                         <input type="checkbox" id="recursos_proprios_9" name="aquisicao_bens" value="recursos_proprios"> <label for="recursos_proprios_9">Recursos próprios</label><br>
                         <input type="checkbox" id="presenteados_9" name="aquisicao_bens" value="presenteados"> <label for="presenteados_9">Presenteados</label><br>
                         <input type="checkbox" id="novos_9" name="condicao_bens" value="novos"> <label for="novos_9">Novos</label><br>
@@ -400,18 +429,18 @@
                 <div class="form-row">
                     <div class="form-group checkbox-group">
                         <label>A família está inscrita no cadastro (cad-único)?</label><br>
-                        <input type="radio" id="cad_unico_sim_10" name="cadastro_unico" value="sim"> <label for="cad_unico_sim_10">Sim</label><br>
-                        <input type="radio" id="cad_unico_nao_10" name="cadastro_unico" value="nao" checked> <label for="cad_unico_nao_10">Não</label><br>
+                        <input type="radio" id="cad_unico_sim_10" name="cadastro_unico" value="True"> <label for="cad_unico_sim_10">Sim</label><br>
+                        <input type="radio" id="cad_unico_nao_10" name="cadastro_unico" value="False" checked> <label for="cad_unico_nao_10">Não</label><br>
                     </div>
                     <div class="form-group checkbox-group">
                         <label>A família é beneficiária do bolsa família?</label><br>
-                        <input type="radio" id="bolsa_familia_sim_10" name="bolsa_familia" value="sim"> <label for="bolsa_familia_sim_10">Sim</label><br>
-                        <input type="radio" id="bolsa_familia_nao_10" name="bolsa_familia" value="nao" checked> <label for="bolsa_familia_nao_10">Não</label><br>
+                        <input type="radio" id="bolsa_familia_sim_10" name="bolsa_familia" value="True"> <label for="bolsa_familia_sim_10">Sim</label><br>
+                        <input type="radio" id="bolsa_familia_nao_10" name="bolsa_familia" value="False" checked> <label for="bolsa_familia_nao_10">Não</label><br>
                     </div>
                     <div class="form-group checkbox-group">
                         <label>Alguém da família recebe o benefício de prestação continuada (BPC)?</label><br>
-                        <input type="radio" id="bpc_sim_10" name="beneficio_bpc" value="sim"> <label for="bpc_sim_10">Sim</label><br>
-                        <input type="radio" id="bpc_nao_10" name="beneficio_bpc" value="nao" checked> <label for="bpc_nao_10">Não</label><br>
+                        <input type="radio" id="bpc_sim_10" name="beneficio_bpc" value="True"> <label for="bpc_sim_10">Sim</label><br>
+                        <input type="radio" id="bpc_nao_10" name="beneficio_bpc" value="False" checked> <label for="bpc_nao_10">Não</label><br>
                     </div>
                 </div>
                 <button type="button" class="btn-prev">Anterior</button>
@@ -434,16 +463,10 @@
                     </div>
                 </div>
                 <button type="button" class="btn-prev">Anterior</button>
-                <button type="button" class="btn-next">Próximo</button>
+                <button type="submit" class="btn-submit">Finalizar Inscrição</button> {# Mover o botão de submit para cá #}
             </div>
 
-            {# Placeholder para a próxima etapa (se houver) #}
-            <div class="form-step" id="step-12" style="display: none;">
-                <h2>12. [Título da Próxima Etapa]</h2>
-                <p>Conteúdo da etapa 12 aqui...</p>
-                <button type="button" class="btn-prev">Anterior</button>
-                <button type="submit" class="btn-submit">Finalizar Inscrição</button>
-            </div>
+            {# A div da etapa 12 foi removida daqui #}
 
         </form>
     </div>
@@ -462,7 +485,8 @@
             if (planoSim && planoNao && qualPlanoSaude) {
                 planoSim.addEventListener('change', () => qualPlanoSaude.style.display = planoSim.checked ? 'block' : 'none');
                 planoNao.addEventListener('change', () => qualPlanoSaude.style.display = planoSim.checked ? 'block' : 'none');
-                qualPlanoSaude.style.display = planoSim.checked ? 'block' : 'none'; // Inicializar estado
+                // Inicializar estado: se planoSim estiver checked, mostre; senão, esconda
+                qualPlanoSaude.style.display = planoSim.checked ? 'block' : 'none';
             }
 
             // Acompanhamento Médico
@@ -472,7 +496,8 @@
             if (medicoSim && medicoNao && qualProblemaSaude) {
                 medicoSim.addEventListener('change', () => qualProblemaSaude.style.display = medicoSim.checked ? 'block' : 'none');
                 medicoNao.addEventListener('change', () => qualProblemaSaude.style.display = medicoSim.checked ? 'block' : 'none');
-                qualProblemaSaude.style.display = medicoSim.checked ? 'block' : 'none'; // Inicializar estado
+                // Inicializar estado
+                qualProblemaSaude.style.display = medicoSim.checked ? 'block' : 'none';
             }
 
             // Cirurgia
@@ -482,7 +507,8 @@
             if (cirurgiaSim && cirurgiaNao && qualCirurgia) {
                 cirurgiaSim.addEventListener('change', () => qualCirurgia.style.display = cirurgiaSim.checked ? 'block' : 'none');
                 cirurgiaNao.addEventListener('change', () => qualCirurgia.style.display = cirurgiaSim.checked ? 'block' : 'none');
-                qualCirurgia.style.display = cirurgiaSim.checked ? 'block' : 'none'; // Inicializar estado
+                // Inicializar estado
+                qualCirurgia.style.display = cirurgiaSim.checked ? 'block' : 'none';
             }
 
             // Deficiência Física
@@ -492,53 +518,59 @@
             if (defFisicaSim && defFisicaNao && qualDeficienciaFisica) {
                 defFisicaSim.addEventListener('change', () => qualDeficienciaFisica.style.display = defFisicaSim.checked ? 'block' : 'none');
                 defFisicaNao.addEventListener('change', () => qualDeficienciaFisica.style.display = defFisicaSim.checked ? 'block' : 'none');
-                qualDeficienciaFisica.style.display = defFisicaSim.checked ? 'block' : 'none'; // Inicializar estado
+                // Inicializar estado
+                qualDeficienciaFisica.style.display = defFisicaSim.checked ? 'block' : 'none';
             }
 
-            // Condição de Desenvolvimento Mental
+            // Deficiência Mental
             const defMentalSim = document.getElementById('def_mental_sim');
             const defMentalNao = document.getElementById('def_mental_nao');
-            const doencaTranstornoSelect = document.getElementById('doenca_transtorno');
-            if (defMentalSim && defMentalNao && doencaTranstornoSelect) {
-                defMentalSim.addEventListener('change', () => doencaTranstornoSelect.style.display = defMentalSim.checked ? 'block' : 'none');
-                defMentalNao.addEventListener('change', () => doencaTranstornoSelect.style.display = defMentalSim.checked ? 'block' : 'none');
-                doencaTranstornoSelect.style.display = defMentalSim.checked ? 'block' : 'none'; // Inicializar estado
+            const doencaTranstorno = document.getElementById('doenca_transtorno');
+            if (defMentalSim && defMentalNao && doencaTranstorno) {
+                defMentalSim.addEventListener('change', () => doencaTranstorno.style.display = defMentalSim.checked ? 'block' : 'none');
+                defMentalNao.addEventListener('change', () => doencaTranstorno.style.display = defMentalSim.checked ? 'block' : 'none');
+                // Inicializar estado
+                doencaTranstorno.style.display = defMentalSim.checked ? 'block' : 'none';
             }
 
-            // GRUPOS COMUNITÁRIOS (JS existente, apenas corrigido o inicializador para display:none)
+            // GRUPOS COMUNITÁRIOS
             const gruposSim = document.getElementById('grupos_sim');
             const gruposNao = document.getElementById('grupos_nao');
             const qualGrupoComunitario = document.getElementById('qual_grupo_comunitario');
             if (gruposSim && gruposNao && qualGrupoComunitario) {
                 gruposSim.addEventListener('change', () => qualGrupoComunitario.style.display = gruposSim.checked ? 'block' : 'none');
                 gruposNao.addEventListener('change', () => qualGrupoComunitario.style.display = gruposSim.checked ? 'block' : 'none');
-                qualGrupoComunitario.style.display = gruposSim.checked ? 'block' : 'none'; // Inicializar estado
+                // Inicializar estado
+                qualGrupoComunitario.style.display = gruposSim.checked ? 'block' : 'none';
             }
 
+            // MORADIA E SANEAMENTO
+            const temBanheiroSim = document.getElementById('tem_banheiro_sim_8');
+            const temBanheiroNao = document.getElementById('tem_banheiro_nao_8');
+            const banheiroDentroCasa = document.getElementById('banheiro_dentro_casa');
+            if (temBanheiroSim && temBanheiroNao && banheiroDentroCasa) {
+                temBanheiroSim.addEventListener('change', () => banheiroDentroCasa.style.display = temBanheiroSim.checked ? 'block' : 'none');
+                temBanheiroNao.addEventListener('change', () => banheiroDentroCasa.style.display = temBanheiroSim.checked ? 'block' : 'none');
+                // Inicializar estado
+                banheiroDentroCasa.style.display = temBanheiroSim.checked ? 'block' : 'none';
+            }
 
-            // NOVOS JS PARA ETAPA 8: MORADIA E SANEAMENTO
-            // Números de Cômodos - Mostrar input "Quantos?" se "Outro" for selecionado
             const numComodosSelect = document.getElementById('num_comodos');
             const outrosComodosInput = document.getElementById('outros_comodos');
             if (numComodosSelect && outrosComodosInput) {
                 numComodosSelect.addEventListener('change', function() {
-                    outrosComodosInput.style.display = this.value === 'outro' ? 'block' : 'none';
+                    if (this.value === 'outro') {
+                        outrosComodosInput.style.display = 'block';
+                    } else {
+                        outrosComodosInput.style.display = 'none';
+                    }
                 });
-                outrosComodosInput.style.display = numComodosSelect.value === 'outro' ? 'block' : 'none'; // Inicializar estado
-            }
-
-            // Tem Banheiro - Mostrar select "Se sim, dentro da casa?" se "Sim" for marcado
-            const temBanheiroSim8 = document.getElementById('tem_banheiro_sim_8');
-            const temBanheiroNao8 = document.getElementById('tem_banheiro_nao_8');
-            const banheiroDentroCasaSelect = document.getElementById('banheiro_dentro_casa');
-            if (temBanheiroSim8 && temBanheiroNao8 && banheiroDentroCasaSelect) {
-                temBanheiroSim8.addEventListener('change', function() {
-                    banheiroDentroCasaSelect.style.display = this.checked ? 'inline-block' : 'none';
-                });
-                temBanheiroNao8.addEventListener('change', function() {
-                    banheiroDentroCasaSelect.style.display = 'none';
-                });
-                banheiroDentroCasaSelect.style.display = temBanheiroSim8.checked ? 'inline-block' : 'none'; // Inicializar estado
+                // Inicializar estado
+                if (numComodosSelect.value === 'outro') {
+                    outrosComodosInput.style.display = 'block';
+                } else {
+                    outrosComodosInput.style.display = 'none';
+                }
             }
         });
     </script>

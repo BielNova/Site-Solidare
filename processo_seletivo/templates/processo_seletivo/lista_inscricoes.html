@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ titulo_pagina }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #333; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        a { color: #007bff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>{{ titulo_pagina }}</h1>
+
+    {% if inscricoes %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome Completo</th>
+                    <th>CPF</th>
+                    <th>Data Nasc.</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+                    <th>Escolaridade</th>
+                    <th>Trabalha</th>
+                    <th>Renda Fam.</th>
+                    </tr>
+            </thead>
+            <tbody>
+                {% for inscricao in inscricoes %}
+                    <tr>
+                        <td>{{ inscricao.nome_completo }}</td>
+                        <td>{{ inscricao.cpf }}</td>
+                        <td>{{ inscricao.data_nascimento|date:"d/m/Y" }}</td>
+                        <td>{{ inscricao.email }}</td>
+                        <td>{{ inscricao.telefone }}</td>
+                        <td>{{ inscricao.get_nivel_escolaridade_display }}</td> {# Para exibir o texto da escolha #}
+                        <td>{{ inscricao.get_trabalha_display }}</td>
+                        <td>{{ inscricao.get_renda_familiar_total_display }}</td>
+                        </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Nenhuma inscrição encontrada.</p>
+    {% endif %}
+
+    <p><a href="{% url 'processo_seletivo:inscrever' %}">Fazer nova inscrição</a></p>
+</body>
+</html>

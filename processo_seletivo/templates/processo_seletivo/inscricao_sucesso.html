@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ titulo_pagina }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; text-align: center; }
+        h1 { color: #28a745; }
+        p { font-size: 1.1em; }
+        a { color: #007bff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h1>Inscrição Realizada com Sucesso!</h1>
+    <p>Obrigado por se inscrever. Seus dados foram guardados.</p>
+    <p><a href="{% url 'processo_seletivo:inscrever' %}">Fazer outra inscrição</a></p>
+</body>
+</html>
