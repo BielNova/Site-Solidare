@@ -39,7 +39,10 @@
                 <span class="step" data-step="9"></span>
                 <span class="connector"></span>
                 <span class="step" data-step="10"></span>
-                {# Adicione mais steps se tiver 11 ou 12 ao receber as últimas páginas #}
+                <span class="connector"></span>
+                <span class="step" data-step="11"></span>
+                <span class="connector"></span>
+                <span class="step" data-step="12"></span> {# Placeholder para possível 12ª etapa #}
             </div>
         </div>
 
@@ -59,7 +62,8 @@
                     <div class="form-group">
                         <label for="sexo">Sexo</label>
                         <select id="sexo">
-                            <option value="">Feminino</option>
+                            <option value="">Selecione</option>
+                            <option value="feminino">Feminino</option>
                             <option value="masculino">Masculino</option>
                             <option value="nao_informado">Não Informar</option>
                         </select>
@@ -67,7 +71,8 @@
                     <div class="form-group">
                         <label for="cor">Cor</label>
                         <select id="cor">
-                            <option value="">Pardo</option>
+                            <option value="">Selecione</option>
+                            <option value="pardo">Pardo</option>
                             <option value="branco">Branco</option>
                             <option value="preto">Preto</option>
                             <option value="amarelo">Amarelo</option>
@@ -105,10 +110,11 @@
                     <div class="form-group">
                         <label for="nivel_escolaridade">Nível de escolaridade atual</label>
                         <select id="nivel_escolaridade">
-                            <option value="">Ensino médio - Não finalizado</option>
+                            <option value="">Selecione</option>
                             <option value="fundamental_completo">Fundamental Completo</option>
                             <option value="fundamental_incompleto">Fundamental Incompleto</option>
                             <option value="medio_completo">Médio Completo</option>
+                            <option value="medio_incompleto">Ensino médio - Não finalizado</option>
                             <option value="superior_completo">Superior Completo</option>
                             <option value="superior_incompleto">Superior Incompleto</option>
                         </select>
@@ -122,7 +128,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="ano_periodo">Ano/Período</label>
-                        <input type="text" id="ano_periodo" placeholder="Abandonado">
+                        <input type="text" id="ano_periodo" placeholder="Ex: 3º Ano Ensino Médio">
                     </div>
                     <div class="form-group checkbox-group">
                         <label>Bolsista?</label>
@@ -140,7 +146,8 @@
                     <div class="form-group">
                         <label for="trabalha">Você trabalha?</label>
                         <select id="trabalha">
-                            <option value="">Sim</option>
+                            <option value="">Selecione</option>
+                            <option value="sim">Sim</option>
                             <option value="nao">Não</option>
                             <option value="autonomo">Autônomo</option>
                             <option value="estagiario">Estagiário</option>
@@ -154,15 +161,16 @@
                     <div class="form-group">
                         <label for="familia_participa">Alguém da família participa do projeto?</label>
                         <select id="familia_participa">
-                            <option value="">Não</option>
+                            <option value="">Selecione</option>
                             <option value="sim">Sim</option>
+                            <option value="nao">Não</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="media_salarial">Média salarial:</label>
-                        <input type="text" id="media_salarial" placeholder="1.500">
+                        <input type="text" id="media_salarial" placeholder="Ex: 1.500,00">
                     </div>
                 </div>
                 <button type="button" class="btn-prev">Anterior</button>
@@ -183,7 +191,7 @@
                         <input type="radio" id="conselho_sim" name="conselho_direito" value="sim"> <label for="conselho_sim">Sim</label><br>
                         <input type="radio" id="conselho_ja_ouvi" name="conselho_direito" value="ja_ouvi"> <label for="conselho_ja_ouvi">Já ouvi falar</label><br>
                         <input type="radio" id="conselho_nao" name="conselho_direito" value="nao"> <label for="conselho_nao">Não conheço</label>
-                        <input type="text" id="conselho_qual" placeholder="Se sim, qual">
+                        <input type="text" id="conselho_qual" placeholder="Se sim, qual" style="display:none;">
                     </div>
                     <div class="form-group checkbox-group">
                         <label>Conhece o Fórum social da criança e do adolescente?</label>
@@ -241,8 +249,8 @@
                         <label>Porta alguma condição de desenvolvimento mental?</label>
                         <input type="radio" id="def_mental_sim" name="deficiencia_mental" value="sim"> <label for="def_mental_sim">Sim</label><br>
                         <input type="radio" id="def_mental_nao" name="deficiencia_mental" value="nao" checked> <label for="def_mental_nao">Não</label>
-                        <select id="doenca_transtorno">
-                            <option value="">Sim</option>
+                        <select id="doenca_transtorno" style="display:none;">
+                            <option value="">Se sim, qual?</option>
                             <option value="autismo">Autismo</option>
                             <option value="tdah">TDAH</option>
                             <option value="depressao">Depressão</option>
@@ -261,7 +269,8 @@
                     <div class="form-group">
                         <label for="refeicoes_dia">Faz quantas refeições por dia?</label>
                         <select id="refeicoes_dia">
-                            <option value="">1</option>
+                            <option value="">Selecione</option>
+                            <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
                             <option value="4">4</option>
@@ -294,8 +303,8 @@
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group">
-                        <input type="text" id="qual_grupo_comunitario" placeholder="" style="width: 100%; display:none;">
+                    <div class="form-group" style="width: 100%;"> {# Ajuste de estilo inline para largura #}
+                        <input type="text" id="qual_grupo_comunitario" placeholder="Se sim, qual?" style="display:none;">
                     </div>
                 </div>
                 <button type="button" class="btn-prev">Anterior</button>
@@ -307,34 +316,50 @@
                 <div class="form-row">
                     <div class="form-group checkbox-group">
                         <label>CASA:</label><br>
-                        <input type="radio" id="casa_propria" name="tipo_casa" value="propria"> <label for="casa_propria">Própria</label><br>
-                        <input type="radio" id="casa_alugada" name="tipo_casa" value="alugada"> <label for="casa_alugada">Alugada</label><br>
-                        <input type="radio" id="casa_cedida" name="tipo_casa" value="cedida"> <label for="casa_cedida">Cedida</label><br>
-                        <input type="radio" id="casa_outro" name="tipo_casa" value="outro"> <label for="casa_outro">Outro</label><br>
+                        <input type="radio" id="casa_propria_8" name="tipo_moradia" value="propria"> <label for="casa_propria_8">Própria</label><br>
+                        <input type="radio" id="casa_alugada_8" name="tipo_moradia" value="alugada"> <label for="casa_alugada_8">Alugada</label><br>
+                        <input type="radio" id="casa_cedida_8" name="tipo_moradia" value="cedida"> <label for="casa_cedida_8">Cedida</label><br>
+                        <input type="radio" id="casa_outro_8" name="tipo_moradia" value="outro"> <label for="casa_outro_8">Outro</label><br>
                     </div>
                     <div class="form-group checkbox-group">
-                        <label>TIPO DE CASA:</label><br>
-                        <input type="radio" id="alvenaria" name="tipo_alvenaria" value="alvenaria"> <label for="alvenaria">Alvenaria - Tijolos</label><br>
-                        <input type="radio" id="madeira" name="tipo_alvenaria" value="madeira"> <label for="madeira">Madeira</label><br>
-                        <input type="radio" id="taipa" name="tipo_alvenaria" value="taipa"> <label for="taipa">Taipa</label><br>
+                        <label>TIPO DE MORADIA:</label><br>
+                        <input type="radio" id="alvenaria_8" name="material_construcao" value="alvenaria"> <label for="alvenaria_8">Alvenaria - Tijolos</label><br>
+                        <input type="radio" id="madeira_8" name="material_construcao" value="madeira"> <label for="madeira_8">Madeira</label><br>
+                        <input type="radio" id="taipa_8" name="material_construcao" value="taipa"> <label for="taipa_8">Taipa</label><br>
+                        <input type="radio" id="outro_material_8" name="material_construcao" value="outro"> <label for="outro_material_8">Outro</label><br>
                     </div>
                     <div class="form-group checkbox-group">
                         <label>VULNERABILIDADE TERRITORIAL:</label><br>
-                        <input type="checkbox" id="risco_alagamento" name="vulnerabilidade" value="alagamento"> <label for="risco_alagamento">Casa com risco de alagamento</label><br>
-                        <input type="checkbox" id="risco_deslizamento" name="vulnerabilidade" value="deslizamento"> <label for="risco_deslizamento">Casa com risco de deslizamento</label><br>
-                        <input type="checkbox" id="nao_conheco_vulnerabilidade" name="vulnerabilidade" value="nao_conheco"> <label for="nao_conheco_vulnerabilidade">Não conheço</label>
+                        <input type="checkbox" id="risco_alagamento_8" name="vulnerabilidade_territorial" value="alagamento"> <label for="risco_alagamento_8">Casa com risco de alagamento</label><br>
+                        <input type="checkbox" id="risco_deslizamento_8" name="vulnerabilidade_territorial" value="deslizamento"> <label for="risco_deslizamento_8">Casa com risco de deslizamento</label><br>
+                        <input type="checkbox" id="nao_conheco_vulnerabilidade_8" name="vulnerabilidade_territorial" value="nao_conheco"> <label for="nao_conheco_vulnerabilidade_8">Não conheço</label>
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="form-group checkbox-group">
-                        <label>Possui alguma noção básica de direitos e deveres?</label>
-                        <input type="radio" id="direitos_sim_2" name="nocao_direitos_2" value="sim_possuo"> <label for="direitos_sim_2">Sim, possuo.</label><br>
-                        <input type="radio" id="direitos_nao_sei_2" name="nocao_direitos_2" value="nao_sei"> <label for="direitos_nao_sei_2">Não, não sei o que são.</label>
+                    <div class="form-group">
+                        <label for="num_comodos">Números de cômodos:</label>
+                        <select id="num_comodos" name="num_comodos">
+                            <option value="">Selecione</option>
+                            <option value="1_5">1-5</option>
+                            <option value="4_6">4-6</option>
+                            <option value="outro">Outro</option>
+                        </select>
+                        <input type="number" id="outros_comodos" name="outros_comodos" placeholder="Quantos?" style="display: none;">
                     </div>
                     <div class="form-group checkbox-group">
-                        <label>Como considera sua referência familiar?</label>
-                        <input type="radio" id="ref_familiar_positiva_2" name="referencia_familiar_2" value="positiva"> <label for="ref_familiar_positiva_2">Positiva.</label><br>
-                        <input type="radio" id="ref_familiar_negativa_2" name="referencia_familiar_2" value="negativa"> <label for="ref_familiar_negativa_2">Negativa.</label>
+                        <label>Tem banheiro?</label><br>
+                        <input type="radio" id="tem_banheiro_sim_8" name="tem_banheiro" value="sim"> <label for="tem_banheiro_sim_8">Sim</label><br>
+                        <input type="radio" id="tem_banheiro_nao_8" name="tem_banheiro" value="nao" checked> <label for="tem_banheiro_nao_8">Não</label>
+                        <select id="banheiro_dentro_casa" name="banheiro_dentro_casa" style="display: none;">
+                            <option value="">Se sim, dentro da casa?</option>
+                            <option value="sim">Sim</option>
+                            <option value="nao">Não</option>
+                        </select>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label>Energia Elétrica: Rede Pública</label><br>
+                        <input type="radio" id="energia_sim_8" name="energia_eletrica" value="sim"> <label for="energia_sim_8">Sim</label><br>
+                        <input type="radio" id="energia_nao_8" name="energia_eletrica" value="nao" checked> <label for="energia_nao_8">Não</label>
                     </div>
                 </div>
                 <button type="button" class="btn-prev">Anterior</button>
@@ -345,22 +370,25 @@
                 <h2>9. Bens</h2>
                 <div class="form-row">
                     <div class="form-group checkbox-group">
-                        <label>wwwwwwwwwww</label><br>
-                        <input type="checkbox" id="item1" name="bens" value="item1"> <label for="item1">wwwwwwwwwww</label><br>
-                        <input type="checkbox" id="item2" name="bens" value="item2"> <label for="item2">wwwwwwwwwww</label><br>
-                        <input type="checkbox" id="item3" name="bens" value="item3"> <label for="item3">wwwwwwwwwww</label><br>
+                        <label>Quais desses bens você tem na sua casa:</label><br>
+                        <input type="checkbox" id="radio_som_9" name="bens_possuidos" value="radio_som"> <label for="radio_som_9">Rádio/Aparelho de som</label><br>
+                        <input type="checkbox" id="bicicleta_9" name="bens_possuidos" value="bicicleta"> <label for="bicicleta_9">Bicicleta</label><br>
+                        <input type="checkbox" id="microondas_9" name="bens_possuidos" value="microondas"> <label for="microondas_9">Microondas</label><br>
+                        <input type="checkbox" id="tv_9" name="bens_possuidos" value="tv"> <label for="tv_9">TV led, plasma, smart</label><br>
+                        <input type="checkbox" id="computador_9" name="bens_possuidos" value="computador"> <label for="computador_9">Computador/Notebook</label><br>
+                        <input type="checkbox" id="celular_9" name="bens_possuidos" value="celular"> <label for="celular_9">Celular</label><br>
+                        <input type="checkbox" id="fogao_9" name="bens_possuidos" value="fogao"> <label for="fogao_9">Fogão</label><br>
+                        <input type="checkbox" id="geladeira_9" name="bens_possuidos" value="geladeira"> <label for="geladeira_9">Geladeira</label><br>
                     </div>
+                </div>
+                <div class="form-row">
                     <div class="form-group checkbox-group">
-                        <label>wwwwwwwwwww</label><br>
-                        <input type="checkbox" id="item4" name="bens" value="item4"> <label for="item4">wwwwwwwwwww</label><br>
-                        <input type="checkbox" id="item5" name="bens" value="item5"> <label for="item5">wwwwwwwwwww</label><br>
-                        <input type="checkbox" id="item6" name="bens" value="item6"> <label for="item6">wwwwwwwwwww</label><br>
-                    </div>
-                    <div class="form-group checkbox-group">
-                        <label>wwwwwwwwwww</label><br>
-                        <input type="checkbox" id="item7" name="bens" value="item7"> <label for="item7">wwwwwwwwwww</label><br>
-                        <input type="checkbox" id="item8" name="bens" value="item8"> <label for="item8">wwwwwwwwwww</label><br>
-                        <input type="checkbox" id="item9" name="bens" value="item9"> <label for="item9">wwwwwwwwwww</label><br>
+                        <label>A maioria dos equipamentos foram adquiridos por:</label><br>
+                        <input type="checkbox" id="recursos_proprios_9" name="aquisicao_bens" value="recursos_proprios"> <label for="recursos_proprios_9">Recursos próprios</label><br>
+                        <input type="checkbox" id="presenteados_9" name="aquisicao_bens" value="presenteados"> <label for="presenteados_9">Presenteados</label><br>
+                        <input type="checkbox" id="novos_9" name="condicao_bens" value="novos"> <label for="novos_9">Novos</label><br>
+                        <input type="checkbox" id="usados_9" name="condicao_bens" value="usados"> <label for="usados_9">Usados</label><br>
+                        <input type="checkbox" id="outros_aquisicao_9" name="aquisicao_bens" value="outros"> <label for="outros_aquisicao_9">Outros</label><br>
                     </div>
                 </div>
                 <button type="button" class="btn-prev">Anterior</button>
@@ -371,77 +399,147 @@
                 <h2>10. Assistência</h2>
                 <div class="form-row">
                     <div class="form-group checkbox-group">
-                        <label>wwwwwwwwwww</label><br>
-                        <input type="checkbox" id="assist1" name="assistencia" value="assist1"> <label for="assist1">wwwwwwwwwww</label><br>
-                        <input type="checkbox" id="assist2" name="assistencia" value="assist2"> <label for="assist2">wwwwwwwwwww</label><br>
-                        <input type="checkbox" id="assist3" name="assistencia" value="assist3"> <label for="assist3">wwwwwwwwwww</label><br>
-                        <input type="checkbox" id="assist4" name="assistencia" value="assist4"> <label for="assist4">wwwwwwwwwww</label><br>
+                        <label>A família está inscrita no cadastro (cad-único)?</label><br>
+                        <input type="radio" id="cad_unico_sim_10" name="cadastro_unico" value="sim"> <label for="cad_unico_sim_10">Sim</label><br>
+                        <input type="radio" id="cad_unico_nao_10" name="cadastro_unico" value="nao" checked> <label for="cad_unico_nao_10">Não</label><br>
                     </div>
                     <div class="form-group checkbox-group">
-                        <label>wwwwwwwwwww</label><br>
-                        <input type="checkbox" id="assist5" name="assistencia" value="assist5"> <label for="assist5">wwwwwwwwwww</label><br>
-                        <input type="checkbox" id="assist6" name="assistencia" value="assist6"> <label for="assist6">wwwwwwwwwww</label><br>
-                        <input type="checkbox" id="assist7" name="assistencia" value="assist7"> <label for="assist7">wwwwwwwwwww</label><br>
+                        <label>A família é beneficiária do bolsa família?</label><br>
+                        <input type="radio" id="bolsa_familia_sim_10" name="bolsa_familia" value="sim"> <label for="bolsa_familia_sim_10">Sim</label><br>
+                        <input type="radio" id="bolsa_familia_nao_10" name="bolsa_familia" value="nao" checked> <label for="bolsa_familia_nao_10">Não</label><br>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label>Alguém da família recebe o benefício de prestação continuada (BPC)?</label><br>
+                        <input type="radio" id="bpc_sim_10" name="beneficio_bpc" value="sim"> <label for="bpc_sim_10">Sim</label><br>
+                        <input type="radio" id="bpc_nao_10" name="beneficio_bpc" value="nao" checked> <label for="bpc_nao_10">Não</label><br>
                     </div>
                 </div>
+                <button type="button" class="btn-prev">Anterior</button>
+                <button type="button" class="btn-next">Próximo</button>
+            </div>
+
+            <div class="form-step" id="step-11" style="display: none;">
+                <h2>11. Renda</h2>
+                <div class="form-row">
+                    <div class="form-group checkbox-group">
+                        <label>Total de Renda Familiar</label><br>
+                        <input type="radio" id="renda_ate_meio_sm_11" name="renda_familiar_total" value="ate_meio_sm"> <label for="renda_ate_meio_sm_11">Até 1/2 Salário mínimo</label><br>
+                        <input type="radio" id="renda_1_2sm_11" name="renda_familiar_total" value="1_2sm"> <label for="renda_1_2sm_11">1 a 2 Salários mínimos</label><br>
+                        <input type="radio" id="renda_3_4sm_11" name="renda_familiar_total" value="3_4sm"> <label for="renda_3_4sm_11">3 a 4 Salários mínimos</label><br>
+                        <input type="radio" id="renda_acima_4sm_11" name="renda_familiar_total" value="acima_4sm"> <label for="renda_acima_4sm_11">Acima de 4 Salários mínimos</label><br>
+                    </div>
+                    <div class="form-group">
+                        <label for="renda_per_capita_11">Renda Per Capita:</label>
+                        <input type="text" id="renda_per_capita_11" name="renda_per_capita" placeholder="Digite o valor">
+                    </div>
+                </div>
+                <button type="button" class="btn-prev">Anterior</button>
+                <button type="button" class="btn-next">Próximo</button>
+            </div>
+
+            {# Placeholder para a próxima etapa (se houver) #}
+            <div class="form-step" id="step-12" style="display: none;">
+                <h2>12. [Título da Próxima Etapa]</h2>
+                <p>Conteúdo da etapa 12 aqui...</p>
                 <button type="button" class="btn-prev">Anterior</button>
                 <button type="submit" class="btn-submit">Finalizar Inscrição</button>
             </div>
 
-            {# Aqui você adicionará as 2 últimas etapas quando as tiver #}
-
         </form>
     </div>
 
+    {# O JS para controlar as etapas deve estar em inscricao_form.js #}
+    {# O JS para os campos condicionais pode ficar aqui ou ser movido para inscricao_form.js #}
     <script src="{% static 'js/inscricao_form.js' %}"></script>
     <script>
-        // JS para mostrar/esconder campos adicionais em Saúde e Grupos Comunitários
+        // JS para mostrar/esconder campos adicionais
         document.addEventListener('DOMContentLoaded', function() {
-            // Saúde: Plano de Saúde
+            // SAÚDE (JS existente, apenas corrigido o inicializador para display:none)
+            // Plano de Saúde
             const planoSim = document.getElementById('plano_sim');
             const planoNao = document.getElementById('plano_nao');
             const qualPlanoSaude = document.getElementById('qual_plano_saude');
-            planoSim.addEventListener('change', () => qualPlanoSaude.style.display = planoSim.checked ? 'block' : 'none');
-            planoNao.addEventListener('change', () => qualPlanoSaude.style.display = planoSim.checked ? 'block' : 'none');
-            // Inicializar estado
-            qualPlanoSaude.style.display = planoSim.checked ? 'block' : 'none';
+            if (planoSim && planoNao && qualPlanoSaude) {
+                planoSim.addEventListener('change', () => qualPlanoSaude.style.display = planoSim.checked ? 'block' : 'none');
+                planoNao.addEventListener('change', () => qualPlanoSaude.style.display = planoSim.checked ? 'block' : 'none');
+                qualPlanoSaude.style.display = planoSim.checked ? 'block' : 'none'; // Inicializar estado
+            }
 
-
-            // Saúde: Acompanhamento Médico
+            // Acompanhamento Médico
             const medicoSim = document.getElementById('medico_sim');
             const medicoNao = document.getElementById('medico_nao');
             const qualProblemaSaude = document.getElementById('qual_problema_saude');
-            medicoSim.addEventListener('change', () => qualProblemaSaude.style.display = medicoSim.checked ? 'block' : 'none');
-            medicoNao.addEventListener('change', () => qualProblemaSaude.style.display = medicoSim.checked ? 'block' : 'none');
-            // Inicializar estado
-            qualProblemaSaude.style.display = medicoSim.checked ? 'block' : 'none';
+            if (medicoSim && medicoNao && qualProblemaSaude) {
+                medicoSim.addEventListener('change', () => qualProblemaSaude.style.display = medicoSim.checked ? 'block' : 'none');
+                medicoNao.addEventListener('change', () => qualProblemaSaude.style.display = medicoSim.checked ? 'block' : 'none');
+                qualProblemaSaude.style.display = medicoSim.checked ? 'block' : 'none'; // Inicializar estado
+            }
 
-            // Saúde: Cirurgia
+            // Cirurgia
             const cirurgiaSim = document.getElementById('cirurgia_sim');
             const cirurgiaNao = document.getElementById('cirurgia_nao');
             const qualCirurgia = document.getElementById('qual_cirurgia');
-            cirurgiaSim.addEventListener('change', () => qualCirurgia.style.display = cirurgiaSim.checked ? 'block' : 'none');
-            cirurgiaNao.addEventListener('change', () => qualCirurgia.style.display = cirurgiaSim.checked ? 'block' : 'none');
-            // Inicializar estado
-            qualCirurgia.style.display = cirurgiaSim.checked ? 'block' : 'none';
+            if (cirurgiaSim && cirurgiaNao && qualCirurgia) {
+                cirurgiaSim.addEventListener('change', () => qualCirurgia.style.display = cirurgiaSim.checked ? 'block' : 'none');
+                cirurgiaNao.addEventListener('change', () => qualCirurgia.style.display = cirurgiaSim.checked ? 'block' : 'none');
+                qualCirurgia.style.display = cirurgiaSim.checked ? 'block' : 'none'; // Inicializar estado
+            }
 
-            // Saúde: Deficiência Física
+            // Deficiência Física
             const defFisicaSim = document.getElementById('def_fisica_sim');
             const defFisicaNao = document.getElementById('def_fisica_nao');
             const qualDeficienciaFisica = document.getElementById('qual_deficiencia_fisica');
-            defFisicaSim.addEventListener('change', () => qualDeficienciaFisica.style.display = defFisicaSim.checked ? 'block' : 'none');
-            defFisicaNao.addEventListener('change', () => qualDeficienciaFisica.style.display = defFisicaSim.checked ? 'block' : 'none');
-            // Inicializar estado
-            qualDeficienciaFisica.style.display = defFisicaSim.checked ? 'block' : 'none';
+            if (defFisicaSim && defFisicaNao && qualDeficienciaFisica) {
+                defFisicaSim.addEventListener('change', () => qualDeficienciaFisica.style.display = defFisicaSim.checked ? 'block' : 'none');
+                defFisicaNao.addEventListener('change', () => qualDeficienciaFisica.style.display = defFisicaSim.checked ? 'block' : 'none');
+                qualDeficienciaFisica.style.display = defFisicaSim.checked ? 'block' : 'none'; // Inicializar estado
+            }
 
-            // Grupos Comunitários: Campo "Qual"
+            // Condição de Desenvolvimento Mental
+            const defMentalSim = document.getElementById('def_mental_sim');
+            const defMentalNao = document.getElementById('def_mental_nao');
+            const doencaTranstornoSelect = document.getElementById('doenca_transtorno');
+            if (defMentalSim && defMentalNao && doencaTranstornoSelect) {
+                defMentalSim.addEventListener('change', () => doencaTranstornoSelect.style.display = defMentalSim.checked ? 'block' : 'none');
+                defMentalNao.addEventListener('change', () => doencaTranstornoSelect.style.display = defMentalSim.checked ? 'block' : 'none');
+                doencaTranstornoSelect.style.display = defMentalSim.checked ? 'block' : 'none'; // Inicializar estado
+            }
+
+            // GRUPOS COMUNITÁRIOS (JS existente, apenas corrigido o inicializador para display:none)
             const gruposSim = document.getElementById('grupos_sim');
             const gruposNao = document.getElementById('grupos_nao');
             const qualGrupoComunitario = document.getElementById('qual_grupo_comunitario');
-            gruposSim.addEventListener('change', () => qualGrupoComunitario.style.display = gruposSim.checked ? 'block' : 'none');
-            gruposNao.addEventListener('change', () => qualGrupoComunitario.style.display = gruposSim.checked ? 'block' : 'none');
-            // Inicializar estado
-            qualGrupoComunitario.style.display = gruposSim.checked ? 'block' : 'none';
+            if (gruposSim && gruposNao && qualGrupoComunitario) {
+                gruposSim.addEventListener('change', () => qualGrupoComunitario.style.display = gruposSim.checked ? 'block' : 'none');
+                gruposNao.addEventListener('change', () => qualGrupoComunitario.style.display = gruposSim.checked ? 'block' : 'none');
+                qualGrupoComunitario.style.display = gruposSim.checked ? 'block' : 'none'; // Inicializar estado
+            }
+
+
+            // NOVOS JS PARA ETAPA 8: MORADIA E SANEAMENTO
+            // Números de Cômodos - Mostrar input "Quantos?" se "Outro" for selecionado
+            const numComodosSelect = document.getElementById('num_comodos');
+            const outrosComodosInput = document.getElementById('outros_comodos');
+            if (numComodosSelect && outrosComodosInput) {
+                numComodosSelect.addEventListener('change', function() {
+                    outrosComodosInput.style.display = this.value === 'outro' ? 'block' : 'none';
+                });
+                outrosComodosInput.style.display = numComodosSelect.value === 'outro' ? 'block' : 'none'; // Inicializar estado
+            }
+
+            // Tem Banheiro - Mostrar select "Se sim, dentro da casa?" se "Sim" for marcado
+            const temBanheiroSim8 = document.getElementById('tem_banheiro_sim_8');
+            const temBanheiroNao8 = document.getElementById('tem_banheiro_nao_8');
+            const banheiroDentroCasaSelect = document.getElementById('banheiro_dentro_casa');
+            if (temBanheiroSim8 && temBanheiroNao8 && banheiroDentroCasaSelect) {
+                temBanheiroSim8.addEventListener('change', function() {
+                    banheiroDentroCasaSelect.style.display = this.checked ? 'inline-block' : 'none';
+                });
+                temBanheiroNao8.addEventListener('change', function() {
+                    banheiroDentroCasaSelect.style.display = 'none';
+                });
+                banheiroDentroCasaSelect.style.display = temBanheiroSim8.checked ? 'inline-block' : 'none'; // Inicializar estado
+            }
         });
     </script>
 </body>
