@@ -2,7 +2,7 @@
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 # More info on Python, GitHub Actions, and Azure App Service: https://aka.ms/python-webapps-actions
 
-name: Build and deploy Python app to Azure Web App - Lispector
+name: Build and deploy Python app to Azure Web App - lispector
 
 on:
   push:
@@ -22,7 +22,7 @@ jobs:
       - name: Set up Python version
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.13'
 
       - name: Create and start virtual environment
         run: |
@@ -32,7 +32,7 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
         
-      # Optional: Add step to run tests here (PyTest, Django test suites, etc. )
+      # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
       - name: Zip artifact for deployment
         run: zip release.zip ./* -r
@@ -68,14 +68,14 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_8D9FBF0B15AA4957924058E6813C9AB0 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_44CE1F177D79454AB69F69F33DC7F612 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_75F040165098415B8A33088360F49EF8 }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_1FF2C04FDC134D0F9F9EAC4A090A7DCB }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_4981F1407688490BA8DE986FC1B098E2 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_AFBE742213594740868030E66BF30814 }}
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
-          app-name: 'Lispector'
+          app-name: 'lispector'
           slot-name: 'Production'
-          startup-command: 'python manage.py collectstatic --noinput && gunicorn --workers 1 --timeout 120 --max-requests 1000 --bind 0.0.0.0:8000 core.wsgi:application'
+          
